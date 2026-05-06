@@ -1,0 +1,257 @@
+<div class="p-6">
+  <app-modal-mapa *ngIf="mostrarModalMapa" (cerrar)="mostrarModalMapa = false"
+    (predioSeleccionado)="onPredioSeleccionado($event)">
+  </app-modal-mapa>
+
+  <app-modal-giro 
+    *ngIf="mostrarModalGiro" 
+    (cerrar)="mostrarModalGiro = false; id_zonificacion_actual = ''" 
+    [girosSeleccionados]="giros"
+    (giroSeleccionado)="onGiroSeleccionado($event)" 
+    [id_zonificacion]="id_zonificacion_actual"
+    [valores]="valores">>
+  </app-modal-giro>
+
+  <app-modal-lista-establecimientos
+    *ngIf="mostrarModalEstablecimientos"
+    (cerrar)="mostrarModalEstablecimientos = false"
+    (establecimientoSeleccionado)="onEstablecimientoSeleccionado($event)">
+  </app-modal-lista-establecimientos>
+
+  <div class="flex items-center justify-between mb-6">
+    <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+      Datos del establecimiento
+    </span>
+  </div>
+
+  <div class="border border-gray-200 rounded-xl overflow-hidden">
+    <div class="bg-white p-5 border-b border-gray-200">
+      <div class="mb-4">
+        <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+          Ubicación del establecimiento
+        </span>
+        <div class="h-px bg-gray-200 mt-2 mb-4"></div>
+      </div>
+
+      <div class="flex flex-wrap items-end gap-4">
+        <div class="flex-1 min-w-[180px]">
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            Código de predio <span class="text-red-500">*</span>
+          </label>
+          <input type="text" [(ngModel)]="codPredio"
+            class="w-full px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg cursor-not-allowed"
+            disabled>
+        </div>
+        <div class="flex-[2] min-w-[260px]">
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            Dirección del establecimiento <span class="text-red-500">*</span>
+          </label>
+          <input type="text" [(ngModel)]="direccionEstablecimientoCombinada"
+            class="w-full px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg cursor-not-allowed"
+            disabled>
+        </div>
+        <div>
+          <button (click)="abrirModalMapa()"
+            class="inline-flex items-center gap-1.5 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-4 py-2 rounded-lg transition">
+            Buscar predio
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 border-b border-gray-200">
+      <div class="flex flex-wrap gap-6">
+        <div class="flex-1 min-w-[280px]">
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-3">
+            Zonificación
+          </label>
+          <div class="flex gap-2 items-center">
+            <input type="text" [(ngModel)]="abrev_zonif"
+              class="w-32 px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-not-allowed" disabled>
+            <input type="text" [(ngModel)]="desc_zonif"
+              class="flex-1 px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-not-allowed" disabled>
+            <button
+              class="px-3 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
+              🔍
+            </button>
+          </div>
+        </div>
+
+        <div class="w-full md:w-1/2 lg:w-2/5">
+          <div class="flex justify-between items-center mb-3">
+            <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+              Giros <span class="text-gray-400 text-xs">(?)</span>
+            </span>
+            <button (click)="abrirModalGiro()" 
+              class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-md border border-blue-200 text-blue-700 hover:bg-blue-50 transition disabled:opacity-50 disabled:cursor-not-allowed">
+              {{ giros.length === 0 ? '+ Agregar giro principal' : '+ Agregar giro adicional' }}
+            </button>
+          </div>
+
+          <div class="border border-gray-200 rounded-lg overflow-hidden max-h-30 overflow-y-auto">
+            <table class="w-full text-sm">
+              <thead class="bg-gray-50">
+                <tr>
+                  <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
+                  <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Descripción</th>
+                  <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase w-16">Acción</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-100">
+                <tr *ngFor="let giro of giros; let i = index" class="hover:bg-gray-50">
+                  <td class="px-3 py-2 text-gray-700">{{ giro.coduso }}</td>
+                  <td class="px-3 py-2 text-gray-600">{{ giro.descripcion }}</td>
+                  <td class="px-3 py-2 text-center">
+                    <button (click)="eliminarGiro(i)"
+                      class="text-xs font-medium px-2 py-1 rounded text-red-600 hover:bg-red-50 transition">
+                      Quitar
+                    </button>
+                  </td>
+                </tr>
+                <tr *ngIf="giros.length === 0">
+                  <td colspan="3" class="text-center py-4 text-gray-400 text-sm">
+                    No hay giros registrados
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white p-5 border-b border-gray-200">
+      <div class="mb-4">
+        <div class="flex justify-between items-center">
+          <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+            Información comercial
+          </span>
+          <button (click)="mostrarModalEstablecimientos = true"
+            class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
+            Obtener Establecimientos Anteriores
+          </button>
+        </div>
+        <div class="h-px bg-gray-200 mt-2 mb-4"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            Nombre comercial <span class="text-red-500">*</span>
+          </label>
+          <input type="text" [(ngModel)]="nombre"
+            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            Tipo de actividad <span class="text-red-500">*</span>
+          </label>
+          <select [(ngModel)]="actividadSeleccionado"
+            class="w-full max-w-md px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+            <option value="">Seleccione</option>
+            <option *ngFor="let tipo of actividades" [value]="tipo.idTipoAct">
+              {{ tipo.descTipoAct }}
+            </option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            Area Local (m²)<span class="text-red-500">*</span>
+          </label>
+          <input type="number" [(ngModel)]="areaLocal"
+            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            N° Interior
+          </label>
+          <input (input)="filtrarNumeros($event,'nroInterior')" [(ngModel)]="nroInterior"
+            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            N° Stand
+          </label>
+          <input (input)="filtrarNumeros($event,'nroStand')" [(ngModel)]="nroStand"
+            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            N° Estacionamiento
+          </label>
+          <input (input)="filtrarNumeros($event,'nroEstacionamiento')" [(ngModel)]="nroEstacionamiento"
+            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            Aforo <span class="text-red-500">*</span>
+          </label>
+          <input type="number" [(ngModel)]="aforo"
+            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            Condición <span class="text-red-500">*</span>
+          </label>
+          <select [(ngModel)]="condicionSeleccionado"
+            class="w-full max-w-md px-4 py-2.5 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+            <option value="">Seleccione</option>
+            <option *ngFor="let tipo of condiciones" [value]="tipo.idCondLocal">
+              {{ tipo.descCondLocal }}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div *ngIf="establecimientoAutorellenado"
+        class="mb-4 flex items-start gap-2 bg-amber-50 border border-amber-200 text-amber-800 text-sm rounded-lg px-4 py-3">
+        <span class="mt-0.5">⚠️</span>
+        <span>Se autorellenaron los datos del establecimiento seleccionado. Verifica el horario de atención antes de continuar.</span>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 items-end">        
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            Desde
+          </label>
+          <input type="time" [(ngModel)]="desde" [disabled]="check_horario_continuo"
+            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+            Hasta
+          </label>
+          <input type="time" [(ngModel)]="hasta" [disabled]="check_horario_continuo"
+            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+        </div>
+        <div class="col-span-3 space-y-1">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" [(ngModel)]="check_dia_siguiente"
+              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+            <span class="text-sm text-gray-700">Es hasta el día siguiente</span>
+          </label>
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" [(ngModel)]="check_horario_continuo"
+              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
+            <span class="text-sm text-gray-700">Horario continuo 24 horas</span>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-50 px-5 py-4 flex justify-end gap-3">
+      <button [routerLink]="['../pantalla1']"
+        class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
+        ← Regresar
+      </button>
+      <button (click)="guardarState()" [routerLink]="['../pantalla3']" [disabled]="!formularioValido"
+        class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+        Continuar
+        <span class="text-base leading-none">→</span>
+      </button>
+    </div>
+  </div>
+</div>

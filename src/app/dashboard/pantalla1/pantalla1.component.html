@@ -1,0 +1,102 @@
+<div class="p-6">
+    <div class="flex items-center justify-between mb-6">
+        <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+            Nueva solicitud de autorización
+        </span>
+    </div>
+
+    <div class="border border-gray-200 rounded-xl overflow-hidden">
+
+        <div class="bg-white p-5 border-b border-gray-200">
+            <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-3">
+                Tipo de trámite
+            </label>
+            <select [(ngModel)]="tipoLicenciaSeleccionado"
+                class="w-full max-w-md px-4 py-2.5 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                <option value="">Seleccione</option>
+                <option *ngFor="let tipo of tiposLicencia" [value]="tipo.idTipoLicencia">
+                    {{ tipo.descTipoLicencia }}
+                </option>
+            </select>
+        </div>
+
+        <div class="bg-white p-5 border-b border-gray-200">
+            <div class="mb-4">
+                <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+                    Consideraciones legales
+                </span>
+                <div class="h-px bg-gray-200 mt-2 mb-4"></div>
+            </div>
+
+            <div class="text-sm text-gray-600 space-y-3">
+                <p class="text-gray-700 mb-3">
+                    Le damos la bienvenida a nuestra <span class="font-semibold">PLATAFORMA VIRTUAL</span>, le
+                    recomendamos tener en cuenta las siguientes consideraciones legales antes de iniciar con el registro
+                    de información:
+                </p>
+
+                <div class="flex gap-3">
+                    <span class="text-blue-600 font-medium">1.</span>
+                    <span>Toda información proporcionada por usted tiene calidad de <span
+                            class="font-semibold">"Declaración Jurada"</span>.</span>
+                </div>
+
+                <div class="flex gap-3">
+                    <span class="text-blue-600 font-medium">2.</span>
+                    <span>De conformidad al inciso 2 del artículo 10° del TUO de la Ley N° 27444, toda información
+                        inexacta por defecto o por la omisión de algunos requisitos de validez será corroborada con
+                        posterioridad a la emisión de la Licencia de Funcionamiento, la cual podría ser calificada como
+                        causal de <span class="font-semibold text-red-600">NULIDAD</span>.</span>
+                </div>
+
+                <div class="flex gap-3">
+                    <span class="text-blue-600 font-medium">3.</span>
+                    <span>Asimismo, de acuerdo al artículo 438° del Código Penal (Falsedad Genérica), quien de cualquier
+                        modo comete falsedad simulando, suponiendo, alterando la verdad intencionalmente y con perjuicio
+                        de terceros, por palabras, hechos o usurpando nombre, calidad o empleo que no le corresponde,
+                        suponiendo viva a una persona fallecida o que no ha existido o viceversa, será reprimido con
+                        pena privativa de libertad no menor de dos ni mayor de cuatro años.</span>
+                </div>
+
+                <div class="flex gap-3">
+                    <span class="text-blue-600 font-medium">4.</span>
+                    <span>Finalmente, el artículo 9° (Suplantación de identidad) de la Ley de Delitos Informáticos LEY
+                        Nº 30096, establece "el que, mediante las tecnologías digitales suplanta la identidad de una
+                        persona natural o jurídica, siempre que de dicha conducta resulte algún perjuicio, material,
+                        moral o de cualquier otra índole, será reprimido con pena privativa de libertad no menor de tres
+                        ni mayor de cinco años".</span>
+                </div>
+
+                <div class="flex gap-3 ml-6 text-gray-500 text-xs">
+                    <span>•</span>
+                    <span>La pena privativa de libertad es no menor de seis ni mayor de nueve años cuando se suplante la
+                        identidad de una persona menor de 18 años de edad y resulte algún perjuicio, material, moral o
+                        de cualquier otra índole.</span>
+                </div>
+            </div>
+            <div class="mt-5 pt-3 border-t border-gray-100">
+                <label class="inline-flex items-center gap-2.5 cursor-pointer group">
+                    <input type="checkbox" [(ngModel)]="aceptaTerminos"
+                        class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500 focus:ring-offset-0 cursor-pointer">
+                    <span class="text-sm text-gray-700 group-hover:text-gray-900 transition">
+                        Acepto los términos y condiciones legales
+                    </span>
+                </label>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 px-5 py-4 flex justify-end gap-3">
+            <button 
+                [routerLink]="['../home']"
+                class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
+                ← Regresar
+            </button>
+            <button (click)="continuar()"
+                [disabled]="!tipoLicenciaSeleccionado || !aceptaTerminos"
+                class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
+                Continuar 
+                <span class="text-base leading-none">→</span>
+            </button>
+        </div>
+    </div>
+</div>

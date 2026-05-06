@@ -1,0 +1,62 @@
+<div class="p-6">
+  <!-- Modal -->
+  <div *ngIf="mostrarModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm p-8 text-center">
+      <div [ngClass]="modalExito ? 'text-green-500' : 'text-red-500'" class="text-5xl mb-4">
+        {{ modalExito ? '✅' : '❌' }}
+      </div>
+      <h2 class="text-lg font-bold text-gray-800 mb-2">
+        {{ modalExito ? '¡Registro exitoso!' : 'Error en el registro' }}
+      </h2>
+      <p class="text-sm text-gray-600 mb-6">{{ modalMensaje }}</p>
+      <button (click)="cerrarModal()"
+        [ngClass]="modalExito ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'"
+        class="w-full text-white text-sm font-medium py-2.5 rounded-lg transition">
+        {{ modalExito ? 'Ir al inicio de sesión' : 'Cerrar' }}
+      </button>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-between mb-6">
+    <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">Representante Legal</span>
+  </div>
+
+  <div class="border border-gray-200 rounded-xl overflow-hidden">
+    <div class="bg-white p-5">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div class="md:col-span-2">
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Nombre completo <span class="text-red-500">*</span></label>
+          <input type="text" [(ngModel)]="repNombre" placeholder="Nombre del representante legal" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Tipo de Documento <span class="text-red-500">*</span></label>
+          <select [(ngModel)]="repTipoDocumentoSeleccionado" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
+            <option value="">Seleccione</option>
+            <option *ngFor="let d of repTipoDocumentos" [value]="d.idTipoDoc">{{ d.descDocumento }}</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Nro. Documento <span class="text-red-500">*</span></label>
+          <input type="text" [(ngModel)]="repNroDocumento" (input)="filtrarNumeros($event, 'repNroDocumento')" maxlength="9" placeholder="Ingrese número de documento" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Nro. Partida</label>
+          <input type="text" [(ngModel)]="repNroPartida" (input)="filtrarNumeros($event, 'repNroPartida')" placeholder="Ingrese número de partida" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Asiento SUNARP</label>
+          <input type="text" [(ngModel)]="repAsientoSunarp" placeholder="Ingrese asiento SUNARP" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Teléfono <span class="text-red-500">*</span></label>
+          <input type="tel" [(ngModel)]="repTelefono" (input)="filtrarNumeros($event, 'repTelefono')" maxlength="9" placeholder="Ingrese teléfono" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gray-50 px-5 py-4 flex justify-between gap-3">
+      <button [routerLink]="['/registro/paso-2']" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg">← Regresar</button>
+      <button (click)="registrar()" [disabled]="!formularioValido" class="bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-6 py-2.5 rounded-lg disabled:opacity-50">✓ Finalizar registro</button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,14 @@
+# Etapa para desarrollo de Angular
+FROM node:20
+
+WORKDIR /app
+
+# Copiamos package.json e instalamos dependencias
+COPY package*.json ./
+RUN npm install --legacy-peer-deps
+
+# Copiamos todo el código del proyecto
+COPY . .
+
+# Comando por defecto (sobrescrito en docker-compose.override.yml)
+CMD ["npm", "run", "start", "--", "--host", "0.0.0.0"]

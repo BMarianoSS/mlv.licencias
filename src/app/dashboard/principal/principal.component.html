@@ -1,0 +1,81 @@
+<div class="max-w-7xl mx-auto px-4 py-8">
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+            Bienvenido a la plataforma de licencias
+        </h1>
+        <div class="mt-3 max-w-md mx-auto text-gray-500 sm:text-lg md:mt-5 md:max-w-3xl">
+            <p class="text-lg">Aquí puedes solicitar una licencia para tu negocio y gestionar tus trámites.</p>
+        </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div
+            class="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-purple-200 flex flex-col h-full">
+            <div class="p-6 flex-1">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 rounded-xl bg-purple-100 text-purple-600 w-fit">
+                        <span class="material-icons text-3xl">inbox</span>
+                    </div>
+                    <span class="text-xs font-medium text-purple-600 bg-purple-50 px-2 py-1 rounded-full">Estado</span>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 mb-2">Lista de solicitudes</h2>
+                <p class="text-gray-500 leading-relaxed mb-4">
+                    Consulta el estado de las solicitudes realizadas o solicita una nueva.
+                </p>
+            </div>
+            <div class="p-6 pt-0 mt-auto">
+                <a [routerLink]="['/dashboard/home']"
+                    class="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-purple-700 bg-purple-50 rounded-xl hover:bg-purple-100 transition-colors duration-200">
+                    Ver solicitudes
+                    <span class="material-icons text-sm ml-1">arrow_forward</span>
+                </a>
+            </div>
+        </div>
+
+        <div
+            class="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-orange-200 flex flex-col h-full">
+            <div class="p-6 flex-1">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 rounded-xl bg-orange-100 text-orange-600 w-fit">
+                        <span class="material-icons text-3xl">post_add</span>
+                    </div>
+                    <span class="text-xs font-medium text-orange-600 bg-orange-50 px-2 py-1 rounded-full">Nuevo</span>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 mb-2">Nueva Solicitud</h2>
+                <p class="text-gray-500 leading-relaxed mb-4">
+                    Crea una nueva solicitud para tu licencia en pocos pasos.
+                </p>
+            </div>
+            <div class="p-6 pt-0 mt-auto">
+                <a [routerLink]="['/dashboard/pantalla1']"
+                    class="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-orange-700 bg-orange-50 rounded-xl hover:bg-orange-100 transition-colors duration-200">
+                    Nueva solicitud
+                    <span class="material-icons text-sm ml-1">add</span>
+                </a>
+            </div>
+        </div>
+
+        <div
+            class="group bg-white rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-green-200 flex flex-col h-full">
+            <div class="p-6 flex-1">
+                <div class="flex items-center justify-between mb-4">
+                    <div class="p-3 rounded-xl bg-green-100 text-green-600 w-fit">
+                        <span class="material-icons text-3xl">person_add</span>
+                    </div>
+                    <span class="text-xs font-medium text-green-600 bg-green-50 px-2 py-1 rounded-full">Perfil</span>
+                </div>
+                <h2 class="text-xl font-bold text-gray-800 mb-2">Representante</h2>
+                <p class="text-gray-500 leading-relaxed mb-4">
+                    Ingresa los datos del representante legal de tu negocio.
+                </p>
+            </div>
+            <div class="p-6 pt-0 mt-auto">
+                <a [routerLink]="['/dashboard/RegistroRepresentante']"
+                    class="inline-flex items-center justify-center w-full px-4 py-2 text-sm font-medium text-green-700 bg-green-50 rounded-xl hover:bg-green-100 transition-colors duration-200">
+                    Ver representante
+                    <span class="material-icons text-sm ml-1">edit</span>
+                </a>
+            </div>
+        </div>
+    </div>
+</div>

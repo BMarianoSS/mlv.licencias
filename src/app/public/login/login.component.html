@@ -1,0 +1,31 @@
+<div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-400 to-blue-800 p-4">
+  <div class="bg-white rounded-2xl shadow-lg w-full max-w-md p-8 text-center">
+    <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png" alt="Logo" class="mx-auto mb-5 w-48 h-auto">
+
+    <h1 class="text-xl md:text-2xl font-bold text-blue-900 leading-tight">
+      BIENVENIDO A LA PLATAFORMA DE LICENCIAS EN LÍNEA
+    </h1>
+
+    <form class="space-y-4 py-4" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+      <span style="display: block; text-align: left;" class="font-bold text-blue-500">Ingrese DNI, correo o código de contribuyente:</span>
+      <input type="text" placeholder="Usuario" formControlName="codigo"
+        class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+
+      <span style="display: block; text-align: left;" class="font-bold text-blue-500">Ingrese Contraseña:</span>
+      <input type="password" formControlName="userpassword" placeholder="Contraseña"
+        class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
+
+      <button type="submit" [disabled]="loginForm.invalid"
+        class="w-full bg-blue-700 hover:bg-blue-800 text-white text-base font-bold py-2.5 rounded-full transition duration-300 cursor-pointer">
+        INICIAR SESIÓN
+      </button>
+
+      
+      <p class="text-xs text-gray-500 mt-6 p-1">
+        Si aún no tienes cuenta puedes crearte una dándole
+        <a [routerLink]="['/registro/paso-1']" class="text-blue-600 hover:underline font-medium">click aquí</a>
+      </p>
+    </form>
+    <p class="text-xs text-gray-500 mt-6">© 2025 Municipalidad de La Victoria</p>
+  </div>
+</div>

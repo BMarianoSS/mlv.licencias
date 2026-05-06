@@ -1,0 +1,74 @@
+<div class="p-6">
+    <div class="flex items-center justify-between mb-6">
+        <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+            Acreditación de documentación
+        </span>
+    </div>
+
+    <div class="border border-gray-200 rounded-xl overflow-hidden">
+        <div class="bg-white p-5 border-b border-gray-200">
+            <div class="mb-4">
+                <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+                    Autorización sectorial <span class="text-gray-400 text-xs">(de corresponder)</span>
+                </span>
+                <div class="h-px bg-gray-200 mt-2 mb-4"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+                        Entidad que otorga autorización
+                    </label>
+                    <input type="text" [(ngModel)]="ASentidadautoriza"
+                        class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+                        Denominación de la autorización sectorial
+                    </label>
+                    <input type="text" [(ngModel)]="ASdenominacion"
+                        class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+                        Fecha de autorización
+                    </label>
+                    <input type="date" [(ngModel)]="ASfecha"
+                        class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                </div>
+                <div>
+                    <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+                        Número de autorización
+                    </label>
+                    <input type="text" [(ngModel)]="ASnumero" (click)="filtrarNumeros($event)"
+                        class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+                </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row items-start sm:items-end gap-4">
+                <div class="flex-1 w-full">
+                    <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+                        Archivo
+                    </label>
+                    <input type="file" (change)="onFileAS($event)"
+                        class="w-full text-sm text-gray-500 file:mr-3 file:py-2 file:px-3 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-gray-100 file:text-gray-700 hover:file:bg-gray-200 transition">
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-gray-50 px-5 py-4 flex justify-end gap-3">
+            <button (click)="guardarState()" [routerLink]="['../pantalla2']"
+                class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
+                ← Regresar
+            </button>
+            <button [routerLink]="['../pantalla4']" (click)="guardarState()"
+                class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition">
+                Continuar
+                <span class="text-base leading-none">→</span>
+            </button>
+        </div>
+    </div>
+</div>
