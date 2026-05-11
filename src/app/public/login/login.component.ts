@@ -30,7 +30,6 @@ export class LoginComponent {
   }
 
   onLogin() {
-
     if (this.loginForm.invalid) return;
 
     this.loginErrorMessage = null;
@@ -42,7 +41,6 @@ export class LoginComponent {
     const payload = this.loginForm.value;
 
     this.authService.login(payload).subscribe({
-
       next: (response) => {
         if (response.data.bloqueado == '1' || response.data.bloqueado == "1") {
 
@@ -63,28 +61,20 @@ export class LoginComponent {
           id_solicitante: idSolicitante
         })
         .subscribe({
-
           next: (userResp) => {
-
             this.authService.setSession(
               token,
               userResp.data[0]
             );
-
             this.router.navigate(['/dashboard']);
           },
-
           error: (err) => {
             console.error('Error al obtener usuario:', err);
           }
-
         });
-
       },
 
       error: (err) => {
-        console.error('Error en login:', err);
-
         this.loginErrorMessage =
           err.error?.message || 'Usuario o contraseña incorrectos';
 
@@ -98,13 +88,8 @@ export class LoginComponent {
           error: (err) => {
             console.error('Error al actualizar intentos:', err);
           }
-
         });
-
       }
-
     });
-
   }
-
 }

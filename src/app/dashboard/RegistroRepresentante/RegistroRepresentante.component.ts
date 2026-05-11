@@ -35,8 +35,6 @@ export class RegistroRepresentanteComponent {
   ngOnInit() {
     const datos = this.authService.getUser()
     this.idSolicitante = this.authService.getUser().idSolicitante ?? '';     
-    console.log("idSolicitante:", this.idSolicitante);
-    console.log("DATOS:", datos);
     this.listarTipoDoc();
     this.obtenerRepresentanteLegal();
   }
