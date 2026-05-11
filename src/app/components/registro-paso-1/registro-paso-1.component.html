@@ -17,7 +17,6 @@
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-
         <app-form-field label="Tipo de Persona" type="select" [required]="true" [(ngModel)]="tipoPersonaSeleccionada">
           <option *ngFor="let t of tipoPersonas" [value]="t.idTipoPersona">{{ t.descripcion }}</option>
         </app-form-field>
@@ -29,7 +28,7 @@
 
           <app-form-field label="Nro. Documento" [required]="true" [maxlength]="11"
             [(ngModel)]="nroDocumento"
-            (ngModelChange)="nroDocumento = $event.replace(/[^0-9]/g,'')">
+            (ngModelChange)="nroDocumento = filterNumbersNroDocumento($event)">
           </app-form-field>
 
           <app-form-field label="Nombres" [required]="true" placeholder="Ingrese nombres" [(ngModel)]="nombres"></app-form-field>
@@ -42,7 +41,6 @@
             <app-form-field label="Razón Social" [required]="true" placeholder="Ingrese razón social" [(ngModel)]="razonSocial"></app-form-field>
           </div>
         </ng-container>
-
       </div>
     </div>
 

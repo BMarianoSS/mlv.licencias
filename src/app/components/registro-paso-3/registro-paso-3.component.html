@@ -38,12 +38,12 @@
 
       <app-form-field label="Nro. Documento" [required]="true" [maxlength]="9"
         placeholder="Ingrese número de documento" [(ngModel)]="repNroDocumento"
-        (ngModelChange)="repNroDocumento = $event.replace(/[^0-9]/g,'')">
+        (ngModelChange)="repNroDocumento = filterNumbersNroDocumento($event)">
       </app-form-field>
 
       <app-form-field label="Nro. Partida"
         placeholder="Ingrese número de partida" [(ngModel)]="repNroPartida"
-        (ngModelChange)="repNroPartida = $event.replace(/[^0-9]/g,'')">
+        (ngModelChange)="repNroPartida = filterNumbersNroPartida($event)">
       </app-form-field>
 
       <app-form-field label="Asiento SUNARP" 
@@ -52,7 +52,7 @@
 
       <app-form-field label="Teléfono" type="tel" [required]="true" [maxlength]="9"
         placeholder="Ingrese teléfono" [(ngModel)]="repTelefono"
-        (ngModelChange)="repTelefono = $event.replace(/[^0-9]/g,'')">
+        (ngModelChange)="repTelefono = filterNumbersTelefono($event)">
       </app-form-field>
     </div>
 

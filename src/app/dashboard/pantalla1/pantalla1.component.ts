@@ -55,4 +55,9 @@ export class pantalla1Component {
     this.state.aceptaTerminos = this.aceptaTerminos ?? false;
     this.router.navigate(['../pantalla2'], { relativeTo: this.route });
   }
+  
+  atras() {
+    this.state.limpiarState();
+    this.router.navigate(['../home'], { relativeTo: this.route });
+  }
 }

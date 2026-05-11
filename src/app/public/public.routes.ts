@@ -9,6 +9,16 @@ export const PUBLIC_ROUTES: Routes = [
     canActivate: [LoginGuard]
   },
   {
+    path: 'solicitar-cambio-contrasena',
+    loadComponent: () => import('./solicitar-cambio-contrasena/solicitar-cambio-contrasena.component').then(m => m.SolicitarCambioContrasenaComponent),
+    canActivate: [LoginGuard]
+  },
+  {
+    path: 'cambiar-contrasena',
+    loadComponent: () => import('./cambiar-contrasena/cambiar-contrasena.component').then(m => m.CambiarContrasenaComponent),
+    canActivate: [LoginGuard]
+  },
+  {
     path: 'registro',
     loadComponent: () => import('./registro/registro.component').then(m => m.registroComponent),
     children: [

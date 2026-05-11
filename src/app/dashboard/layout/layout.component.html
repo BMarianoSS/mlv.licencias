@@ -8,17 +8,17 @@
 
       <nav class="mt-4 flex-1 px-3">
         <ul class="space-y-1.5">
-          <li [routerLink]="['/dashboard/principal']"
+          <li [routerLink]="['/dashboard/principal']" (click)="cambiarPantalla('/dashboard/principal')"
             class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
             <span class="material-icons text-base">home</span>
             Inicio
           </li>
-          <li [routerLink]="['/dashboard/home']"
+          <li [routerLink]="['/dashboard/home']" (click)="cambiarPantalla('/dashboard/home')"
             class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
             <span class="material-icons text-base">inbox</span>
             Ver solicitudes
           </li>
-          <li [routerLink]="['/dashboard/RegistroRepresentante']"
+          <li [routerLink]="['/dashboard/RegistroRepresentante']" (click)="cambiarPantalla('/dashboard/RegistroRepresentante')"
             class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
             <span class="material-icons text-base">person</span>
             Datos del representante
@@ -42,17 +42,17 @@
       </div>
       <nav class="mt-2 px-3">
         <ul class="space-y-1.5">
-          <li [routerLink]="['/dashboard/principal']"
+          <li [routerLink]="['/dashboard/principal']" (click)="cambiarPantalla('/dashboard/principal')"
             class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
             <span class="material-icons text-base">home</span>
             Inicio
           </li>
-          <li [routerLink]="['/dashboard/home']"
+          <li [routerLink]="['/dashboard/home']" (click)="cambiarPantalla('/dashboard/home')"
             class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
             <span class="material-icons text-base">inbox</span>
             Ver solicitudes
           </li>
-          <li [routerLink]="['/dashboard/RegistroRepresentante']"
+          <li [routerLink]="['/dashboard/RegistroRepresentante']" (click)="cambiarPantalla('/dashboard/RegistroRepresentante')"
             class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
             <span class="material-icons text-base">person</span>
             Datos del representante

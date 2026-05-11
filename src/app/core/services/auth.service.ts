@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { CrearUsuarioResponse, ICrearUsuarioRequest, IObtenerUsuarioRequest, LoginResponse } from '../interfaz/ILoginLicencia';
+import { CrearUsuarioResponse, ICrearUsuarioRequest, IObtenerUsuarioRequest, LoginResponse, SolicitarCodigoCambioContrasenaResponse, CambiarContrasenaResponse } from '../interfaz/ILoginLicencia';
 import { ApiResponse, ApiResponseData } from '../interfaz/ApiResponse';
 import { ObtenerSolicitudResponse } from '../interfaz/ISolicitudLicencia';
 
@@ -24,6 +25,16 @@ export class AuthService {
 
   enviarNuevaContrasena(payload:{opcion:number; codigo_confirmacion:string}): Observable<any> {
     return this.http.post(`${this.apiUrl}/enviar-nueva-contrasena`, payload);
+  }
+
+  solicitarCodioCambioContrasena(correo: string): Observable<SolicitarCodigoCambioContrasenaResponse> {
+    return this.http.post<ApiResponseData<SolicitarCodigoCambioContrasenaResponse>>(`${this.apiUrl}/solicitar-codigo-cambio-contrasena`, { correo })
+      .pipe(map(response => response.data));
+  }
+
+  cambiarContrasena(payload: { correo: string; codigo: string; nuevaContrasena: string }): Observable<CambiarContrasenaResponse> {
+    return this.http.post<ApiResponseData<CambiarContrasenaResponse>>(`${this.apiUrl}/cambiar-contrasena`, payload)
+      .pipe(map(response => response.data));
   }
 
   login(payload: { codigo: string; userpassword: string }) {

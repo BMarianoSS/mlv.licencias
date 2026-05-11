@@ -90,7 +90,8 @@
             backRoute="../home"
             backLabel="Regresar"
             [nextDisabled]="!tipoLicenciaSeleccionado || !aceptaTerminos"
-            (next)="continuar()">
+            (next)="continuar()"
+            (back)="atras()">
         </app-nav-buttons>
     </div>
 </div>

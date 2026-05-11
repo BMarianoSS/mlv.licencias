@@ -43,6 +43,10 @@ export class pantalla3Component  implements OnInit{
     this.autorizacion_sectorial_path = input.files?.[0] ?? null;
   }
 
+  filterNumbersASnumero(value: string): string {
+    return value.replace(/[^0-9]/g, '');
+  }
+
   guardarState() {
     this.state.ASentidadautoriza           = this.ASentidadautoriza;
     this.state.ASdenominacion              = this.ASdenominacion;

@@ -46,6 +46,18 @@ export class RegistroPaso3Component implements OnInit {
       .subscribe(resp => this.repTipoDocumentos = resp.data);
   }
 
+  filterNumbersNroDocumento(value: string): string {
+    return value.replace(/[^0-9]/g, '');
+  }
+
+  filterNumbersNroPartida(value: string): string {
+    return value.replace(/[^0-9]/g, '');
+  }
+
+  filterNumbersTelefono(value: string): string {
+    return value.replace(/[^0-9]/g, '');
+  }
+
   get formularioValido(): boolean {
     return !!(this.repNombre && this.repTipoDocumentoSeleccionado &&
       this.repNroDocumento && this.repTelefono);

@@ -90,3 +90,21 @@ export interface ObtenerUsuarioResponse {
 export interface IObtenerUsuarioRequest {
     id_solicitante:         string|null;
 }
+
+export interface SolicitarCodigoCambioContrasenaResponse {
+    resultado:              number;
+    mensaje:                string;
+    codigo?:                string;
+    email?:                 string;
+}
+
+export interface CambiarContrasenaRequest {
+    correo:                 string;
+    codigo:                 string;
+    nuevaContrasena:        string;
+}
+
+export interface CambiarContrasenaResponse {
+    resultado:              number;
+    mensaje:                string;
+}

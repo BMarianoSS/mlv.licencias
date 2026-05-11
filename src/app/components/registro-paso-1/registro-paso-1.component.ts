@@ -66,6 +66,10 @@ export class RegistroPaso1Component {
     return false;
   }
 
+  filterNumbersNroDocumento(value: string): string {
+    return value.replace(/[^0-9]/g, '');
+  }
+
   siguiente() {
     this.state.paso1 = {
       tipoPersona: this.tipoPersonaSeleccionada,

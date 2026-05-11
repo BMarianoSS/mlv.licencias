@@ -20,7 +20,7 @@
                 <app-form-field label="Denominación de la autorización sectorial" [(ngModel)]="ASdenominacion"></app-form-field>
                 <app-form-field label="Fecha de autorización" type="date" [(ngModel)]="ASfecha"></app-form-field>
                 <app-form-field label="Número de autorización" [(ngModel)]="ASnumero"
-                    (ngModelChange)="ASnumero = $event.replace(/[^0-9]/g,'')">
+                    (ngModelChange)="ASnumero = filterNumbersASnumero($event)">
                 </app-form-field>
             </div>
 
