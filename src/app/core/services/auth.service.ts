@@ -3,9 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import { CrearUsuarioResponse, ICrearUsuarioRequest, IObtenerUsuarioRequest, LoginResponse, SolicitarCodigoCambioContrasenaResponse, CambiarContrasenaResponse } from '../interfaz/ILoginLicencia';
+import { CrearUsuarioResponse, ICrearUsuarioRequest, 
+  IObtenerUsuarioRequest, LoginResponse, SolicitarCodigoCambioContrasenaResponse, 
+  CambiarContrasenaResponse, IIntentosUsuarioRequest, IntentosUsuarioResponse,
+CambiarContrasenaRequest,DesbloquearUsuarioResponse,IDesbloquearUsuarioRequest,ObtenerUsuarioResponse } from '../interfaz/ILoginLicencia';
 import { ApiResponse, ApiResponseData } from '../interfaz/ApiResponse';
-import { ObtenerSolicitudResponse } from '../interfaz/ISolicitudLicencia';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -15,24 +17,12 @@ export class AuthService {
 
   constructor(private http: HttpClient) {}
 
-  recuperarContrasena(payload: { opcion: string; codigo: string; num_docu: string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/recuperar-contrasena`, payload);
-  }
-
-  vincularContacto(payload: { opcion: string;codigo: string; email:string; num_docu: string; telefono:string }): Observable<any> {
-    return this.http.post(`${this.apiUrl}/enviar-codigo-recuperacion`, payload);
-  }
-
-  enviarNuevaContrasena(payload:{opcion:number; codigo_confirmacion:string}): Observable<any> {
-    return this.http.post(`${this.apiUrl}/enviar-nueva-contrasena`, payload);
-  }
-
   solicitarCodioCambioContrasena(correo: string): Observable<SolicitarCodigoCambioContrasenaResponse> {
     return this.http.post<ApiResponseData<SolicitarCodigoCambioContrasenaResponse>>(`${this.apiUrl}/solicitar-codigo-cambio-contrasena`, { correo })
       .pipe(map(response => response.data));
   }
 
-  cambiarContrasena(payload: { correo: string; codigo: string; nuevaContrasena: string }): Observable<CambiarContrasenaResponse> {
+  cambiarContrasena(payload: CambiarContrasenaRequest): Observable<CambiarContrasenaResponse> {
     return this.http.post<ApiResponseData<CambiarContrasenaResponse>>(`${this.apiUrl}/cambiar-contrasena`, payload)
       .pipe(map(response => response.data));
   }
@@ -45,14 +35,21 @@ export class AuthService {
       return this.http.post<ApiResponseData<CrearUsuarioResponse>>(`${this.apiUrl}/crear-usuario`, payload);
   }
 
-  public obtenerUsuario(payload: IObtenerUsuarioRequest): Observable<ApiResponse<ObtenerSolicitudResponse>> {
-      return this.http.post<ApiResponse<ObtenerSolicitudResponse>>(`${this.apiUrl}/obtener-usuario`, payload);
+  public obtenerUsuario(payload: IObtenerUsuarioRequest): Observable<ApiResponse<ObtenerUsuarioResponse>> {
+      return this.http.post<ApiResponse<ObtenerUsuarioResponse>>(`${this.apiUrl}/obtener-usuario`, payload);
+  }
+
+  public intentosUsuario(payload: IIntentosUsuarioRequest): Observable<ApiResponseData<IntentosUsuarioResponse>> {
+      return this.http.post<ApiResponseData<IntentosUsuarioResponse>>(`${this.apiUrl}/intentos-usuario`, payload);
+  }
+
+  public desbloquearUsuario(payload: IDesbloquearUsuarioRequest): Observable<ApiResponse<DesbloquearUsuarioResponse>> {
+      return this.http.post<ApiResponse<DesbloquearUsuarioResponse>>(`${this.apiUrl}/desbloquear-usuario`, payload);
   }
 
   setSession(token: string, userData: any) {
     localStorage.setItem(this.tokenKey, token);
     localStorage.setItem(this.userKey, JSON.stringify(userData));
-    console.log('USER DATA:', userData)
   }
 
   getToken(): string | null {

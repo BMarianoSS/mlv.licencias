@@ -46,7 +46,6 @@ export class SolicitarCambioContrasenaComponent {
                 this.loading = false;
 
                 if (response.resultado === 1) {
-                    this.codigoGenerado = response.codigo || '';
                     this.emailEnviado = response.email || '';
                     this.messageSuccess = `Se ha enviado un código de 6 dígitos al correo ${correo}. El código expira en 15 minutos.`;
 

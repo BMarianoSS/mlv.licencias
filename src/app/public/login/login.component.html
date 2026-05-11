@@ -31,6 +31,30 @@
         <a [routerLink]="['/registro/paso-1']" class="text-blue-600 hover:underline font-medium">click aquí</a>
       </p>
     </form>
+    
+    <div *ngIf="loginErrorMessage" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center animate-fadeIn">
+        <div class="flex justify-center mb-4">
+          <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
+            <span class="text-red-600 text-3xl font-bold">!</span>
+          </div>
+        </div>
+
+        <h2 class="text-xl font-bold text-gray-800 mb-2">
+          Error
+        </h2>
+
+        <p class="text-gray-600 text-sm mb-6">
+          {{ loginErrorMessage }}
+        </p>
+
+        <button
+          (click)="loginErrorMessage = null"
+          class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 rounded-xl transition duration-300 cursor-pointer">
+          Aceptar
+        </button>
+      </div>
+    </div>
     <p class="text-xs text-gray-500 mt-6">© 2025 Municipalidad de La Victoria</p>
   </div>
 </div>

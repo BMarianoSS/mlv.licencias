@@ -84,17 +84,22 @@ export class CambiarContrasenaComponent implements OnInit {
                 if (response.resultado === 1) {
                     this.messageSuccess = 'Contraseña actualizada correctamente. Redirigiendo al login...';
 
-                    // Limpiar sessionStorage
                     sessionStorage.removeItem('changePasswordEmail');
                     sessionStorage.removeItem('changePasswordCode');
 
-                    // Redirigir al login después de 2 segundos
                     setTimeout(() => {
                         this.router.navigate(['/login']);
                     }, 2000);
                 } else {
                     this.messageError = response.mensaje || 'Error al cambiar la contraseña';
                 }
+                this.authService.desbloquearUsuario({ login: this.emailRecibido })
+                    .subscribe({
+                    next: (userResp) => {},
+                    error: (err) => {
+                        console.error('Error al obtener usuario:', err);
+                    }
+                });
             },
             error: (err) => {
                 this.loading = false;

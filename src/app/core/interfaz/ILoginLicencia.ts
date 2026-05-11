@@ -1,13 +1,16 @@
 export interface LoginResponse {
-    status:                     string;
-    message:                    string;
+    status:             string;
+    message:            string;
     data: {
-        codigo:                 string;
-        id_solicitante:         string | null;
-        nombres:                string;
-        token:                  string;
+        codigo:         string;
+        idSolicitante:  string | null;
+        idUsuarioWeb:   string | null;
+        intentos:       string | null;
+        bloqueado:      string | null;
+        nombres:        string;
+        token:          string;
     };
-    timestamp:                  string;
+    timestamp:          string;
 }
 
 
@@ -94,7 +97,6 @@ export interface IObtenerUsuarioRequest {
 export interface SolicitarCodigoCambioContrasenaResponse {
     resultado:              number;
     mensaje:                string;
-    codigo?:                string;
     email?:                 string;
 }
 
@@ -105,6 +107,28 @@ export interface CambiarContrasenaRequest {
 }
 
 export interface CambiarContrasenaResponse {
+    resultado:              number;
+    mensaje:                string;
+}
+
+
+
+export interface IIntentosUsuarioRequest {
+    login:                 string;
+}
+
+export interface IntentosUsuarioResponse {
+    intentos:              number;
+    bloqueado:                string;
+}
+
+
+
+export interface IDesbloquearUsuarioRequest {
+    login:                 string;
+}
+
+export interface DesbloquearUsuarioResponse {
     resultado:              number;
     mensaje:                string;
 }
