@@ -19,18 +19,19 @@
   </app-modal-lista-establecimientos>
 
   <div class="flex items-center justify-between mb-6">
-    <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
-      Datos del establecimiento
-    </span>
+    <app-section-header 
+        title="Datos del establecimiento" 
+        badge="">
+    </app-section-header>
   </div>
 
   <div class="border border-gray-200 rounded-xl overflow-hidden">
     <div class="bg-white p-5 border-b border-gray-200">
       <div class="mb-4">
-        <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
-          Ubicación del establecimiento
-        </span>
-        <div class="h-px bg-gray-200 mt-2 mb-4"></div>
+        <app-section-header 
+          title="Ubicación del establecimiento" 
+          badge="">
+      </app-section-header>
       </div>
 
       <div class="flex flex-wrap items-end gap-4">
@@ -79,9 +80,10 @@
 
         <div class="w-full md:w-1/2 lg:w-2/5">
           <div class="flex justify-between items-center mb-3">
-            <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
-              Giros <span class="text-gray-400 text-xs">(?)</span>
-            </span>
+            <app-section-header 
+                title="Giros" 
+                badge="(?)">
+            </app-section-header>
             <button (click)="abrirModalGiro()" 
               class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-md border border-blue-200 text-blue-700 hover:bg-blue-50 transition disabled:opacity-50 disabled:cursor-not-allowed">
               {{ giros.length === 0 ? '+ Agregar giro principal' : '+ Agregar giro adicional' }}
@@ -123,9 +125,10 @@
     <div class="bg-white p-5 border-b border-gray-200">
       <div class="mb-4">
         <div class="flex justify-between items-center">
-          <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
-            Información comercial
-          </span>
+          <app-section-header 
+            title="Información comercial" 
+            badge="">
+          </app-section-header>
           <button (click)="mostrarModalEstablecimientos = true"
             class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
             Obtener Establecimientos Anteriores
@@ -168,21 +171,21 @@
           <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
             N° Interior
           </label>
-          <input (input)="filtrarNumeros($event,'nroInterior')" [(ngModel)]="nroInterior"
+          <input (input)="filtrarNumeros($event)" [(ngModel)]="nroInterior"
             class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
         </div>
         <div>
           <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
             N° Stand
           </label>
-          <input (input)="filtrarNumeros($event,'nroStand')" [(ngModel)]="nroStand"
+          <input (input)="filtrarNumeros($event)" [(ngModel)]="nroStand"
             class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
         </div>
         <div>
           <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
             N° Estacionamiento
           </label>
-          <input (input)="filtrarNumeros($event,'nroEstacionamiento')" [(ngModel)]="nroEstacionamiento"
+          <input (input)="filtrarNumeros($event)" [(ngModel)]="nroEstacionamiento"
             class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
         </div>
         <div>
@@ -242,16 +245,11 @@
       </div>
     </div>
 
-    <div class="bg-gray-50 px-5 py-4 flex justify-end gap-3">
-      <button [routerLink]="['../pantalla1']"
-        class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
-        ← Regresar
-      </button>
-      <button (click)="guardarState()" [routerLink]="['../pantalla3']" [disabled]="!formularioValido"
-        class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
-        Continuar
-        <span class="text-base leading-none">→</span>
-      </button>
-    </div>
+    <app-nav-buttons
+      backRoute="../pantalla1"
+      [nextDisabled]="!formularioValido"
+      (next)="guardarState()"
+      nextRoute="../pantalla3">
+    </app-nav-buttons>
   </div>
 </div>

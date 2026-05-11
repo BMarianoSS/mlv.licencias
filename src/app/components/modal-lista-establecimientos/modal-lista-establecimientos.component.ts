@@ -4,11 +4,12 @@ import { AuthService } from '../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { SolicitudService } from '../../core/services/solicitud.service';
 import { ComboService } from '../../core/services/combo.service';
+import { ModalWrapperComponent } from '../../shared';
 
 @Component({
   selector: 'app-modal-lista-establecimientos',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ModalWrapperComponent],
   templateUrl: './modal-lista-establecimientos.component.html',
 })
 export class ModalListaEstablecimientoComponent {

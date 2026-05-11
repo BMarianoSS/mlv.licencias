@@ -76,4 +76,81 @@ export class SolicitudStateService {
     monto                   = '';
 
     flujoActivo = false;
+
+    limpiarState(){
+        // Pantalla 1
+        this.idTipoLicencia      = '';
+        this.descSolicitud       = '';
+        this.aceptaTerminos      = false;
+
+        // Pantalla 2    
+        this.direccionEstablecimientoCombinada           = '';
+        this.codPredio               = '';
+        this.tipo_via                = '';
+        this.direcPred               = '';
+        this.id_via                  = '';
+        this.nroPredio               = '';
+        this.intPredio               = '';
+        this.mzPredio                = '';
+        this.ltPredio                = '';
+        this.areaConstr              = '';
+        this.refEstablecimiento      = '';
+        this.descEstablecimiento     = '';
+        this.idTipoAct               = '';
+        this.areaLocal               = '';
+        this.puesto                  = '';
+        this.stand                   = '';
+        this.nroEstacionamiento      = '';
+        this.idCapacidad             = '';
+        this.idCondLocal             = '';
+        this.idTipoZonif             = '';
+        this.abrevZonif              = '';
+        this.descripZonif            = '';
+        this.horaini                 = '';
+        this.horafin                 = '';
+        this.idhorario               = '';
+        this.horario                 = '';
+        this.giros                   = [];
+        this.descrip_giro            = '';
+        this.check_dia_siguiente     = false;
+        this.check_horario_continuo  = false;
+
+        // Pantalla 3 (autorización sectorial)
+        this.ASentidadautoriza       = '';
+        this.ASdenominacion          = '';
+        this.ASfecha                 = '';
+        this.ASnumero                = '';
+        this.autorizacion_sectorial_path = null;
+
+        // Pantalla 4
+        this.d_jurada                = '';
+        this.anexos_dj               = '';
+        this.anexo1_path             = null;
+        this.anexo2_path             = null;
+        this.anexo3_path             = null;
+        this.anexo4_path             = null;
+        this.nro_licencia_padre      = '';
+        this.anio_licencia_padre     = '';
+        this.piso_predio             = '';
+        this.funcionSeleccionado     = '';
+        this.check1                  = false;
+        this.check2                  = false;
+        this.check3                  = false;
+
+        // Pantalla "Otros" (tab imagen 3)
+        this.nroLicencia             = '';
+        this.titularLicencia         = '';
+        this.nroResolucion           = '';
+        this.fechaExpedecion         = '';
+        this.vigenciaAnt             = '';
+        this.observacion             = '';
+        this.observacion2            = '';
+
+        this.mensajeRespuesta        = '';
+        this.idSolicitudCreada       = '';
+        this.nroProforma             = '';
+        this.monto                   = '';
+
+        this.flujoActivo = false;
+    }
 }

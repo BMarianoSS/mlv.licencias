@@ -5,11 +5,13 @@ import { RouterModule, Router } from '@angular/router';
 import { ComboService } from '../../core/services/combo.service';
 import { RegistroStateService } from '../../core/services/registro-state.service';
 import { AuthService } from '../../core/services/auth.service';
+import { filtrarSoloNumeros } from '../../core/utils/form.utils';
+import { SectionHeaderComponent, NavButtonsComponent, FormFieldComponent } from '../../shared';
 
 @Component({
   selector: 'app-registro-paso-3',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, SectionHeaderComponent, NavButtonsComponent, FormFieldComponent],
   templateUrl: './registro-paso-3.component.html',
 })
 export class RegistroPaso3Component implements OnInit {
@@ -25,6 +27,8 @@ export class RegistroPaso3Component implements OnInit {
   modalExito   = false;
   modalMensaje = '';
   cargando     = false;
+  
+  filtrarNumeros = filtrarSoloNumeros;
 
   constructor(
     private comboService: ComboService,
@@ -45,16 +49,6 @@ export class RegistroPaso3Component implements OnInit {
   get formularioValido(): boolean {
     return !!(this.repNombre && this.repTipoDocumentoSeleccionado &&
       this.repNroDocumento && this.repTelefono);
-  }
-
-  filtrarNumeros(event: any, campo: string): void {
-    const input = event.target;
-    let valor = input.value;
-    valor = valor.replace(/[^0-9]/g, '');
-    input.value = valor;
-    if (campo === 'repNroDocumento') this.repNroDocumento = valor;
-    if (campo === 'repNroPartida') this.repNroPartida = valor;
-    if (campo === 'repTelefono') this.repTelefono = valor;
   }
 
   registrar() {

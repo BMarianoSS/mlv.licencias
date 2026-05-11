@@ -8,11 +8,14 @@ import { ComboService } from '../../core/services/combo.service';
 import { ICrearSolicitudRequest, IRepresentanteLegalRequest, IEditarRepresentanteLegalRequest } from '../../core/interfaz/ISolicitudLicencia';
 import { SolicitudStateService } from '../../core/services/solicitud-state.service';
 import { ModalRepresentanteComponent, Representante } from '../../components/modal-representante/modal-representante.component';
+import { forkJoin } from 'rxjs';
+import { SectionHeaderComponent, NavButtonsComponent } from '../../shared';
 
 @Component({
   selector: 'app-pantalla5',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, ModalRepresentanteComponent],
+  imports: [RouterModule, FormsModule, CommonModule, 
+    ModalRepresentanteComponent, SectionHeaderComponent, NavButtonsComponent],
   templateUrl: './pantalla5.component.html',
   styleUrl: './pantalla5.component.css'
 })
@@ -213,28 +216,23 @@ export class Pantalla5Component implements OnInit {
 
   subirAnexos(id_solicitud: string): Promise<void> {
     const s = this.state;
-    const anexos: { archivo: File; nro: string }[] = [];
+    const anexos = [
+      s.anexo1_path && { archivo: s.anexo1_path, nro: '1' },
+      s.anexo2_path && { archivo: s.anexo2_path, nro: '2' },
+      s.anexo3_path && { archivo: s.anexo3_path, nro: '3' },
+      s.anexo4_path && { archivo: s.anexo4_path, nro: '4' },
+      s.autorizacion_sectorial_path && { archivo: s.autorizacion_sectorial_path, nro: '5' },
+    ].filter(Boolean) as { archivo: File; nro: string }[];
 
-    if (s.anexo1_path) anexos.push({ archivo: s.anexo1_path, nro: '1' });
-    if (s.anexo2_path) anexos.push({ archivo: s.anexo2_path, nro: '2' });
-    if (s.anexo3_path) anexos.push({ archivo: s.anexo3_path, nro: '3' });
-    if (s.anexo4_path) anexos.push({ archivo: s.anexo4_path, nro: '4' });
-    if (s.autorizacion_sectorial_path) anexos.push({ archivo: s.autorizacion_sectorial_path, nro: '5' });
-
-    if (anexos.length === 0) return Promise.resolve();
+    if (!anexos.length) return Promise.resolve();
 
     return new Promise(resolve => {
-      import('rxjs').then(({ concat }) => {
-        const llamadas = anexos.map(a =>
-          this.solicitudService.rutaAnexoSolicitud({
-            id_solicitud,
-            nro_anexo: a.nro,
-            usuario:  this.dniruc,
-            archivo:  a.archivo
-          })
-        );
-        concat(...llamadas).subscribe({ complete: () => resolve() });
-      });
+      forkJoin(anexos.map(a =>
+        this.solicitudService.rutaAnexoSolicitud({
+          id_solicitud, nro_anexo: a.nro,
+          usuario: this.dniruc, archivo: a.archivo
+        })
+      )).subscribe({ complete: resolve, error: resolve });
     });
   }
 

@@ -1,8 +1,9 @@
 <div class="p-6">
     <div class="flex items-center justify-between mb-6">
-        <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
-            Nueva solicitud de autorización
-        </span>
+        <app-section-header 
+            title="Nueva solicitud de autorización" 
+            badge="">
+        </app-section-header>
     </div>
 
     <div class="border border-gray-200 rounded-xl overflow-hidden">
@@ -22,10 +23,10 @@
 
         <div class="bg-white p-5 border-b border-gray-200">
             <div class="mb-4">
-                <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
-                    Consideraciones legales
-                </span>
-                <div class="h-px bg-gray-200 mt-2 mb-4"></div>
+                <app-section-header 
+                    title="Consideraciones legales" 
+                    badge="">
+                </app-section-header>
             </div>
 
             <div class="text-sm text-gray-600 space-y-3">
@@ -85,18 +86,11 @@
             </div>
         </div>
 
-        <div class="bg-gray-50 px-5 py-4 flex justify-end gap-3">
-            <button 
-                [routerLink]="['../home']"
-                class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
-                ← Regresar
-            </button>
-            <button (click)="continuar()"
-                [disabled]="!tipoLicenciaSeleccionado || !aceptaTerminos"
-                class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
-                Continuar 
-                <span class="text-base leading-none">→</span>
-            </button>
-        </div>
+        <app-nav-buttons
+            backRoute="../home"
+            backLabel="Regresar"
+            [nextDisabled]="!tipoLicenciaSeleccionado || !aceptaTerminos"
+            (next)="continuar()">
+        </app-nav-buttons>
     </div>
 </div>

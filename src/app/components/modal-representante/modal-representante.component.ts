@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ComboService } from '../../core/services/combo.service';
+import { ModalWrapperComponent } from '../../shared';
 
 export interface Representante {
   tipoDoc: string;
@@ -14,7 +15,7 @@ export interface Representante {
 @Component({
   selector: 'app-modal-representante',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ModalWrapperComponent],
   templateUrl: './modal-representante.component.html',
 })
 export class ModalRepresentanteComponent implements OnChanges {
@@ -63,9 +64,8 @@ export class ModalRepresentanteComponent implements OnChanges {
     });
   }
 
-  soloNumeros(event: any, campo: keyof Representante) {
-    const input = event.target;
-    input.value = input.value.replace(/[^0-9]/g, '');
-    this.rep[campo] = input.value;
+  soloNumeros(value: string, campo: keyof Representante) {
+    const soloNumeros = value.replace(/[^0-9]/g, '');
+    this.rep[campo] = soloNumeros;
   }
 }

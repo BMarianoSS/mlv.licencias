@@ -1,26 +1,29 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router , RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 import { ComboService } from '../../core/services/combo.service'
 import { RegistroStateService } from '../../core/services/registro-state.service';
+import { filtrarSoloNumeros } from '../../core/utils/form.utils';
+import { SectionHeaderComponent, NavButtonsComponent, FormFieldComponent } from '../../shared';
 
 @Component({
   selector: 'app-registro-paso-1',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, SectionHeaderComponent, NavButtonsComponent, FormFieldComponent],
   templateUrl: './registro-paso-1.component.html',
 })
 export class RegistroPaso1Component {
-  tipoPersonas: any[]       = [];
-  tipoPersonaSeleccionada   = '';
-  tipoDocumentos: any[]     = [];
+  tipoPersonas: any[] = [];
+  tipoPersonaSeleccionada = '';
+  tipoDocumentos: any[] = [];
   tipoDocumentoSeleccionado = '';
-  nroDocumento              = '';
-  nombres                   = '';
-  apellidoPaterno           = '';
-  apellidoMaterno           = '';
-  razonSocial           = '';
+  nroDocumento = '';
+  nombres = '';
+  apellidoPaterno = '';
+  apellidoMaterno = '';
+  razonSocial = '';
+  filtrarNumeros = filtrarSoloNumeros;
 
   constructor(
     private comboService: ComboService,
@@ -63,23 +66,15 @@ export class RegistroPaso1Component {
     return false;
   }
 
-  filtrarNumeros(event: any): void {
-    const input = event.target;
-    let valor = input.value;
-    valor = valor.replace(/[^0-9]/g, ''); 
-    input.value = valor;
-    this.nroDocumento = valor;
-  }
-
-    siguiente() {
+  siguiente() {
     this.state.paso1 = {
-      tipoPersona:     this.tipoPersonaSeleccionada,
-      tipoDocumento:   this.tipoDocumentoSeleccionado,
-      nroDocumento:    this.nroDocumento,
-      nombres:         this.tipoPersonaSeleccionada === '1' ? this.nombres : '',
+      tipoPersona: this.tipoPersonaSeleccionada,
+      tipoDocumento: this.tipoDocumentoSeleccionado,
+      nroDocumento: this.nroDocumento,
+      nombres: this.tipoPersonaSeleccionada === '1' ? this.nombres : '',
       apellidoPaterno: this.tipoPersonaSeleccionada === '1' ? this.apellidoPaterno : '',
       apellidoMaterno: this.tipoPersonaSeleccionada === '1' ? this.apellidoMaterno : '',
-      razonSocial:     this.tipoPersonaSeleccionada === '2' ? this.razonSocial : '',
+      razonSocial: this.tipoPersonaSeleccionada === '2' ? this.razonSocial : '',
     };
     this.router.navigate(['/registro/paso-2']);
   }

@@ -8,6 +8,8 @@ import { SolicitudStateService } from '../../core/services/solicitud-state.servi
 import { ModalMapaComponent } from '../../components/modal-mapa/modal-mapa.component';
 import { ModalGiroComponent, Giro } from '../../components/modal-giro/modal-giro.component';
 import { ModalListaEstablecimientoComponent } from '../../components/modal-lista-establecimientos/modal-lista-establecimientos.component';
+import { filtrarSoloNumeros } from '../../core/utils/form.utils';
+import { SectionHeaderComponent,NavButtonsComponent } from '../../shared';
 
 @Component({
   selector: 'app-pantalla2',
@@ -15,7 +17,8 @@ import { ModalListaEstablecimientoComponent } from '../../components/modal-lista
   imports: [
     RouterModule, FormsModule, CommonModule,
     ModalMapaComponent, ModalGiroComponent,
-    ModalListaEstablecimientoComponent
+    ModalListaEstablecimientoComponent,SectionHeaderComponent,
+    NavButtonsComponent
   ],
   templateUrl: './pantalla2.component.html',
 })
@@ -70,6 +73,8 @@ export class Pantalla2Component implements OnInit {
 
   mostrarModalEstablecimientos        = false;
   establecimientoAutorellenado        = false;
+  
+  filtrarNumeros = filtrarSoloNumeros;
 
 
   get formularioValido(): boolean {
@@ -176,13 +181,6 @@ export class Pantalla2Component implements OnInit {
         this.desc_zonif  = '';
       }
     });
-  }
-
-  filtrarNumeros(event: any, campo: 'nroInterior' | 'nroStand' | 'nroEstacionamiento'): void {
-    const input = event.target;
-    let valor = input.value.replace(/[^0-9]/g, '');
-    input.value = valor;
-    this[campo] = valor;
   }
 
   abrirModalGiro() { 

@@ -9,12 +9,15 @@ import { SolicitudStateService } from '../../core/services/solicitud-state.servi
 import { AuthService } from '../../core/services/auth.service';
 import { ModalPreguntasComponent } from '../../components/modal-preguntas/modal-preguntas.component';
 import { AnexosStateService } from '../../core/services/anexos-state.service';
+import { filtrarSoloNumeros } from '../../core/utils/form.utils';
+import { SectionHeaderComponent, NavButtonsComponent } from '../../shared';
 
 Chart.register(...registerables);
 @Component({
   selector: 'app-pantalla4',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, ModalPreguntasComponent],
+  imports: [RouterModule, FormsModule, CommonModule, 
+    ModalPreguntasComponent, SectionHeaderComponent, NavButtonsComponent],
   templateUrl: './pantalla4.component.html',
   styleUrl: './pantalla4.component.css'
 })
@@ -68,6 +71,8 @@ export class pantalla4Component {
   isloading = false;
   loadingText = 'Descargando archivo';
   private loadingInterval: any;
+    
+  filtrarNumeros = filtrarSoloNumeros;
 
   get esTipoEspecial(): boolean {
     return this.state.idTipoLicencia === '3';
@@ -183,15 +188,6 @@ export class pantalla4Component {
     });
   }
 
-  filtrarNumeros(event: any, campo: string): void {
-    const input = event.target;
-    let valor = input.value;
-    valor = valor.replace(/[^0-9]/g, '');
-    
-    input.value = valor;
-    campo = valor;
-  }
-
   abrirModalPreguntas(nroAnexo: string) {
     if (!this.funcionSeleccionado) return;
     
@@ -229,8 +225,6 @@ export class pantalla4Component {
     this.mostrarModalPreguntas = true;
   }
 
-  _onPreguntasRespondidas: () => void = () => {};
-
   onPreguntasRespondidas(nroAnexo: string) {
     this.mostrarModalPreguntas = false;
     switch (nroAnexo) {
@@ -239,11 +233,6 @@ export class pantalla4Component {
       case '3': this.anexo3PreguntasRespondidas = true; this.anexo3Step = 2; break;
       case '4': this.anexo4PreguntasRespondidas = true; this.anexo4Step = 2; break;
     }
-  }
-
-  onPreguntasCerradas() {
-    this.mostrarModalPreguntas = false;
-    this._onPreguntasRespondidas();
   }
 
   guardarState() {

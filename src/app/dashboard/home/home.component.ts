@@ -5,11 +5,12 @@ import { CommonModule } from '@angular/common';
 import { SolicitudService } from '../../core/services/solicitud.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ModalDetalleSolicitudComponent } from '../../components/modal-detalle-solicitud/modal-detalle-solicitud.component';
+import { SectionHeaderComponent } from '../../shared';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, ModalDetalleSolicitudComponent],
+  imports: [RouterModule, FormsModule, CommonModule, ModalDetalleSolicitudComponent, SectionHeaderComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -17,8 +18,7 @@ export class HomeComponent{
   constructor(private solicitudService: SolicitudService, private authService:AuthService) {}
 
   sidebarOpen = false;
-  solicitudes: any[] = [];
-  mensaje: any[] = [];
+  solicitudes: any[] = [];  
   modalConfirmarVisible = false;
   modalConfirmarLeaving = false;
   modalRespuestaVisible = false;

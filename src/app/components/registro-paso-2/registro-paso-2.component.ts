@@ -5,11 +5,13 @@ import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import { RegistroStateService } from '../../core/services/registro-state.service';
 import { ComboService } from '../../core/services/combo.service';
+import { filtrarSoloNumeros } from '../../core/utils/form.utils';
+import { SectionHeaderComponent, NavButtonsComponent } from '../../shared';
 
 @Component({
   selector: 'app-registro-paso-2',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule],
+  imports: [RouterModule, CommonModule, FormsModule, SectionHeaderComponent, NavButtonsComponent],
   templateUrl: './registro-paso-2.component.html',
 })
 export class RegistroPaso2Component {
@@ -41,6 +43,8 @@ export class RegistroPaso2Component {
   modalExito   = false;
   modalMensaje = '';
   cargando     = false;
+  
+  filtrarNumeros = filtrarSoloNumeros;
 
   constructor(
     private authService: AuthService,
@@ -102,24 +106,6 @@ export class RegistroPaso2Component {
       this.tieneDiscapacidad !== '' && !!this.nroRuc && !!this.denominacion);
 
     return baseValid;
-  }
-
-  filtrarNumerosTelefono(event: any): void {
-    const input = event.target;
-    input.value = input.value.replace(/[^0-9]/g, '');
-    this.telefono = input.value;
-  }
-
-  filtrarNumerosRuc(event: any): void {
-    const input = event.target;
-    input.value = input.value.replace(/[^0-9]/g, '');
-    this.nroRuc = input.value;
-  }
-
-  filtrarNumerosDireccion(event: any): void {
-    const input = event.target;
-    input.value = input.value.replace(/[^0-9]/g, '');
-    this.numero = input.value;
   }
 
   siguiente() {

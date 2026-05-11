@@ -1,78 +1,52 @@
-<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-  <div class="bg-white rounded-xl shadow-xl w-[550px] max-h-[90vh] flex flex-col overflow-hidden">
-    <div class="bg-blue-700 px-5 py-3 flex justify-between items-center flex-shrink-0">
-      <span class="text-white font-medium text-sm uppercase tracking-widest">
-        Datos del representante
-      </span>
-      <button (click)="cerrar.emit()" class="text-white/80 hover:text-white text-2xl leading-none transition">&times;</button>
+<app-modal-wrapper 
+  title="Datos del representante" 
+  width="550px" 
+  maxHeight="90vh"
+  [showCerrarBtn]="false"
+  (cerrar)="cerrar.emit()"
+  bodyClass="p-5">
+
+  <div class="grid grid-cols-2 gap-4">
+
+    <app-form-field label="Tipo documento" type="select" [required]="true" [(ngModel)]="rep.tipoDoc">
+      <option *ngFor="let tipo of tipoDocumentos" [value]="tipo.idTipoDoc">{{ tipo.descDocumento }}</option>
+    </app-form-field>
+
+    <app-form-field 
+      label="N° documento" 
+      [required]="true" 
+      [maxlength]="11"
+      [(ngModel)]="rep.nroDoc"
+      (ngModelChange)="soloNumeros($event, 'nroDoc')">
+    </app-form-field>
+
+    <div class="col-span-2">
+      <app-form-field label="Nombre completo" [required]="true" [(ngModel)]="rep.nombreRL"></app-form-field>
     </div>
 
-    <div class="p-5 overflow-y-auto flex-1">
-      <div class="grid grid-cols-2 gap-4">
-        
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            Tipo documento <span class="text-red-500">*</span>
-          </label>
-          <select [(ngModel)]="rep.tipoDoc"
-            class="w-full max-w-md px-4 py-2.5 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-            <option value="">Seleccione</option>
-            <option *ngFor="let tipo of tipoDocumentos" [value]="tipo.idTipoDoc">
-              {{ tipo.descDocumento }}
-            </option>
-          </select>
-        </div>
-
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            N° documento <span class="text-red-500">*</span>
-          </label>
-          <input 
-            [(ngModel)]="rep.nroDoc" 
-            type="text" maxlength="11" (input)="soloNumeros($event, 'nroDoc')"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
-        </div>
-
-        <div class="col-span-2">
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            Nombre completo <span class="text-red-500">*</span>
-          </label>
-          <input [(ngModel)]="rep.nombreRL" type="text"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
-        </div>
-
-        <div class="col-span-2">
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            N° Partida
-          </label>
-          <input [(ngModel)]="rep.nroPartida" type="text" (input)="soloNumeros($event, 'nroPartida')"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
-        </div>
-
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            Teléfono
-          </label>
-          <input 
-            [(ngModel)]="rep.telefono" 
-            type="text" maxlength="9" (input)="soloNumeros($event, 'telefono')"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
-        </div>
-      </div>
+    <div class="col-span-2">
+      <app-form-field label="N° Partida" [(ngModel)]="rep.nroPartida"></app-form-field>
     </div>
 
-    <div class="px-5 py-4 border-t border-gray-200 flex justify-end gap-3 flex-shrink-0">
-      <button 
-        (click)="cerrar.emit()" 
-        class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
-        Cancelar
-      </button>
-      <button 
-        (click)="guardar()" 
-        class="inline-flex items-center gap-1.5 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-5 py-2 rounded-lg transition">
-        Guardar
-      </button>
-    </div>
+    <app-form-field 
+      label="Teléfono" 
+      type="tel" 
+      [maxlength]="9"
+      [(ngModel)]="rep.telefono"
+      (ngModelChange)="soloNumeros($event, 'telefono')">
+    </app-form-field>
 
   </div>
-</div>
+
+  <div slot="footer" class="flex gap-2">
+    <button (click)="cerrar.emit()"
+      class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
+      Cancelar
+    </button>
+    <button (click)="guardar()"
+      class="inline-flex items-center gap-1.5 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-5 py-2 rounded-lg transition">
+      Guardar
+    </button>
+  </div>
+
+</app-modal-wrapper>

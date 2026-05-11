@@ -18,45 +18,49 @@
   </div>
 
   <div class="flex items-center justify-between mb-6">
-    <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">Representante Legal</span>
+    <app-section-header 
+      title="Representante Legal" 
+      badge="">
+    </app-section-header>
   </div>
 
   <div class="border border-gray-200 rounded-xl overflow-hidden">
-    <div class="bg-white p-5">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div class="md:col-span-2">
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Nombre completo <span class="text-red-500">*</span></label>
-          <input type="text" [(ngModel)]="repNombre" placeholder="Nombre del representante legal" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Tipo de Documento <span class="text-red-500">*</span></label>
-          <select [(ngModel)]="repTipoDocumentoSeleccionado" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
-            <option value="">Seleccione</option>
-            <option *ngFor="let d of repTipoDocumentos" [value]="d.idTipoDoc">{{ d.descDocumento }}</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Nro. Documento <span class="text-red-500">*</span></label>
-          <input type="text" [(ngModel)]="repNroDocumento" (input)="filtrarNumeros($event, 'repNroDocumento')" maxlength="9" placeholder="Ingrese número de documento" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Nro. Partida</label>
-          <input type="text" [(ngModel)]="repNroPartida" (input)="filtrarNumeros($event, 'repNroPartida')" placeholder="Ingrese número de partida" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Asiento SUNARP</label>
-          <input type="text" [(ngModel)]="repAsientoSunarp" placeholder="Ingrese asiento SUNARP" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Teléfono <span class="text-red-500">*</span></label>
-          <input type="tel" [(ngModel)]="repTelefono" (input)="filtrarNumeros($event, 'repTelefono')" maxlength="9" placeholder="Ingrese teléfono" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div class="md:col-span-2">
+        <app-form-field label="Nombre completo" [required]="true" 
+          placeholder="Nombre del representante legal" [(ngModel)]="repNombre">
+        </app-form-field>
       </div>
+
+      <app-form-field label="Tipo de Documento" type="select" [required]="true" [(ngModel)]="repTipoDocumentoSeleccionado">
+        <option *ngFor="let d of repTipoDocumentos" [value]="d.idTipoDoc">{{ d.descDocumento }}</option>
+      </app-form-field>
+
+      <app-form-field label="Nro. Documento" [required]="true" [maxlength]="9"
+        placeholder="Ingrese número de documento" [(ngModel)]="repNroDocumento"
+        (ngModelChange)="repNroDocumento = $event.replace(/[^0-9]/g,'')">
+      </app-form-field>
+
+      <app-form-field label="Nro. Partida"
+        placeholder="Ingrese número de partida" [(ngModel)]="repNroPartida"
+        (ngModelChange)="repNroPartida = $event.replace(/[^0-9]/g,'')">
+      </app-form-field>
+
+      <app-form-field label="Asiento SUNARP" 
+        placeholder="Ingrese asiento SUNARP" [(ngModel)]="repAsientoSunarp">
+      </app-form-field>
+
+      <app-form-field label="Teléfono" type="tel" [required]="true" [maxlength]="9"
+        placeholder="Ingrese teléfono" [(ngModel)]="repTelefono"
+        (ngModelChange)="repTelefono = $event.replace(/[^0-9]/g,'')">
+      </app-form-field>
     </div>
 
-    <div class="bg-gray-50 px-5 py-4 flex justify-between gap-3">
-      <button [routerLink]="['/registro/paso-2']" class="bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg">← Regresar</button>
-      <button (click)="registrar()" [disabled]="!formularioValido" class="bg-green-700 hover:bg-green-800 text-white text-sm font-medium px-6 py-2.5 rounded-lg disabled:opacity-50">✓ Finalizar registro</button>
-    </div>
+    <app-nav-buttons
+      backRoute="/registro/paso-2"
+      nextLabel="Finalizar registro"
+      [nextDisabled]="!formularioValido"
+      (next)="registrar()">
+    </app-nav-buttons>
   </div>
 </div>

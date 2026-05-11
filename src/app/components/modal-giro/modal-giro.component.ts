@@ -2,6 +2,7 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SolicitudService } from '../../core/services/solicitud.service'
+import { ModalWrapperComponent } from '../../shared'
 
 export interface Giro {
   codigo:       string;
@@ -12,7 +13,7 @@ export interface Giro {
 @Component({
   selector: 'app-modal-giro',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ModalWrapperComponent],
   templateUrl: './modal-giro.component.html',
 })
 export class ModalGiroComponent {

@@ -1,185 +1,81 @@
-<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-  <div 
-    [class]="(leaving ? 'modal-leave' : 'modal-enter')"
-    class="bg-white rounded-xl shadow-xl w-[700px] max-h-[90vh] flex flex-col overflow-hidden">
+<app-modal-wrapper 
+  title="Detalle de Solicitud" 
+  width="700px" 
+  maxHeight="90vh"
+  [leaving]="leaving"
+  (cerrar)="cerrarConAnimacion()"
+  bodyClass="p-6">
 
-    <div class="bg-blue-700 px-5 py-3 flex justify-between items-center flex-shrink-0">
-      <span class="text-white font-medium text-sm uppercase tracking-widest">
-        Detalle de Solicitud
-      </span>
-      <button (click)="cerrarConAnimacion()" class="text-white/80 hover:text-white text-2xl leading-none transition">&times;</button>
+  <div *ngIf="cargando" class="flex items-center justify-center p-8">
+    <div class="text-center">
+      <div class="inline-block animate-spin rounded-full h-10 w-10 border-b-2 border-blue-700"></div>
+      <p class="mt-3 text-sm font-medium text-blue-700">Cargando solicitud...</p>
     </div>
-
-    <div *ngIf="cargando" class="flex items-center justify-center p-8">
-      <div class="text-center">
-        <div class="inline-block animate-spin rounded-full h-10 w-10 border-b-2 border-blue-700"></div>
-        <p class="mt-3 text-sm font-medium text-blue-700">Cargando solicitud...</p>
-      </div>
-    </div>
-
-    <div *ngIf="!cargando && data.length === 0" class="flex items-center justify-center p-8">
-      <div class="text-center text-gray-500">
-        <p class="text-sm">No se encontró información para esta solicitud</p>
-      </div>
-    </div>
-
-    <div *ngIf="!cargando && data.length > 0" class="flex-1 overflow-y-auto p-6">
-      <div class="mb-6">
-        <h3 class="text-lg font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-4">
-          Información General
-        </h3>
-        <div class="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <span class="font-medium text-gray-600">N° Solicitud:</span>
-            <p class="text-gray-800">{{ data[0]?.nroSolicitud || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">N° Licencia:</span>
-            <p class="text-gray-800">{{ data[0]?.nroLicencia || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Fecha Licencia:</span>
-            <p class="text-gray-800">{{ data[0]?.fechaLicencia || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Tipo de Licencia:</span>
-            <p class="text-gray-800">{{ data[0]?.descTipoLicencia || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Estado Trámite:</span>
-            <p class="text-gray-800">{{ data[0]?.estadoTramite || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Estado:</span>
-            <p class="text-gray-800">
-              <span [class.text-green-600]="data[0]?.estado === 'ACTIVO'" 
-                    [class.text-red-600]="data[0]?.estado === 'INACTIVO'">
-                {{ data[0]?.estado || '-' }}
-              </span>
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-6">
-        <h3 class="text-md font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-3">
-          Expediente y Resolución
-        </h3>
-        <div class="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <span class="font-medium text-gray-600">N° Expediente:</span>
-            <p class="text-gray-800">{{ data[0]?.nroExpediente || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Fecha Expediente:</span>
-            <p class="text-gray-800">{{ data[0]?.fechaExpediente || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">N° Resolución:</span>
-            <p class="text-gray-800">{{ data[0]?.nroResolucion || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Fecha Resolución:</span>
-            <p class="text-gray-800">{{ data[0]?.fechaResolucion || '-' }}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-6">
-        <h3 class="text-md font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-3">
-          Titular y Establecimiento
-        </h3>
-        <div class="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <span class="font-medium text-gray-600">Razón Social:</span>
-            <p class="text-gray-800">{{ data[0]?.razonSocial || data[0]?.nombre || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Titular Licencia:</span>
-            <p class="text-gray-800">{{ data[0]?.TitularLicencia || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Establecimiento:</span>
-            <p class="text-gray-800">{{ data[0]?.descEstablecimiento || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Dirección Local:</span>
-            <p class="text-gray-800">{{ data[0]?.direccionLocal || '-' }}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-6">
-        <h3 class="text-md font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-3">
-          Vigencia
-        </h3>
-        <div class="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <span class="font-medium text-gray-600">Vigencia Desde:</span>
-            <p class="text-gray-800">{{ data[0]?.vigenciaDesde || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Vigencia Hasta:</span>
-            <p class="text-gray-800">{{ data[0]?.vigenciaHasta || '-' }}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-6" *ngIf="data[0]?.nroRecibo || data[0]?.fechaPago">
-        <h3 class="text-md font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-3">
-          Información de Pago
-        </h3>
-        <div class="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <span class="font-medium text-gray-600">N° Recibo:</span>
-            <p class="text-gray-800">{{ data[0]?.nroRecibo || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Fecha Pago:</span>
-            <p class="text-gray-800">{{ data[0]?.fechaPago || '-' }}</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="mb-6" *ngIf="data[0]?.observacion">
-        <h3 class="text-md font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-3">
-          Observaciones
-        </h3>
-        <p class="text-sm text-gray-700">{{ data[0]?.observacion }}</p>
-      </div>
-
-      <div class="mb-6">
-        <h3 class="text-md font-semibold text-gray-800 border-b border-gray-200 pb-2 mb-3">
-          Información Adicional
-        </h3>
-        <div class="grid grid-cols-2 gap-4 text-sm">
-          <div>
-            <span class="font-medium text-gray-600">Concepto:</span>
-            <p class="text-gray-800">{{ data[0]?.descConcepto || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">N° Ordenanza:</span>
-            <p class="text-gray-800">{{ data[0]?.nroOrdenanza || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Fecha Solicitud:</span>
-            <p class="text-gray-800">{{ data[0]?.fechaSolicitud || '-' }}</p>
-          </div>
-          <div>
-            <span class="font-medium text-gray-600">Operador Registro:</span>
-            <p class="text-gray-800">{{ data[0]?.operadorRegistro || '-' }}</p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="px-4 py-3 border-t border-gray-200 flex justify-end flex-shrink-0">
-      <button 
-        (click)="cerrarConAnimacion()"
-        class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
-        Cerrar
-      </button>
-    </div>
-
   </div>
-</div>
+
+  <div *ngIf="!cargando && data.length === 0" class="flex items-center justify-center p-8">
+    <p class="text-sm text-gray-500">No se encontró información para esta solicitud</p>
+  </div>
+
+  <div *ngIf="!cargando && data.length > 0">
+    <!-- Información General -->
+    <app-section-header title="Información General"></app-section-header>
+    <div class="grid grid-cols-2 gap-4 text-sm mb-6">
+      <div><span class="font-medium text-gray-600">N° Solicitud:</span><p class="text-gray-800">{{ data[0]?.nroSolicitud || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">N° Licencia:</span><p class="text-gray-800">{{ data[0]?.nroLicencia || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Fecha Licencia:</span><p class="text-gray-800">{{ data[0]?.fechaLicencia || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Tipo de Licencia:</span><p class="text-gray-800">{{ data[0]?.descTipoLicencia || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Estado Trámite:</span><p class="text-gray-800">{{ data[0]?.estadoTramite || '-' }}</p></div>
+      <div>
+        <span class="font-medium text-gray-600">Estado:</span>
+        <p [class.text-green-600]="data[0]?.estado === 'ACTIVO'" [class.text-red-600]="data[0]?.estado === 'INACTIVO'" class="text-gray-800">
+          {{ data[0]?.estado || '-' }}
+        </p>
+      </div>
+    </div>
+
+    <app-section-header title="Expediente y Resolución"></app-section-header>
+    <div class="grid grid-cols-2 gap-4 text-sm mb-6">
+      <div><span class="font-medium text-gray-600">N° Expediente:</span><p class="text-gray-800">{{ data[0]?.nroExpediente || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Fecha Expediente:</span><p class="text-gray-800">{{ data[0]?.fechaExpediente || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">N° Resolución:</span><p class="text-gray-800">{{ data[0]?.nroResolucion || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Fecha Resolución:</span><p class="text-gray-800">{{ data[0]?.fechaResolucion || '-' }}</p></div>
+    </div>
+
+    <app-section-header title="Titular y Establecimiento"></app-section-header>
+    <div class="grid grid-cols-2 gap-4 text-sm mb-6">
+      <div><span class="font-medium text-gray-600">Razón Social:</span><p class="text-gray-800">{{ data[0]?.razonSocial || data[0]?.nombre || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Titular Licencia:</span><p class="text-gray-800">{{ data[0]?.TitularLicencia || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Establecimiento:</span><p class="text-gray-800">{{ data[0]?.descEstablecimiento || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Dirección Local:</span><p class="text-gray-800">{{ data[0]?.direccionLocal || '-' }}</p></div>
+    </div>
+
+    <app-section-header title="Vigencia"></app-section-header>
+    <div class="grid grid-cols-2 gap-4 text-sm mb-6">
+      <div><span class="font-medium text-gray-600">Vigencia Desde:</span><p class="text-gray-800">{{ data[0]?.vigenciaDesde || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Vigencia Hasta:</span><p class="text-gray-800">{{ data[0]?.vigenciaHasta || '-' }}</p></div>
+    </div>
+
+    <ng-container *ngIf="data[0]?.nroRecibo || data[0]?.fechaPago">
+      <app-section-header title="Información de Pago"></app-section-header>
+      <div class="grid grid-cols-2 gap-4 text-sm mb-6">
+        <div><span class="font-medium text-gray-600">N° Recibo:</span><p class="text-gray-800">{{ data[0]?.nroRecibo || '-' }}</p></div>
+        <div><span class="font-medium text-gray-600">Fecha Pago:</span><p class="text-gray-800">{{ data[0]?.fechaPago || '-' }}</p></div>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="data[0]?.observacion">
+      <app-section-header title="Observaciones"></app-section-header>
+      <p class="text-sm text-gray-700 mb-6">{{ data[0]?.observacion }}</p>
+    </ng-container>
+
+    <app-section-header title="Información Adicional"></app-section-header>
+    <div class="grid grid-cols-2 gap-4 text-sm">
+      <div><span class="font-medium text-gray-600">Concepto:</span><p class="text-gray-800">{{ data[0]?.descConcepto || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">N° Ordenanza:</span><p class="text-gray-800">{{ data[0]?.nroOrdenanza || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Fecha Solicitud:</span><p class="text-gray-800">{{ data[0]?.fechaSolicitud || '-' }}</p></div>
+      <div><span class="font-medium text-gray-600">Operador Registro:</span><p class="text-gray-800">{{ data[0]?.operadorRegistro || '-' }}</p></div>
+    </div>
+  </div>
+
+</app-modal-wrapper>

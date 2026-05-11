@@ -16,9 +16,10 @@
     </div>
 
     <div class="flex items-center justify-between mb-6">
-        <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
-            Declaración jurada y anexos
-        </span>
+        <app-section-header 
+            title="Declaración jurada y anexos" 
+            badge="">
+        </app-section-header>
     </div>
 
     <div *ngIf="esTipoEspecial" class="border border-gray-200 rounded-xl overflow-hidden">
@@ -28,7 +29,7 @@
                     Número de licencia padre
                 </label>
                 <input type="text" [(ngModel)]="nroLicenciaPadre" maxlength="7"
-                    (input)="filtrarNumeros($event,nroLicenciaPadre)"
+                    (input)="filtrarNumeros($event)"
                     class="w-64 px-4 py-2.5 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
                     placeholder="Ingrese número de expediente padre">
             </div>
@@ -38,31 +39,27 @@
                     Año de licencia padre
                 </label>
                 <input type="text" [(ngModel)]="anioLicenciaPadre" maxlength="4"
-                    (input)="filtrarNumeros($event,anioLicenciaPadre)"
+                    (input)="filtrarNumeros($event)"
                     class="w-40 px-4 py-2.5 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
                     placeholder="Ingrese año">
             </div>
         </div>
-        <div class="bg-gray-50 px-5 py-4 flex justify-end gap-3">
-            <button [routerLink]="['../pantalla3']" (click)="guardarState()"
-                class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
-                ← Regresar
-            </button>
-            <button [routerLink]="['../pantalla5']" (click)="guardarState()" [disabled]="!formularioValido"
-                class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
-                Continuar
-                <span class="text-base leading-none">→</span>
-            </button>
-        </div>
+        <app-nav-buttons
+            backRoute="../pantalla3"
+            nextRoute="../pantalla5"
+            [nextDisabled]="!formularioValido"
+            (back)="guardarState()"
+            (next)="guardarState()">
+        </app-nav-buttons>
     </div>
 
     <div *ngIf="!esTipoEspecial" class="border border-gray-200 rounded-xl overflow-hidden">
         <div class="bg-white p-5 border-b border-gray-200">
             <div class="mb-4">
-                <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
-                    Declaración jurada
-                </span>
-                <div class="h-px bg-gray-200 mt-2 mb-4"></div>
+                <app-section-header 
+                    title="Declaración jurada" 
+                    badge="">
+                </app-section-header>
             </div>
 
             <div class="space-y-3 mb-6">
@@ -465,16 +462,12 @@
             </div>
         </div>
 
-        <div class="bg-gray-50 px-5 py-4 flex justify-end gap-3">
-            <button [routerLink]="['../pantalla3']" (click)="guardarState()"
-                class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
-                ← Regresar
-            </button>
-            <button [routerLink]="['../pantalla5']" (click)="guardarState()" [disabled]="!formularioValido"
-                class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
-                Continuar
-                <span class="text-base leading-none">→</span>
-            </button>
-        </div>
+        <app-nav-buttons
+            backRoute="../pantalla3"
+            nextRoute="../pantalla5"
+            [nextDisabled]="!formularioValido"
+            (back)="guardarState()"
+            (next)="guardarState()">
+        </app-nav-buttons>
     </div>
 </div>
