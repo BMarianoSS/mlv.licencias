@@ -125,7 +125,7 @@ export interface IntentosUsuarioResponse {
 
 
 export interface IDesbloquearUsuarioRequest {
-    login:                 string;
+    login:                 string | null;
 }
 
 export interface DesbloquearUsuarioResponse {

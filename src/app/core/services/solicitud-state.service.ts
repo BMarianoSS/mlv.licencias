@@ -38,6 +38,8 @@ export class SolicitudStateService {
     descrip_giro            = '';
     check_dia_siguiente     = false;
     check_horario_continuo  = false;
+    latitud                 = '';
+    longitud                = '';
 
     // Pantalla 3 (autorización sectorial)
     ASentidadautoriza       = '';
@@ -114,6 +116,8 @@ export class SolicitudStateService {
         this.descrip_giro            = '';
         this.check_dia_siguiente     = false;
         this.check_horario_continuo  = false;
+        this.latitud                 = '';
+        this.longitud                = '';
 
         // Pantalla 3 (autorización sectorial)
         this.ASentidadautoriza       = '';

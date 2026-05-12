@@ -32,7 +32,7 @@ export class Pantalla2Component implements OnInit {
 
   codPredio = '';
   direccionEstablecimiento            = '';
-  direccionEstablecimientoCombinada            = '';
+  direccionEstablecimientoCombinada   = '';
   mostrarModalMapa                    = false;
 
   condiciones: any[]                  = [];
@@ -63,6 +63,8 @@ export class Pantalla2Component implements OnInit {
   check_dia_siguiente: boolean        = false;
   check_horario_continuo: boolean     = false;
   id_zonificacion: any                = '';
+  latitud: any                        = '';
+  longitud: any                       = '';
   
   nroInterior: any                    = '';
   nroStand: any                       = '';
@@ -128,6 +130,8 @@ export class Pantalla2Component implements OnInit {
     this.desc_zonif               = s.descripZonif;    
     this.check_dia_siguiente      = s.check_dia_siguiente;
     this.check_horario_continuo   = s.check_horario_continuo;
+    this.latitud                  = s.latitud;
+    this.longitud                 = s.longitud;
     this.giros                    = s.giros.map(g => ({
       codigo:      g.idGiros,
       descripcion: g.descGiros,
@@ -150,6 +154,7 @@ export class Pantalla2Component implements OnInit {
     tipo_via: string; direcPred: string; id_via: string;
     nroPredio: string; intPredio: string; mzPredio: string;
     ltPredio: string; areaConstr: string; refEstablecimiento: string;
+    lat: string; lng: string;
   }) {
     this.codPredio                = predio.codPredio;
     this.direccionEstablecimiento = predio.direccion;    
@@ -166,6 +171,9 @@ export class Pantalla2Component implements OnInit {
     this.state.ltPredio           = predio.ltPredio;
     this.state.areaConstr         = predio.areaConstr;
     this.state.refEstablecimiento = predio.refEstablecimiento;
+
+    this.state.latitud                  = predio.lat;
+    this.state.longitud                 = predio.lng;
 
     // obtener zonificación del predio seleccionado
     this.solicitudService.obtenerZonificacion({ cod_predio: predio.codPredio })
@@ -238,5 +246,7 @@ export class Pantalla2Component implements OnInit {
       : `${this.desde} A ${this.hasta} HORAS`;    
     s.check_dia_siguiente     = this.check_dia_siguiente;
     s.check_horario_continuo  = this.check_horario_continuo;
+    s.latitud                 = this.latitud;
+    s.longitud                = this.longitud;
   }
 }

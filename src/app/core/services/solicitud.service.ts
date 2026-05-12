@@ -9,7 +9,7 @@ import {
     EditarRepresentanteLegalResponse, GiroPorZonificacionRequest, GiroPorZonificacionResponse, IEditarRepresentanteLegalRequest,
     IPredioRequest, IRepresentanteLegalRequest, IZonificacionRequest, IlistarEstablecimientosRequest,
     PredioResponse, RepresentanteLegalResponse, ZonificacionResponse, listarEstablecimientosResponse,
-    IPreguntasXAnexoFuncionRequest, PreguntasXAnexoFuncionResponse
+    IPreguntasXAnexoFuncionRequest, PreguntasXAnexoFuncionResponse,  CodLotePredioResponse,    ICodLotePredioRequest
     } from "../interfaz/ISolicitudLicencia";
 import { ApiResponse, ApiResponseData } from "../interfaz/ApiResponse";
 
@@ -101,5 +101,9 @@ export class SolicitudService {
             responseType: 'blob'
             }
         );
+    }
+
+    public listarCodLotePredios(payload: ICodLotePredioRequest): Observable<ApiResponse<CodLotePredioResponse>> {
+        return this.http.post<ApiResponse<CodLotePredioResponse>>(`${this.apiUrl}/obtener-cod-lote-y-listar-predios`, payload);
     }
 }

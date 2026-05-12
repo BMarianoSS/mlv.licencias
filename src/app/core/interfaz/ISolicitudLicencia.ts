@@ -14,7 +14,9 @@ export interface PredioResponse {
 }
 
 export interface IPredioRequest {
-    codigo_contrib:      string;
+    cod_lote:      string;
+    latitud?:      string;
+    longitud?:     string;
 }
 
 
@@ -226,6 +228,8 @@ export interface ICrearSolicitudRequest {
     descrip_giro:           string;
     nro_licencia_padre:     string;
     anio_licencia_padre:    string;
+    latitud:                string;
+    longitud:               string;
 }
 
 
@@ -300,4 +304,26 @@ export interface PreguntasXAnexoFuncionResponse {
 export interface IPreguntasXAnexoFuncionRequest {
     nro_anexo:  string;
     id_funcion: string;
+}
+
+
+
+export interface CodLotePredioResponse {
+    codPred:            string;
+    direccion:          string;
+    lat:                string;
+    lon:                string;
+    tipoVia:            string;
+    idVia:              string;
+    nroPredio:          string;
+    intPredio:          string;
+    mzPredio:           string;
+    ltPredio:           string;
+    areaConstr:         string;
+    refEstablecimiento: string;
+}
+
+export interface ICodLotePredioRequest {
+    lat:      string;
+    lon:      string;
 }

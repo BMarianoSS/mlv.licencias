@@ -59,8 +59,7 @@ export class LoginComponent {
 
         this.authService.obtenerUsuario({
           id_solicitante: idSolicitante
-        })
-        .subscribe({
+        }).subscribe({
           next: (userResp) => {
             this.authService.setSession(
               token,
@@ -68,6 +67,13 @@ export class LoginComponent {
             );
             this.router.navigate(['/dashboard']);
           },
+          error: (err) => {
+            console.error('Error al obtener usuario:', err);
+          }
+        });
+        this.authService.desbloquearUsuario({
+          login: payload.codigo
+        }).subscribe({
           error: (err) => {
             console.error('Error al obtener usuario:', err);
           }

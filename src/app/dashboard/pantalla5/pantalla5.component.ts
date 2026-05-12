@@ -176,6 +176,8 @@ export class Pantalla5Component implements OnInit {
       plazo_mes:            '',
       nro_licencia_padre:   s.nro_licencia_padre,
       anio_licencia_padre:  s.anio_licencia_padre,
+      latitud:              s.latitud,
+      longitud:             s.longitud
     };
 
     this.solicitudService.crearSolicitud(payload).subscribe({
