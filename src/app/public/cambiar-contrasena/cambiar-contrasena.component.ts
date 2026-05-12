@@ -34,7 +34,6 @@ export class CambiarContrasenaComponent implements OnInit {
     }
 
     ngOnInit() {
-        // Recuperar datos de la sesión
         const email = sessionStorage.getItem('changePasswordEmail');
 
         if (!email) {

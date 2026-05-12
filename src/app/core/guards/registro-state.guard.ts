@@ -9,7 +9,7 @@ export const registroStateGuard: CanActivateFn = (route) => {
     const paso = route.data['paso'] as number;
 
     if (paso === 3 && state.paso1.tipoPersona !== '2') {
-        return router.createUrlTree(['/registro/paso-3']); // ir a confirmación o login
+        return router.createUrlTree(['/registro/paso-3']);
     }
 
     const guardMap: Record<number, () => boolean> = {

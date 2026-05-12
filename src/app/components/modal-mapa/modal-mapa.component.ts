@@ -93,7 +93,6 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private onMapClick(lat: number, lng: number): void {
-    // Reposicionar marcador de clic
     if (this.clickMarker) {
       this.map.removeLayer(this.clickMarker);
     }
@@ -112,7 +111,6 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
       lon: lng.toString()
     }).subscribe({
       next: (resp) => {
-        // El endpoint puede devolver un objeto o un array
         const raw = Array.isArray(resp.data) ? resp.data : [resp.data];
         this.predios = raw
           .filter(g => g && g.codPred)

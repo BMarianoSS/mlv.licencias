@@ -10,7 +10,6 @@ export class LoginGuard implements CanActivate {
 
   canActivate(): boolean {
     if (this.authService.isLoggedIn()) {
-      // Si el usuario está logueado y el token sigue vivo, lo enviamos al dashboard
       this.router.navigate(['/principal']);
       return false;
     }

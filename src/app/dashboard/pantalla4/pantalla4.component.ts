@@ -169,7 +169,6 @@ export class pantalla4Component {
         a.click();
         window.URL.revokeObjectURL(url);
 
-        // Marcar como descargado y avanzar step
         switch (numero) {
           case 1: this.anexo1Descargado = true; this.anexo1Step = 3; break;
           case 2: this.anexo2Descargado = true; this.anexo2Step = 3; break;

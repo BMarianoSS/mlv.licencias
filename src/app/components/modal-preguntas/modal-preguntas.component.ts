@@ -131,7 +131,6 @@ export class ModalPreguntasComponent implements OnInit {
           this.comboService.listarUbigeo({ accion: '10', id_departamento: dep, id_provincia: prov })
             .subscribe(r2 => {
               this.distritos = r2.data;
-              // Reasignar distrito para que el select lo detecte
               const dist = this.respuestas['distrito'];
               if (dist) this.respuestas['distrito'] = dist;
             });

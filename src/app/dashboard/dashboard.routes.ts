@@ -51,5 +51,4 @@ export const DASHBOARD_ROUTES: Routes = [
         ]
     },
     { path: 'principal', component: principalComponent },
-    //{ path: 'estado-cuenta', component: EstadoCuentaComponent },
 ];

@@ -43,7 +43,6 @@ export class registroComponent implements OnInit {
   }
 
   irAPaso(index: number): void {
-    // Solo permite navegar a pasos ya visitados (anteriores al actual)
     if (index < this.pasoActual) {
       this.router.navigateByUrl(this.pasos[index].ruta);
     }

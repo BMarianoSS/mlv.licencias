@@ -15,19 +15,17 @@ import { SectionHeaderComponent, NavButtonsComponent } from '../../shared';
   templateUrl: './registro-paso-2.component.html',
 })
 export class RegistroPaso2Component {
-  // Datos de cuenta
   correo     = '';
   telefono   = '';
   password   = '';
   rePassword = '';
 
-  // Datos de dirección (incluye denominación)
   direccion            = '';
   numero               = '';
   interior             = '';
   manzana              = '';
   lote                 = '';
-  denominacion         = '';  // ← Denominación/Razón Social en dirección
+  denominacion         = '';  
   departamentos: any[] = [];
   provincias: any[]    = [];
   distritos: any[]     = [];
@@ -35,7 +33,6 @@ export class RegistroPaso2Component {
   provinciaSeleccionada    = '';
   distritoSeleccionado     = '';
 
-  // Información complementaria
   nroRuc            = '';  
   tieneDiscapacidad = '';
 
@@ -109,7 +106,6 @@ export class RegistroPaso2Component {
   }
 
   siguiente() {
-    // Guardar en state
     this.state.paso2 = {
       correo:       this.correo,
       telefono:     this.telefono,
@@ -128,7 +124,6 @@ export class RegistroPaso2Component {
       rePassword:   this.rePassword,
     };
 
-    // Lógica según tipo de persona
     if (this.state.paso1.tipoPersona === '2') {
       this.router.navigate(['/registro/paso-3']);
     } else {

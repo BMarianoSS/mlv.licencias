@@ -7,12 +7,11 @@ export const AuthGuard: CanActivateFn = (route, state) => {
   const token = localStorage.getItem('authToken');
 
   if (!token || isTokenExpired(token)) {
-    // Token inválido → limpiar y redirigir
     localStorage.removeItem('authToken');
     localStorage.removeItem('userData');
     router.navigate(['/login']);
     return false;
   }
 
-  return true; // Token válido → permitir acceso
+  return true;
 };

@@ -49,10 +49,8 @@ export class SolicitarCambioContrasenaComponent {
                     this.emailEnviado = response.email || '';
                     this.messageSuccess = `Se ha enviado un código de 6 dígitos al correo ${correo}. El código expira en 15 minutos.`;
 
-                    // Guardar datos temporales en sessionStorage
                     sessionStorage.setItem('changePasswordEmail', correo);
 
-                    // Redirigir al componente de cambio de contraseña después de 2 segundos
                     setTimeout(() => {
                         this.router.navigate(['/cambiar-contrasena']);
                     }, 2000);

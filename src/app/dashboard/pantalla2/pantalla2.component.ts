@@ -46,7 +46,6 @@ export class Pantalla2Component implements OnInit {
   id_zonificacion_actual: any         = '';
   valores: any                        = '';
 
-  // validaciones       
   cod_pred: string                    = '';
   direccion: string                   = '';
   cod_zonif: string                   = '';
@@ -138,7 +137,6 @@ export class Pantalla2Component implements OnInit {
       coduso:      g.coduso
     }));
 
-    // Horario
     if (s.idhorario === '1') {
       this.check_horario_continuo = true;
     } else {
@@ -161,7 +159,6 @@ export class Pantalla2Component implements OnInit {
     this.direccionEstablecimientoCombinada = predio.tipo_via.trim() + " " + predio.direccion.trim() + " " + predio.nroPredio.trim();   
     this.state.direccionEstablecimientoCombinada = predio.tipo_via.trim() + " " + predio.direccion.trim() + " " + predio.nroPredio.trim();   
 
-    // guardar directo en state
     this.state.tipo_via           = predio.tipo_via;
     this.state.direcPred          = predio.direcPred;
     this.state.id_via             = predio.id_via;
@@ -175,7 +172,6 @@ export class Pantalla2Component implements OnInit {
     this.state.latitud                  = predio.lat;
     this.state.longitud                 = predio.lng;
 
-    // obtener zonificación del predio seleccionado
     this.solicitudService.obtenerZonificacion({ cod_predio: predio.codPredio })
     .subscribe(resp => {
       const zonif = resp.data?.[0];

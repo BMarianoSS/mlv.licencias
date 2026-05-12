@@ -73,6 +73,6 @@ export class AuthService {
 
   private isTokenExpired(token: string): boolean {
     const payload = JSON.parse(atob(token.split('.')[1]));
-    return Date.now() >= payload.exp * 1000; // Comparar tiempo de expiración
+    return Date.now() >= payload.exp * 1000;
   }
 }

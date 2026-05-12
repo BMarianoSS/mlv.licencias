@@ -31,11 +31,6 @@ export class ModalRepresentanteComponent implements OnChanges {
     telefono: '',
   };
 
-  ngOnInit() {
-    // No longer loading tipoDocumentos here
-  }
-
-  // Cuando se abra en modo edición, precarga los datos
   ngOnChanges(changes: SimpleChanges) {
     if (changes['datosIniciales'] && this.datosIniciales) {
       this.rep = { ...this.datosIniciales };
@@ -53,7 +48,6 @@ export class ModalRepresentanteComponent implements OnChanges {
     this.representanteGuardado.emit({ ...this.rep });
     this.cerrar.emit();
   }
-
 
   soloNumeros(value: string, campo: keyof Representante) {
     const soloNumeros = value.replace(/[^0-9]/g, '');

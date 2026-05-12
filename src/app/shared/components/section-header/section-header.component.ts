@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
 })
 export class SectionHeaderComponent {
     @Input() title = '';
-    @Input() badge = '';           // ej: "(de corresponder)"
+    @Input() badge = '';
     @Input() divider = true;
     @Input() wrapperClass = 'flex items-center gap-2';
 }

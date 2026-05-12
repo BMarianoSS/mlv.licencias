@@ -9,15 +9,12 @@ export const TokenInterceptor: HttpInterceptorFn = (req, next) => {
 
   if (token) {
     if (isTokenExpired(token)) {
-      // Token expirado: limpiar y redirigir
       localStorage.removeItem('authToken');
       localStorage.removeItem('userData');
       router.navigate(['/login']);
-      // devolvemos la request sin headers para no romper el flujo
       return next(req);
     }
 
-    // Token válido → se adjunta en headers
     req = req.clone({
       setHeaders: {
         Authorization: `Bearer ${token}`
@@ -25,6 +22,5 @@ export const TokenInterceptor: HttpInterceptorFn = (req, next) => {
     });
   }
 
-  // Siempre devolver el flujo
   return next(req);
 };
