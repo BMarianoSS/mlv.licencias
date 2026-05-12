@@ -1,5 +1,5 @@
 <div class="p-6">
-  <app-modal-representante *ngIf="mostrarModalRepresentante" [datosIniciales]="representanteParaEditar"
+  <app-modal-representante *ngIf="mostrarModalRepresentante" [datosIniciales]="representanteParaEditar" [tipoDocumentos]="tipoDocumentos"
     (cerrar)="mostrarModalRepresentante = false" (representanteGuardado)="onRepresentanteGuardado($event)">
   </app-modal-representante>
 

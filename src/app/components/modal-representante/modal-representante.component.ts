@@ -1,8 +1,7 @@
 import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ComboService } from '../../core/services/combo.service';
-import { ModalWrapperComponent } from '../../shared';
+import { ModalWrapperComponent, FormFieldComponent } from '../../shared';
 
 export interface Representante {
   tipoDoc: string;
@@ -15,17 +14,14 @@ export interface Representante {
 @Component({
   selector: 'app-modal-representante',
   standalone: true,
-  imports: [CommonModule, FormsModule, ModalWrapperComponent],
+  imports: [CommonModule, FormsModule, ModalWrapperComponent, FormFieldComponent],
   templateUrl: './modal-representante.component.html',
 })
 export class ModalRepresentanteComponent implements OnChanges {
   @Input()  datosIniciales: Representante | null = null;
+  @Input()  tipoDocumentos: any[] = [];
   @Output() cerrar = new EventEmitter<void>();
   @Output() representanteGuardado = new EventEmitter<Representante>();
-
-  constructor(private comboService: ComboService) { }
-
-  tipoDocumentos: any[] = [];
 
   rep: Representante = {
     tipoDoc: '',
@@ -36,7 +32,7 @@ export class ModalRepresentanteComponent implements OnChanges {
   };
 
   ngOnInit() {
-    this.listarTipoDoc();
+    // No longer loading tipoDocumentos here
   }
 
   // Cuando se abra en modo edición, precarga los datos
@@ -58,11 +54,6 @@ export class ModalRepresentanteComponent implements OnChanges {
     this.cerrar.emit();
   }
 
-  listarTipoDoc() {
-    this.comboService.listarTipoDoc({}).subscribe(resp => {
-      this.tipoDocumentos = resp.data;
-    });
-  }
 
   soloNumeros(value: string, campo: keyof Representante) {
     const soloNumeros = value.replace(/[^0-9]/g, '');
