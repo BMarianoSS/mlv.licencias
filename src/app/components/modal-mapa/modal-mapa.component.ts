@@ -8,6 +8,7 @@ import { FormsModule } from '@angular/forms';
 import { SolicitudService } from '../../core/services/solicitud.service';
 import { ModalWrapperComponent } from '../../shared';
 import * as L from 'leaflet';
+import proj4 from 'proj4';
 
 const iconDefault = L.icon({
   iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
@@ -19,6 +20,9 @@ const iconDefault = L.icon({
   shadowSize: [41, 41]
 });
 L.Marker.prototype.options.icon = iconDefault;
+
+// Proyección UTM Zona 18S (PSAD56 / WGS84) → usada por catastro Lima
+const UTM18S = '+proj=utm +zone=18 +south +datum=WGS84 +units=m +no_defs';
 
 export interface PredioMapa {
   codPredio:          string;
@@ -34,6 +38,7 @@ export interface PredioMapa {
   ltPredio:           string;
   areaConstr:         string;
   refEstablecimiento: string;
+  geometry:           string; // WKT POLYGON en UTM
 }
 
 @Component({
@@ -63,10 +68,12 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
 
   private map!: L.Map;
   private clickMarker: L.Marker | null = null;
+  private predioPolygon: L.Polygon | null = null;
 
   predios: PredioMapa[] = [];
   predioActivo: PredioMapa | null = null;
   cargando = false;
+  listaPanelVisible = false; // ← panel oculto al inicio
   mensajeEstado = 'Haz clic en el mapa para buscar predios cercanos.';
 
   constructor(
@@ -94,6 +101,9 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private onMapClick(lat: number, lng: number): void {
+    // Limpiar polígono anterior
+    this.limpiarPoligono();
+
     if (this.clickMarker) {
       this.map.removeLayer(this.clickMarker);
     }
@@ -105,6 +115,7 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
     this.predios = [];
     this.predioActivo = null;
     this.cargando = true;
+    this.listaPanelVisible = true; // ← mostrar panel al hacer clic
     this.mensajeEstado = 'Buscando predios...';
 
     this.solicitudService.listarCodLotePredios({
@@ -120,15 +131,16 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
             direccion:          g.direccion,
             lat:                g.lat,
             lng:                g.lon,
-            tipo_via:           g.tipoVia           ?? '',
-            direcPred:          g.direccion         ?? '',
-            id_via:             g.idVia             ?? '',
-            nroPredio:          g.nroPredio         ?? '',
-            intPredio:          g.intPredio         ?? '',
-            mzPredio:           g.mzPredio          ?? '',
-            ltPredio:           g.ltPredio          ?? '',
-            areaConstr:         g.areaConstr        ?? '',
+            tipo_via:           g.tipoVia            ?? '',
+            direcPred:          g.direccion          ?? '',
+            id_via:             g.idVia              ?? '',
+            nroPredio:          g.nroPredio          ?? '',
+            intPredio:          g.intPredio          ?? '',
+            mzPredio:           g.mzPredio           ?? '',
+            ltPredio:           g.ltPredio           ?? '',
+            areaConstr:         g.areaConstr         ?? '',
             refEstablecimiento: g.refEstablecimiento ?? '',
+            geometry:           g.geometry           ?? '',
           }));
 
         this.clickMarker?.setPopupContent(
@@ -148,6 +160,59 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
         this.cargando = false;
       }
     });
+  }
+
+  // ── Dibuja el polígono UTM del predio seleccionado ──────────────────────
+  dibujarPoligono(predio: PredioMapa): void {
+    this.predioActivo = predio;
+    this.limpiarPoligono();
+
+    if (!predio.geometry) return;
+
+    const latlngs = this.wktUtmToLatLng(predio.geometry);
+    if (!latlngs.length) return;
+
+    this.predioPolygon = L.polygon(latlngs, {
+      color:       '#1d4ed8',
+      weight:      2,
+      opacity:     1,
+      fillColor:   '#3b82f6',
+      fillOpacity: 0.25,
+    }).addTo(this.map);
+
+    // Zoom al polígono
+    this.map.fitBounds(this.predioPolygon.getBounds(), { padding: [40, 40] });
+  }
+
+  private limpiarPoligono(): void {
+    if (this.predioPolygon) {
+      this.map.removeLayer(this.predioPolygon);
+      this.predioPolygon = null;
+    }
+  }
+
+  // ── Parsea WKT POLYGON en UTM y convierte a LatLng (WGS84) ─────────────
+  private wktUtmToLatLng(wkt: string): L.LatLngTuple[] {
+    const match = wkt.match(/POLYGON\s*\(\(([^)]+)\)\)/i);
+    if (!match) return [];
+
+    // Resuelve proj4 independientemente de cómo fue importado
+    const proj4Fn: Function = (proj4 as any).default ?? proj4;
+
+    return match[1].split(',').map(pair => {
+      const [eStr, nStr] = pair.trim().split(/\s+/);
+      const easting  = parseFloat(eStr);
+      const northing = parseFloat(nStr);
+      // proj4(from, to, [x, y]) → [lng, lat]
+      const [lng, lat] = proj4Fn(UTM18S, 'WGS84', [easting, northing]) as [number, number];
+      return [lat, lng] as L.LatLngTuple;
+    });
+  }
+
+  cerrarListaPanel(): void {
+    this.listaPanelVisible = false;
+    this.predioActivo = null;
+    this.limpiarPoligono();
   }
 
   seleccionar(predio: PredioMapa): void {
@@ -170,6 +235,7 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.limpiarPoligono();
     if (this.clickMarker) this.map.removeLayer(this.clickMarker);
     if (this.map) this.map.remove();
   }

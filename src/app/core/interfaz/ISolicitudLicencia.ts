@@ -17,6 +17,7 @@ export interface IPredioRequest {
     cod_lote:      string;
     latitud?:      string;
     longitud?:     string;
+    geometry?:     string;
 }
 
 
@@ -321,6 +322,7 @@ export interface CodLotePredioResponse {
     ltPredio:           string;
     areaConstr:         string;
     refEstablecimiento: string;
+    geometry: string;
 }
 
 export interface ICodLotePredioRequest {
