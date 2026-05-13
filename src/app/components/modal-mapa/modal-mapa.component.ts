@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { SolicitudService } from '../../core/services/solicitud.service';
+import { ModalWrapperComponent } from '../../shared';
 import * as L from 'leaflet';
 
 const iconDefault = L.icon({
@@ -38,7 +39,7 @@ export interface PredioMapa {
 @Component({
   selector: 'app-modal-mapa',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ModalWrapperComponent],
   templateUrl: './modal-mapa.component.html',
 })
 export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {

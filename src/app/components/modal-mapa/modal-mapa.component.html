@@ -1,70 +1,62 @@
-<div class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-  <div class="bg-white rounded-xl shadow-xl w-[900px] h-[65vh] flex flex-col overflow-hidden">
-    <div class="bg-blue-700 px-5 py-3 flex justify-between items-center flex-shrink-0">
-      <span class="text-white font-medium text-sm uppercase tracking-widest">
-        Buscar predio
-      </span>
-      <button (click)="cerrar.emit()" class="text-white/80 hover:text-white text-2xl leading-none transition">&times;</button>
+<app-modal-wrapper
+  title="Buscar predio"
+  width="900px"
+  maxHeight="65vh"
+  bodyClass="p-0"
+  (cerrar)="cerrar.emit()">
+
+  <div class="px-4 py-2 bg-blue-50 border-b border-blue-100 flex items-center gap-2">
+    <svg *ngIf="!cargando" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20A10 10 0 0012 2z"/>
+    </svg>
+    <div *ngIf="cargando" class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 flex-shrink-0"></div>
+    <span class="text-xs text-blue-700">{{ mensajeEstado }}</span>
+  </div>
+
+  <div class="flex overflow-hidden" style="height: calc(65vh - 110px);">
+
+    <div class="flex-1 relative bg-gray-100">
+      <div #mapaContainer class="w-full h-full min-h-[400px]" style="z-index: 0; cursor: crosshair;"></div>
     </div>
 
-    <div class="px-4 py-2 bg-blue-50 border-b border-blue-100 flex-shrink-0 flex items-center gap-2">
-      <svg *ngIf="!cargando" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-500 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20A10 10 0 0012 2z"/>
-      </svg>
-      <div *ngIf="cargando" class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 flex-shrink-0"></div>
-      <span class="text-xs text-blue-700">{{ mensajeEstado }}</span>
-    </div>
-
-    <div class="flex flex-1 overflow-hidden min-h-0">
-      <div class="flex-1 relative bg-gray-100">
-        <div #mapaContainer class="w-full h-full min-h-[400px]" style="z-index: 0; cursor: crosshair;"></div>
+    <div class="w-[280px] flex flex-col border-l border-gray-200 bg-white overflow-hidden">
+      <div class="bg-gray-50 px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200 flex-shrink-0">
+        Predios encontrados ({{ predios.length }})
       </div>
 
-      <div class="w-[280px] flex flex-col border-l border-gray-200 bg-white overflow-hidden">
-        <div class="bg-gray-50 px-4 py-2 text-xs font-medium text-gray-500 uppercase tracking-wider border-b border-gray-200 flex-shrink-0">
-          Predios encontrados ({{ predios.length }})
-        </div>
+      <div *ngIf="cargando" class="flex-1 overflow-y-auto p-3 space-y-2">
+        <div *ngFor="let i of [1,2,3]" class="animate-pulse rounded-lg bg-gray-100 h-14"></div>
+      </div>
 
-        <div *ngIf="cargando" class="flex-1 overflow-y-auto p-3 space-y-2">
-          <div *ngFor="let i of [1,2,3]" class="animate-pulse rounded-lg bg-gray-100 h-14"></div>
-        </div>
-
-        <ng-container *ngIf="!cargando">
-          <div class="flex-1 overflow-y-auto">
-            <div *ngIf="predios.length === 0" class="flex flex-col items-center justify-center h-full text-center px-4 py-8 text-gray-400">
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A2 2 0 013 15.382V5a2 2 0 012-2h14a2 2 0 012 2v10.382a2 2 0 01-1.553 1.894L14 20M9 20v-6m5 6v-6"/>
-              </svg>
-              <p class="text-sm">Haz clic en el mapa para buscar predios.</p>
-            </div>
-
-            <div
-              *ngFor="let p of predios"
-              (click)="predioActivo = p"
-              [class.bg-blue-50]="predioActivo?.codPredio === p.codPredio"
-              [class.border-l-4]="predioActivo?.codPredio === p.codPredio"
-              [class.border-l-blue-700]="predioActivo?.codPredio === p.codPredio"
-              class="px-4 py-3 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition">
-              <div class="font-semibold text-blue-700 text-sm">{{ p.codPredio }}</div>
-              <div class="text-gray-500 text-xs mt-0.5 leading-snug">{{ p.tipo_via }} {{ p.direccion }} {{ p.nroPredio }}</div>
-              <button
-                *ngIf="predioActivo?.codPredio === p.codPredio"
-                (click)="$event.stopPropagation(); seleccionar(p)"
-                class="mt-2 w-full bg-blue-700 hover:bg-blue-800 text-white text-xs font-medium py-1.5 rounded-lg transition">
-                Seleccionar este predio
-              </button>
-            </div>
+      <ng-container *ngIf="!cargando">
+        <div class="flex-1 overflow-y-auto">
+          <div *ngIf="predios.length === 0" class="flex flex-col items-center justify-center h-full text-center px-4 py-8 text-gray-400">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mb-2 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 20l-5.447-2.724A2 2 0 013 15.382V5a2 2 0 012-2h14a2 2 0 012 2v10.382a2 2 0 01-1.553 1.894L14 20M9 20v-6m5 6v-6"/>
+            </svg>
+            <p class="text-sm">Haz clic en el mapa para buscar predios.</p>
           </div>
-        </ng-container>
-      </div>
-    </div>
 
-    <div class="px-4 py-3 border-t border-gray-200 flex justify-end flex-shrink-0">
-      <button
-        (click)="cerrar.emit()"
-        class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
-        Cerrar
-      </button>
+          <div
+            *ngFor="let p of predios"
+            (click)="predioActivo = p"
+            [class.bg-blue-50]="predioActivo?.codPredio === p.codPredio"
+            [class.border-l-4]="predioActivo?.codPredio === p.codPredio"
+            [class.border-l-blue-700]="predioActivo?.codPredio === p.codPredio"
+            class="px-4 py-3 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition">
+            <div class="font-semibold text-blue-700 text-sm">{{ p.codPredio }}</div>
+            <div class="text-gray-500 text-xs mt-0.5 leading-snug">{{ p.tipo_via }} {{ p.direccion }} {{ p.nroPredio }}</div>
+            <button
+              *ngIf="predioActivo?.codPredio === p.codPredio"
+              (click)="$event.stopPropagation(); seleccionar(p)"
+              class="mt-2 w-full bg-blue-700 hover:bg-blue-800 text-white text-xs font-medium py-1.5 rounded-lg transition">
+              Seleccionar este predio
+            </button>
+          </div>
+        </div>
+      </ng-container>
     </div>
   </div>
-</div>
+
+  <div slot="footer"></div>
+</app-modal-wrapper>

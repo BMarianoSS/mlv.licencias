@@ -34,6 +34,7 @@ export class LayoutComponent {
   }
 
   logout() {
+    this.state.limpiarState();
     this.authService.logout();
     this.router.navigate(['/login']);
   }

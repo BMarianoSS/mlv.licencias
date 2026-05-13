@@ -71,10 +71,6 @@
               class="w-32 px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-not-allowed" disabled>
             <input type="text" [(ngModel)]="desc_zonif"
               class="flex-1 px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-not-allowed" disabled>
-            <button
-              class="px-3 py-2 text-sm text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 transition">
-              🔍
-            </button>
           </div>
         </div>
 
@@ -82,7 +78,8 @@
           <div class="flex justify-between items-center mb-3">
             <app-section-header 
                 title="Giros" 
-                badge="(?)">
+                badge="(?)"
+                [divider]=false>
             </app-section-header>
             <button (click)="abrirModalGiro()" 
               class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-md border border-blue-200 text-blue-700 hover:bg-blue-50 transition disabled:opacity-50 disabled:cursor-not-allowed">
@@ -127,7 +124,8 @@
         <div class="flex justify-between items-center">
           <app-section-header 
             title="Información comercial" 
-            badge="">
+            badge=""
+            [divider]=false>
           </app-section-header>
           <button (click)="mostrarModalEstablecimientos = true"
             class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
