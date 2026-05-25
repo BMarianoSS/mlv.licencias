@@ -34,7 +34,8 @@ export class SolicitudStateService {
     horafin                 = '';
     idhorario               = '';
     horario                 = '';
-    giros: { idGiros: string; descGiros: string; coduso: string }[] = [];
+    giros: { idGiros: string; descGiros: string; coduso: string; nivelRiesgo: string }[] = [];
+    nivelesRiesgo: { nivelRiesgo: string }[] = [];
     descrip_giro            = '';
     check_dia_siguiente     = false;
     check_horario_continuo  = false;
@@ -113,6 +114,7 @@ export class SolicitudStateService {
         this.idhorario               = '';
         this.horario                 = '';
         this.giros                   = [];
+        this.nivelesRiesgo           = [];
         this.descrip_giro            = '';
         this.check_dia_siguiente     = false;
         this.check_horario_continuo  = false;

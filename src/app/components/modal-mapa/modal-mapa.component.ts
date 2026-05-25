@@ -3,7 +3,6 @@ import {
   AfterViewInit, OnDestroy, ElementRef, ViewChild, OnInit
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AuthService } from '../../core/services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { SolicitudService } from '../../core/services/solicitud.service';
 import { ModalWrapperComponent } from '../../shared';
@@ -21,7 +20,6 @@ const iconDefault = L.icon({
 });
 L.Marker.prototype.options.icon = iconDefault;
 
-// Proyección UTM Zona 18S (PSAD56 / WGS84) → usada por catastro Lima
 const UTM18S = '+proj=utm +zone=18 +south +datum=WGS84 +units=m +no_defs';
 
 export interface PredioMapa {
@@ -38,7 +36,7 @@ export interface PredioMapa {
   ltPredio:           string;
   areaConstr:         string;
   refEstablecimiento: string;
-  geometry:           string; // WKT POLYGON en UTM
+  geometry:           string;
 }
 
 @Component({
@@ -73,12 +71,11 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
   predios: PredioMapa[] = [];
   predioActivo: PredioMapa | null = null;
   cargando = false;
-  listaPanelVisible = false; // ← panel oculto al inicio
+  listaPanelVisible = false;
   mensajeEstado = 'Haz clic en el mapa para buscar predios cercanos.';
 
   constructor(
-    private solicitudService: SolicitudService,
-    private authService: AuthService
+    private solicitudService: SolicitudService
   ) {}
 
   ngOnInit(): void {}
@@ -162,7 +159,6 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
     });
   }
 
-  // ── Dibuja el polígono UTM del predio seleccionado ──────────────────────
   dibujarPoligono(predio: PredioMapa): void {
     this.predioActivo = predio;
     this.limpiarPoligono();
@@ -180,7 +176,6 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
       fillOpacity: 0.25,
     }).addTo(this.map);
 
-    // Zoom al polígono
     this.map.fitBounds(this.predioPolygon.getBounds(), { padding: [40, 40] });
   }
 
@@ -191,19 +186,16 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
     }
   }
 
-  // ── Parsea WKT POLYGON en UTM y convierte a LatLng (WGS84) ─────────────
   private wktUtmToLatLng(wkt: string): L.LatLngTuple[] {
     const match = wkt.match(/POLYGON\s*\(\(([^)]+)\)\)/i);
     if (!match) return [];
 
-    // Resuelve proj4 independientemente de cómo fue importado
     const proj4Fn: Function = (proj4 as any).default ?? proj4;
 
     return match[1].split(',').map(pair => {
       const [eStr, nStr] = pair.trim().split(/\s+/);
       const easting  = parseFloat(eStr);
       const northing = parseFloat(nStr);
-      // proj4(from, to, [x, y]) → [lng, lat]
       const [lng, lat] = proj4Fn(UTM18S, 'WGS84', [easting, northing]) as [number, number];
       return [lat, lng] as L.LatLngTuple;
     });

@@ -132,10 +132,11 @@ export class Pantalla2Component implements OnInit {
     this.latitud                  = s.latitud;
     this.longitud                 = s.longitud;
     this.giros                    = s.giros.map(g => ({
-      codigo:      g.idGiros,
-      descripcion: g.descGiros,
-      coduso:      g.coduso
-    }));
+                                      codigo:      g.idGiros,
+                                      descripcion: g.descGiros,
+                                      coduso:      g.coduso,
+                                      nivelRiesgo: g.nivelRiesgo
+                                    }));
 
     if (s.idhorario === '1') {
       this.check_horario_continuo = true;
@@ -226,11 +227,13 @@ export class Pantalla2Component implements OnInit {
     s.abrevZonif          = this.abrev_zonif;
     s.descripZonif        = this.desc_zonif;
     s.giros               = this.giros.map(g => ({
-      idGiros:   g.codigo,
-      descGiros: g.descripcion,
-      coduso:    g.coduso
-    }));
-    s.descrip_giro = this.giros
+                              idGiros:   g.codigo,
+                              descGiros: g.descripcion,
+                              coduso:    g.coduso,
+                              nivelRiesgo: g.nivelRiesgo  
+                            }));
+    s.nivelesRiesgo       = this.giros.map(n => ({ nivelRiesgo: n.nivelRiesgo }));
+    s.descrip_giro        = this.giros
     .map(g => `${g.descripcion} * ${g.coduso.replace(/,/g, ' -')}`)
     .join(' - ');
 

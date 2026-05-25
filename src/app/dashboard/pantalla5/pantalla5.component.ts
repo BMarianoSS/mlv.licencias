@@ -123,7 +123,7 @@ export class Pantalla5Component implements OnInit {
       id_solicitante:       this.idSolicitante,
       id_tipo_licencia:      s.idTipoLicencia,
       vigencia_hasta:       '',
-      id_concepto:          '1',
+      id_concepto:          this.determinarNiveldeRiesgo() <= 1 ? '1' : '2',
       desc_solicitud:       s.descSolicitud,
       desc_anuncio:         '',
       fecha_solicitud:      fechaSolicitud,
@@ -214,6 +214,29 @@ export class Pantalla5Component implements OnInit {
         console.error('Error creando la solicitud:', err) 
       }
     });
+  }
+
+  determinarNiveldeRiesgo(): number {
+    const niveles = this.state.nivelesRiesgo;
+    
+    if (!niveles || niveles.length === 0) { return 0; }
+    
+    let suma = 0;
+    let cantidadValida = 0;
+    
+    for (const item of niveles) {
+      const riesgo = parseFloat(item.nivelRiesgo);
+      if (!isNaN(riesgo)) {
+        suma += riesgo;
+        cantidadValida++;
+      }
+    }
+    
+    if (cantidadValida === 0) { return 0; }
+    
+    const promedio = suma / cantidadValida;
+    
+    return Math.round(promedio * 100) / 100;
   }
 
   subirAnexos(id_solicitud: string): Promise<void> {

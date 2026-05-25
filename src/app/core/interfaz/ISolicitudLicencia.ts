@@ -55,6 +55,7 @@ export interface GiroPorZonificacionResponse {
     idGiro:   string;
     coduso:   string;
     descGiro: string;
+    nivelRiesgo: string;
 }
 
 export interface GiroPorZonificacionRequest {

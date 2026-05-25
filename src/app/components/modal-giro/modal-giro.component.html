@@ -4,7 +4,10 @@
     <input type="text" [(ngModel)]="busqueda"
       placeholder="Buscar por código o descripción..."
       class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"/>
-  </div>
+      <span class="text-xs text-gray-500 py-1 block">
+        En caso de que su giro no aparezca en la lista por favor vaya a solicitar su licencia presencialmente.
+      </span>
+    </div>
 
   <div class="p-4 overflow-y-auto flex-1">
     <div *ngIf="cargando" class="text-center py-8">

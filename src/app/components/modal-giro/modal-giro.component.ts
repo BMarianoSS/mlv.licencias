@@ -8,6 +8,7 @@ export interface Giro {
   codigo:       string;
   descripcion:  string;
   coduso:       string;
+  nivelRiesgo:  string;
 }
 
 @Component({
@@ -60,7 +61,8 @@ export class ModalGiroComponent {
           this.catalogo = resp.data.map(g => ({
             codigo: g.idGiro,
             descripcion: g.descGiro,
-            coduso: g.coduso
+            coduso: g.coduso,
+            nivelRiesgo: g.nivelRiesgo
           }));
           this.cargando = false; 
         },
