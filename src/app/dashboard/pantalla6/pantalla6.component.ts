@@ -26,12 +26,11 @@ export class pantalla6Component{
   get monto()       { return this.state.monto; }  
 
   irAPantallaHome() {
-    this.state.limpiarState();
     this.router.navigate(['../principal'], { relativeTo: this.route });
+    this.state.limpiarState();
   }
 
   irAPantalla62() {
-    this.state.limpiarState();
-    this.router.navigate(['../pantalla6-2'], { relativeTo: this.route });
+      this.router.navigate(['../pantalla6-2'], { relativeTo: this.route });
   }
 }

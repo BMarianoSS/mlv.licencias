@@ -29,7 +29,7 @@
                     Número de licencia padre
                 </label>
                 <input type="text" [(ngModel)]="nroLicenciaPadre" maxlength="7"
-                    (input)="filtrarNumeros($event)"
+                    (input)="filtrarNumeros($event)" (blur)="padNroLicencia()"
                     class="w-64 px-4 py-2.5 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition"
                     placeholder="Ingrese número de expediente padre">
             </div>

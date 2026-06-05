@@ -49,6 +49,7 @@ export class pantalla1Component {
 
   continuar() {
     this.state.flujoActivo = true;
+    sessionStorage.setItem('flujoActivo', 'true');
     const tipo = this.tiposLicencia.find(t => t.idTipoLicencia === this.tipoLicenciaSeleccionado);
     this.state.idTipoLicencia = this.tipoLicenciaSeleccionado;
     this.state.descSolicitud = tipo?.descTipoLicencia ?? '';

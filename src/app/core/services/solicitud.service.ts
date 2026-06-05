@@ -10,7 +10,7 @@ import {
     IPredioRequest, IRepresentanteLegalRequest, IZonificacionRequest, IlistarEstablecimientosRequest,
     PredioResponse, RepresentanteLegalResponse, ZonificacionResponse, listarEstablecimientosResponse,
     IPreguntasXAnexoFuncionRequest, PreguntasXAnexoFuncionResponse,  CodLotePredioResponse, ICodLotePredioRequest,
-    SolicitudFinalResponse, ISolicitudFinalRequest
+    SolicitudFinalResponse, ISolicitudFinalRequest, AprobarSolicitudResponse, IAprobarSolicitudRequest
     } from "../interfaz/ISolicitudLicencia";
 import { ApiResponse, ApiResponseData } from "../interfaz/ApiResponse";
 
@@ -69,6 +69,10 @@ export class SolicitudService {
 
     public solicitudFinal(payload: ISolicitudFinalRequest): Observable<ApiResponse<SolicitudFinalResponse>> {
         return this.http.post<ApiResponse<SolicitudFinalResponse>>(`${this.apiUrl}/solicitud-final`, payload);
+    }
+
+    public aprobarSolicitud(payload: IAprobarSolicitudRequest): Observable<ApiResponse<AprobarSolicitudResponse>> {
+        return this.http.post<ApiResponse<AprobarSolicitudResponse>>(`${this.apiUrl}/aprobar-solicitud`, payload);
     }
 
     generarPdfAnexo(data: any): Observable<Blob> {

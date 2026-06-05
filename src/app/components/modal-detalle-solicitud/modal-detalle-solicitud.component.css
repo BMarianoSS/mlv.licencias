@@ -1,0 +1,617 @@
+
+:host {
+    font-family: 'DM Sans', 'Segoe UI', sans-serif;
+}
+
+.ds-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    gap: 1rem;
+}
+
+.ds-spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid #e2e8f0;
+    border-top-color: #2563eb;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.ds-loading-text {
+    font-size: 0.875rem;
+    color: #2563eb;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
+.ds-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 2rem;
+    gap: 1rem;
+    color: #94a3b8;
+
+    p {
+        font-size: 0.875rem;
+    }
+}
+
+.ds-container {
+    display: flex;
+    flex-direction: column;
+    animation: fadeUp 0.3s ease;
+}
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.ds-hero {
+    position: relative;
+    background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #2563eb 100%);
+    padding: 1.75rem 1.75rem 0;
+    overflow: hidden;
+}
+
+.ds-hero-bg {
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 10% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
+    pointer-events: none;
+}
+
+.ds-hero-content {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1.25rem;
+}
+
+.ds-hero-left {
+    flex: 1;
+    min-width: 0;
+}
+
+.ds-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 20px;
+    margin-bottom: 0.75rem;
+    background: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    &--active {
+        background: rgba(16, 185, 129, 0.25);
+        border-color: rgba(16, 185, 129, 0.5);
+        color: #a7f3d0;
+    }
+
+    &--inactive {
+        background: rgba(239, 68, 68, 0.2);
+        border-color: rgba(239, 68, 68, 0.4);
+        color: #fca5a5;
+    }
+}
+
+.ds-badge-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+    animation: pulse 2s ease infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.ds-hero-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    margin: 0 0 0.35rem;
+    line-height: 1.3;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ds-hero-subtitle {
+    font-size: 0.825rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0 0 0.75rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ds-hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.ds-meta-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 3px 9px;
+    border-radius: 12px;
+    white-space: nowrap;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ds-hero-right {
+    flex-shrink: 0;
+}
+
+.ds-license-card {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    padding: 0.875rem 1.25rem;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 130px;
+}
+
+.ds-license-label {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: rgba(255, 255, 255, 0.6);
+    font-weight: 600;
+}
+
+.ds-license-number {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #fff;
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+}
+
+.ds-license-type {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.65);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.ds-status-bar {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 0 -1.75rem;
+    padding: 0 1.75rem;
+}
+
+.ds-status-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 0.75rem 0;
+    min-width: 0;
+}
+
+.ds-status-divider {
+    width: 1px;
+    height: 30px;
+    background: rgba(255, 255, 255, 0.15);
+    margin: 0 0.5rem;
+    flex-shrink: 0;
+}
+
+.ds-status-label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.ds-status-value {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 1px;
+}
+
+.ds-status-tramite {
+    color: #fcd34d;
+}
+
+.ds-body {
+    padding: 1.5rem 1.75rem;
+    background: #f8fafc;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.ds-vigencia-banner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, #eff6ff, #dbeafe);
+    border: 1px solid #bfdbfe;
+    border-radius: 12px;
+    padding: 1rem 1.25rem;
+}
+
+.ds-vigencia-icon {
+    width: 42px;
+    height: 42px;
+    background: #2563eb;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    flex-shrink: 0;
+}
+
+.ds-vigencia-content {
+    flex: 1;
+}
+
+.ds-vigencia-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    color: #2563eb;
+    font-weight: 700;
+    display: block;
+    margin-bottom: 0.4rem;
+}
+
+.ds-vigencia-dates {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.ds-vigencia-date {
+    display: flex;
+    flex-direction: column;
+
+    em {
+        font-style: normal;
+        font-size: 0.65rem;
+        color: #64748b;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+
+    strong {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #1e3a8a;
+        font-variant-numeric: tabular-nums;
+    }
+}
+
+.ds-vigencia-arrow {
+    color: #93c5fd;
+    font-size: 1.1rem;
+    font-weight: 300;
+}
+
+.ds-vigencia-plazo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: #2563eb;
+    color: white;
+    padding: 0.5rem 0.875rem;
+    border-radius: 10px;
+    flex-shrink: 0;
+}
+
+.ds-plazo-num {
+    font-size: 1.4rem;
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.ds-plazo-label {
+    font-size: 0.62rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    opacity: 0.8;
+    margin-top: 1px;
+}
+
+.ds-sections {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
+}
+
+.ds-section {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s ease;
+
+    &:hover {
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
+    }
+
+    &--flags {
+        grid-column: 1 / -1;
+    }
+}
+
+.ds-section-header {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    padding: 0.875rem 1rem;
+    border-bottom: 1px solid #f1f5f9;
+    background: #fafbfc;
+}
+
+.ds-section-icon {
+    width: 30px;
+    height: 30px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    &.ds-icon--blue {
+        background: #eff6ff;
+        color: #2563eb;
+    }
+
+    &.ds-icon--green {
+        background: #f0fdf4;
+        color: #16a34a;
+    }
+
+    &.ds-icon--amber {
+        background: #fffbeb;
+        color: #d97706;
+    }
+
+    &.ds-icon--purple {
+        background: #faf5ff;
+        color: #7c3aed;
+    }
+
+    &.ds-icon--slate {
+        background: #f8fafc;
+        color: #475569;
+    }
+
+    &.ds-icon--teal {
+        background: #f0fdfa;
+        color: #0d9488;
+    }
+}
+
+.ds-section-title {
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: #334155;
+    letter-spacing: 0.01em;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.ds-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0;
+}
+
+.ds-field {
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid #f8fafc;
+    border-right: 1px solid #f8fafc;
+
+    &:nth-child(even) {
+        border-right: none;
+    }
+
+    &:last-child,
+    &:nth-last-child(2):nth-child(odd) {
+        border-bottom: none;
+    }
+}
+
+.ds-field-label {
+    display: block;
+    font-size: 0.67rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #94a3b8;
+    font-weight: 600;
+    margin-bottom: 3px;
+}
+
+.ds-field-value {
+    display: block;
+    font-size: 0.825rem;
+    color: #1e293b;
+    font-weight: 500;
+    line-height: 1.4;
+
+    &.ds-value--mono {
+        font-family: 'DM Mono', 'Consolas', monospace;
+        font-size: 0.8rem;
+        color: #2563eb;
+        font-weight: 600;
+    }
+}
+
+.ds-flags-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    padding: 1rem;
+}
+
+.ds-flag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 12px 5px 8px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border: 1px solid #e2e8f0;
+    background: #f8fafc;
+    color: #94a3b8;
+    transition: all 0.15s ease;
+
+    &--on {
+        background: #f0fdf4;
+        border-color: #bbf7d0;
+        color: #15803d;
+    }
+}
+
+.ds-flag-icon {
+    font-size: 0.7rem;
+    font-weight: 800;
+}
+
+.ds-flag-label {
+    white-space: nowrap;
+}
+
+.ds-observaciones {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.ds-obs-item {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #f1f5f9;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}
+
+.ds-obs-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.67rem;
+    text-transform: uppercase;
+    letter-spacing: 0.07em;
+    font-weight: 700;
+    color: #64748b;
+    margin-bottom: 0.4rem;
+}
+
+.ds-obs-text {
+    font-size: 0.825rem;
+    color: #475569;
+    line-height: 1.6;
+    margin: 0;
+}
+
+@media (max-width: 600px) {
+    .ds-sections {
+        grid-template-columns: 1fr;
+    }
+
+    .ds-section--flags {
+        grid-column: 1;
+    }
+
+    .ds-hero-content {
+        flex-direction: column;
+    }
+
+    .ds-hero-right {
+        align-self: stretch;
+    }
+
+    .ds-license-card {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .ds-status-bar {
+        flex-wrap: wrap;
+    }
+
+    .ds-status-divider {
+        display: none;
+    }
+
+    .ds-fields-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .ds-field {
+        border-right: none;
+    }
+}

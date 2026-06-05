@@ -260,12 +260,36 @@ export class Pantalla5Component implements OnInit {
       )).subscribe({ complete: resolve, error: resolve });
     });
   }
+  
+  determinarNiveldeRiesgoTexto():string {
+    let textoA: string = '';
+    let textoB: string = '';
+    
+    if( this.determinarNiveldeRiesgo() <= 1 ){
+      textoA = 'Licencia Riesgo Bajo';
+    }else{
+      textoA = 'Licencia Riesgo Medio';
+    }
+
+    if( this.state.idTipoLicencia === '3' ){
+      textoB = 'Cesionario';
+    }else if( this.state.idTipoLicencia === '1' ){
+      textoB = 'Indeterminada';
+    }else if( this.state.idTipoLicencia === '2' ){
+      textoB = 'Temporal';
+    }else{
+      textoB = 'No Identificada';
+    }
+
+    return `${textoA} - ${textoB}`;
+  }
 
   irAPantalla6(mensaje: string, idSolicitud: string, nroProforma: string, monto: string) {
     this.state.mensajeRespuesta  = mensaje;
     this.state.idSolicitudCreada = idSolicitud;
     this.state.nroProforma = nroProforma;
     this.state.monto = monto;
+    this.state.descrip_nivelesRiesgo = this.determinarNiveldeRiesgoTexto();
     this.router.navigate(['../pantalla6'], { relativeTo: this.route });
   }
 }

@@ -89,6 +89,12 @@ export class pantalla4Component {
     this.nombreFuncionSeleccionada = funcion ? funcion.nombre : '';
   }
 
+  padNroLicencia() {
+    if (this.nroLicenciaPadre.trim()) {
+      this.nroLicenciaPadre = this.nroLicenciaPadre.padStart(7, '0');
+    }
+  }
+
   iniciarAnimacionLoading() {
     let dots = 0;
     this.loadingText = 'Descargando archivo';

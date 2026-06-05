@@ -36,6 +36,7 @@ export class SolicitudStateService {
     horario                 = '';
     giros: { idGiros: string; descGiros: string; coduso: string; nivelRiesgo: string }[] = [];
     nivelesRiesgo: { nivelRiesgo: string }[] = [];
+    descrip_nivelesRiesgo   = '';
     descrip_giro            = '';
     check_dia_siguiente     = false;
     check_horario_continuo  = false;
@@ -80,6 +81,8 @@ export class SolicitudStateService {
 
     flujoActivo = false;
 
+    constructor() { this.flujoActivo = sessionStorage.getItem('flujoActivo') === 'true'; }
+
     limpiarState(){
         // Pantalla 1
         this.idTipoLicencia      = '';
@@ -115,6 +118,7 @@ export class SolicitudStateService {
         this.horario                 = '';
         this.giros                   = [];
         this.nivelesRiesgo           = [];
+        this.descrip_nivelesRiesgo   = '';
         this.descrip_giro            = '';
         this.check_dia_siguiente     = false;
         this.check_horario_continuo  = false;
@@ -158,5 +162,6 @@ export class SolicitudStateService {
         this.monto                   = '';
 
         this.flujoActivo = false;
+        sessionStorage.removeItem('flujoActivo');
     }
 }

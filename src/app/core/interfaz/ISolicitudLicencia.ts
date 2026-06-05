@@ -371,3 +371,17 @@ export interface ISolicitudFinalRequest {
     nombre_pc:      string;
     usuario_pc:     string;
 }
+
+
+
+export interface AprobarSolicitudResponse {
+    codigo:     string;
+    mensaje:    string;
+}
+
+export interface IAprobarSolicitudRequest {
+    nro_expediente: string;
+    id_solicitud:   string;
+    operador:       string;
+    estacion:       string;
+}
