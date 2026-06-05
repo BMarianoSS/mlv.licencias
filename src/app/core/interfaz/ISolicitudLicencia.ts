@@ -330,3 +330,44 @@ export interface ICodLotePredioRequest {
     lat:      string;
     lon:      string;
 }
+
+
+
+export interface SolicitudFinalResponse {
+    resultado:              string;
+    nuExpediente:           string;
+    nuEmiEntrada:           string;
+    nuSecExp:               string;
+    nuCorrExp:              string;
+    nuCorDocEntrada:        string;
+    NuDesEntrada:           string;
+    NuCorDesEntrada:        string;
+    NuEmiResolucion:        string;
+    NumeroResolucion:       string;
+    NuDesResolucion:        string;
+    NuCorDesResolucion:     string;
+    CoRefResolucion:        string;
+    NuEmiCertificado:       string;
+    NumeroCertificado:      string;
+    NuDesCertificado:       string;
+    NuCorDesCertificado:    string;
+    CoRefCertificado:       string;
+    UsuarioCreador:         string;
+    EmpleadoEmisor:         string;
+    LocalEmisor:            string;
+    EmpleadoDestino:        string;
+    LocalDestino:           string;
+    TipoEmisor:             string;
+    Identificador:          string;
+    DepDestinoFijo:         string;
+    Procedente:             string;
+}
+
+export interface ISolicitudFinalRequest {
+    nro_documento:  string;
+    asunto:         string;
+    tipo_persona:   string;
+    ip_pc:          string;
+    nombre_pc:      string;
+    usuario_pc:     string;
+}

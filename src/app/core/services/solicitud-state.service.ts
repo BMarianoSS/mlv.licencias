@@ -8,7 +8,7 @@ export class SolicitudStateService {
     aceptaTerminos      = false;
 
     // Pantalla 2    
-    direccionEstablecimientoCombinada           = '';
+    direccionEstablecimientoCombinada = '';
     codPredio               = '';
     tipo_via                = '';
     direcPred               = '';
