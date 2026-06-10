@@ -7,37 +7,41 @@ import { RouterModule } from '@angular/router';
     standalone: true,
     imports: [CommonModule, RouterModule],
     template: `
-        <div class="bg-gray-50 px-5 py-4 flex justify-between gap-3">
-        <button 
-            *ngIf="backRoute; else backBtn"
-            [routerLink]="[backRoute]"
-            (click)="back.emit()"
-            class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
-            ← {{ backLabel }}
-        </button>
-        <ng-template #backBtn>
-            <button (click)="back.emit()"
-            class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
-            ← {{ backLabel }}
+        <div class="bg-gray-50 border-t border-gray-200 px-5 py-4 flex justify-between gap-3">
+            <button 
+                *ngIf="backRoute; else backBtn"
+                [routerLink]="[backRoute]"
+                (click)="back.emit()"
+                class="inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
+                <span class="material-icons text-[15px]">arrow_back</span>
+                {{ backLabel }}
             </button>
-        </ng-template>
+            <ng-template #backBtn>
+                <button (click)="back.emit()"
+                    class="inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
+                    <span class="material-icons text-[15px]">arrow_back</span>
+                    {{ backLabel }}
+                </button>
+            </ng-template>
 
-        <button
-            *ngIf="nextRoute; else nextBtn"
-            [routerLink]="[nextRoute]"
-            [disabled]="nextDisabled"
-            (click)="next.emit()"
-            class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
-            {{ nextLabel }} <span class="text-base leading-none">→</span>
-        </button>
-        <ng-template #nextBtn>
             <button
-            [disabled]="nextDisabled"
-            (click)="next.emit()"
-            class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed">
-            {{ nextLabel }} <span class="text-base leading-none">→</span>
+                *ngIf="nextRoute; else nextBtn"
+                [routerLink]="[nextRoute]"
+                [disabled]="nextDisabled"
+                (click)="next.emit()"
+                class="inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed">
+                {{ nextLabel }}
+                <span class="material-icons text-[15px]">arrow_forward</span>
             </button>
-        </ng-template>
+            <ng-template #nextBtn>
+                <button
+                    [disabled]="nextDisabled"
+                    (click)="next.emit()"
+                    class="inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed">
+                    {{ nextLabel }}
+                    <span class="material-icons text-[15px]">arrow_forward</span>
+                </button>
+            </ng-template>
         </div>
     `
 })

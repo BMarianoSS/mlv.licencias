@@ -2,16 +2,16 @@ import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'app-section-header',
-    standalone: true,
-    imports: [CommonModule],
-    template: `
+  selector: 'app-section-header',
+  standalone: true,
+  imports: [CommonModule],
+  template: `
     <div [class]="wrapperClass">
-      <span class="text-xs font-medium text-gray-500 uppercase tracking-widest">
+      <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">
         {{ title }}
       </span>
-      <span *ngIf="badge" 
-        class="text-xs font-medium text-gray-400 normal-case tracking-normal">
+      <span *ngIf="badge"
+        class="text-[10px] font-medium text-gray-400 normal-case tracking-normal">
         {{ badge }}
       </span>
     </div>
@@ -19,8 +19,8 @@ import { CommonModule } from '@angular/common';
   `
 })
 export class SectionHeaderComponent {
-    @Input() title = '';
-    @Input() badge = '';
-    @Input() divider = true;
-    @Input() wrapperClass = 'flex items-center gap-2';
+  @Input() title = '';
+  @Input() badge = '';
+  @Input() divider = true;
+  @Input() wrapperClass = 'flex items-center gap-2';
 }

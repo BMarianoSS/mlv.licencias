@@ -388,10 +388,6 @@ export interface IAprobarSolicitudRequest {
 
 
 
-export interface ObtenerRutaSolicitudResponse {
-    idSolicitud:    string;
-    rutaArchivo:    string;
-}
 
 export interface IObtenerRutaSolicitudRequest {
     id_solicitud:   string;

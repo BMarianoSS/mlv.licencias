@@ -1,90 +1,117 @@
-<div class="flex flex-col h-screen bg-gray-100">
-  <div class="flex flex-1 overflow-x-auto">
-    
-    <aside class="w-64 bg-blue-800 text-white flex-shrink-0 hidden md:flex flex-col shadow-lg">
-      <div class="flex items-center justify-center p-4 m-3 bg-white rounded-xl shadow-md">
-        <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png" alt="Logo" class="w-32 h-auto" />
+<div class="flex h-screen bg-[#F7F9FC] overflow-hidden">
+  <aside class="w-64 flex-shrink-0 hidden md:flex flex-col"
+    style="background: linear-gradient(180deg, #0a1f42 0%, #0F2D5C 100%);">
+    <div class="px-4 pt-5 pb-4">
+      <div class="bg-white rounded-xl px-4 py-2.5 shadow-md">
+        <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png"
+          alt="Municipalidad de La Victoria"
+          class="h-9 w-auto" />
       </div>
-
-      <nav class="mt-4 flex-1 px-3">
-        <ul class="space-y-1.5">
-          <li [routerLink]="['/dashboard/principal']" (click)="cambiarPantalla('/dashboard/principal')"
-            class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
-            <span class="material-icons text-base">home</span>
-            Inicio
-          </li>
-          <li [routerLink]="['/dashboard/home']" (click)="cambiarPantalla('/dashboard/home')"
-            class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
-            <span class="material-icons text-base">inbox</span>
-            Ver solicitudes
-          </li>
-          <li [routerLink]="['/dashboard/RegistroRepresentante']" (click)="cambiarPantalla('/dashboard/RegistroRepresentante')"
-            class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
-            <span class="material-icons text-base">person</span>
-            Datos del representante
-          </li>
-        </ul>
-      </nav>
-    </aside>
-
-    <div *ngIf="sidebarOpen" class="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden" (click)="toggleSidebar()">
     </div>
 
-    <aside *ngIf="sidebarOpen"
-      class="fixed inset-y-0 left-0 w-64 bg-blue-800 text-white z-50 md:hidden transition-transform transform translate-x-0 duration-300 shadow-xl">
-      <div class="flex items-center justify-between p-3 border-b border-blue-700 bg-blue-800">
-        <div class="flex-1 flex justify-center">
-          <div class="bg-white rounded-lg p-2">
-            <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png" alt="Logo" class="w-28 h-auto" />
-          </div>
-        </div>
-        <button (click)="toggleSidebar()" class="text-white hover:text-blue-200 text-2xl leading-none">&times;</button>
-      </div>
-      <nav class="mt-2 px-3">
-        <ul class="space-y-1.5">
-          <li [routerLink]="['/dashboard/principal']" (click)="cambiarPantalla('/dashboard/principal')"
-            class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
-            <span class="material-icons text-base">home</span>
-            Inicio
-          </li>
-          <li [routerLink]="['/dashboard/home']" (click)="cambiarPantalla('/dashboard/home')"
-            class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
-            <span class="material-icons text-base">inbox</span>
-            Ver solicitudes
-          </li>
-          <li [routerLink]="['/dashboard/RegistroRepresentante']" (click)="cambiarPantalla('/dashboard/RegistroRepresentante')"
-            class="flex items-center gap-3 px-4 py-2.5 rounded-lg hover:bg-blue-700 cursor-pointer transition-all duration-200 text-sm font-medium">
-            <span class="material-icons text-base">person</span>
-            Datos del representante
-          </li>
-        </ul>
-      </nav>
-    </aside>
-
-    <div class="flex flex-col flex-1 min-w-0">
-      <header class="flex justify-between items-center bg-white shadow-sm px-6 py-3 border-b border-gray-200">
-        <button class="md:hidden text-blue-700 hover:text-blue-800 text-2xl" (click)="toggleSidebar()">
-          ☰
-        </button>
-        <div class="flex-1"></div>
-        <div class="flex items-center gap-3">
-          <span class="text-sm font-medium text-gray-700">{{ nombreUsuario }}</span>
-          <button 
-            class="inline-flex items-center gap-2 bg-red-500 hover:bg-red-600 text-white text-sm font-medium px-3 py-1.5 rounded-lg transition duration-200"
-            (click)="logout()">
-            <span class="material-icons text-sm">logout</span>
-            Salir
-          </button>
-        </div>
-      </header>
-
-      <main class="flex-1 p-6 bg-gray-50 overflow-x-hidden overflow-y-auto">
-        <router-outlet></router-outlet>
-      </main>
-
-      <footer class="bg-white text-gray-500 text-center py-3 text-xs border-t border-gray-200 shadow-inner">
-        © 2026 Municipalidad de La Victoria - Todos los derechos reservados.
-      </footer>      
+    <div class="mx-4 border-t border-white/10 mb-3"></div>
+    <div class="px-5 mb-1.5">
+      <span class="text-blue-300/50 text-[9px] uppercase tracking-[0.2em] font-semibold">
+        Menú principal
+      </span>
     </div>
+
+    <nav class="flex-1 px-3 space-y-0.5">
+      <a [routerLink]="['/dashboard/principal']" (click)="cambiarPantalla('/dashboard/principal')"
+        routerLinkActive="!bg-white/15 !text-white"
+        [routerLinkActiveOptions]="{exact:true}"
+        class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-200/80 hover:bg-white/10 hover:text-white transition-all duration-150 text-sm font-medium">
+        <span class="material-icons text-[18px]">home</span>
+        Inicio
+      </a>
+
+      <a [routerLink]="['/dashboard/home']" (click)="cambiarPantalla('/dashboard/home')"
+        routerLinkActive="!bg-white/15 !text-white"
+        class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-200/80 hover:bg-white/10 hover:text-white transition-all duration-150 text-sm font-medium">
+        <span class="material-icons text-[18px]">description</span>
+        Mis solicitudes
+      </a>
+
+      <a [routerLink]="['/dashboard/RegistroRepresentante']"
+        (click)="cambiarPantalla('/dashboard/RegistroRepresentante')"
+        routerLinkActive="!bg-white/15 !text-white"
+        class="group flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-200/80 hover:bg-white/10 hover:text-white transition-all duration-150 text-sm font-medium">
+        <span class="material-icons text-[18px]">badge</span>
+        Representante legal
+      </a>
+    </nav>
+
+    <div class="px-4 py-4 border-t border-white/10">
+      <button (click)="logout()"
+        class="w-full flex items-center gap-2 text-blue-200/70 hover:text-red-300 text-xs font-medium transition-colors py-1.5 px-2 rounded-lg hover:bg-white/5">
+        <span class="material-icons text-[16px]">logout</span>
+        Cerrar sesión
+      </button>
+    </div>
+  </aside>
+
+  <div *ngIf="sidebarOpen" class="fixed inset-0 bg-black/50 z-40 md:hidden" (click)="toggleSidebar()"></div>
+  <aside *ngIf="sidebarOpen"
+    class="fixed inset-y-0 left-0 w-64 z-50 md:hidden flex flex-col shadow-2xl"
+    style="background: linear-gradient(180deg, #0a1f42 0%, #0F2D5C 100%);">
+    <div class="px-4 pt-5 pb-4 flex items-center justify-between gap-3">
+      <div class="bg-white rounded-xl px-4 py-2.5 shadow-md flex-1">
+        <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png"
+          alt="Municipalidad de La Victoria"
+          class="h-8 w-auto" />
+      </div>
+      <button (click)="toggleSidebar()" class="text-white/60 hover:text-white text-2xl leading-none flex-shrink-0">&times;</button>
+    </div>
+    <div class="mx-4 border-t border-white/10 mb-3"></div>
+    <nav class="flex-1 px-3 space-y-0.5">
+      <a [routerLink]="['/dashboard/principal']" (click)="cambiarPantalla('/dashboard/principal')"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-200/80 hover:bg-white/10 hover:text-white transition text-sm font-medium">
+        <span class="material-icons text-[18px]">home</span>Inicio
+      </a>
+      <a [routerLink]="['/dashboard/home']" (click)="cambiarPantalla('/dashboard/home')"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-200/80 hover:bg-white/10 hover:text-white transition text-sm font-medium">
+        <span class="material-icons text-[18px]">description</span>Mis solicitudes
+      </a>
+      <a [routerLink]="['/dashboard/RegistroRepresentante']"
+        (click)="cambiarPantalla('/dashboard/RegistroRepresentante')"
+        class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-blue-200/80 hover:bg-white/10 hover:text-white transition text-sm font-medium">
+        <span class="material-icons text-[18px]">badge</span>Representante legal
+      </a>
+    </nav>
+    <div class="px-4 py-4 border-t border-white/10">
+      <button (click)="logout()"
+        class="w-full flex items-center gap-2 text-blue-200/70 hover:text-red-300 text-xs font-medium transition-colors py-1.5 px-2 rounded-lg hover:bg-white/5">
+        <span class="material-icons text-[16px]">logout</span>
+        Cerrar sesión
+      </button>
+    </div>
+  </aside>
+
+  <div class="flex flex-col flex-1 min-w-0 overflow-hidden">
+    <header class="flex items-center gap-4 bg-white border-b border-gray-200 px-6 py-3 flex-shrink-0">
+      <button class="md:hidden text-[#0F2D5C] text-2xl leading-none" (click)="toggleSidebar()">☰</button>
+      <div class="flex-1">
+        <span class="text-[11px] uppercase tracking-widest text-gray-400 font-medium">
+          Licencias de funcionamiento
+        </span>
+      </div>
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold flex-shrink-0"
+          style="background: linear-gradient(135deg, #0F2D5C, #1A6DB5);">
+          {{ nombreUsuario.charAt(0) }}
+        </div>
+        <span class="text-sm font-medium text-gray-700 hidden sm:block max-w-[180px] truncate">
+          {{ nombreUsuario }}
+        </span>
+      </div>
+    </header>
+
+    <main class="flex-1 overflow-y-auto overflow-x-hidden bg-[#F7F9FC]">
+      <router-outlet></router-outlet>
+    </main>
+
+    <footer class="bg-white border-t border-gray-200 text-center py-2.5 text-[11px] text-gray-400 flex-shrink-0">
+      © 2026 Municipalidad de La Victoria · Todos los derechos reservados
+    </footer>
   </div>
 </div>

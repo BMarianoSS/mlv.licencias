@@ -1,78 +1,110 @@
-<div class="p-6">
-    <div class="flex items-center justify-between mb-6">
-        <app-section-header 
-                    title="Orden de pago" 
-                    badge="">
-                </app-section-header>
+<div class="p-6 md:p-8 max-w-3xl mx-auto">
+    <div class="flex items-center gap-2 mb-6">
+        <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#2ECC71] text-white text-xs flex-shrink-0">
+        <span class="material-icons text-[14px]">check</span>
+        </div>
+        <div class="h-px flex-1 bg-[#2ECC71]"></div>
+        <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#2ECC71] text-white text-xs flex-shrink-0">
+        <span class="material-icons text-[14px]">check</span>
+        </div>
+        <div class="h-px flex-1 bg-[#2ECC71]"></div>
+        <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#2ECC71] text-white text-xs flex-shrink-0">
+        <span class="material-icons text-[14px]">check</span>
+        </div>
+        <div class="h-px flex-1 bg-[#2ECC71]"></div>
+        <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#2ECC71] text-white text-xs flex-shrink-0">
+        <span class="material-icons text-[14px]">check</span>
+        </div>
+        <div class="h-px flex-1 bg-[#1A6DB5]"></div>
+        <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#1A6DB5] text-white text-xs font-bold flex-shrink-0">5</div>
     </div>
 
-    <div class="border border-gray-200 rounded-xl overflow-hidden">
-        <div class="bg-white p-6 border-b border-gray-200">
-            <div class="mb-5">
-                <app-section-header 
-                    title="Detalles del pago" 
-                    badge="">
-                </app-section-header>
-            </div>
+    <div class="mb-5">
+        <h1 class="text-lg font-bold text-gray-900">Orden de pago</h1>
+        <p class="text-xs text-gray-500 mt-0.5">Tu solicitud fue registrada. Completa el pago para procesarla.</p>
+    </div>
 
-            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                <div *ngIf="mensaje" class="mb-4 p-4 bg-green-50 border border-green-200 rounded-lg text-green-800 text-sm">
-                {{ mensaje }} — N° Solicitud: <span class="font-mono font-semibold">{{ idSolicitud }}</span>
-                </div>
-                <div class="flex items-center justify-between">
-                    <span class="text-sm font-medium text-gray-600 uppercase tracking-widest">Total a pagar</span>
-                    <span class="text-2xl font-bold text-blue-700">S/.{{monto}}</span>
-                </div>
-            </div>
+    <div *ngIf="mensaje"
+        class="bg-white rounded-xl border border-emerald-200 overflow-hidden shadow-sm mb-4">
+        <div class="border-l-4 border-emerald-500 px-5 py-4 flex items-start gap-3">
+        <span class="material-icons text-emerald-500 text-[22px] flex-shrink-0 mt-0.5">check_circle</span>
+        <div>
+            <p class="text-sm font-semibold text-emerald-800">Solicitud registrada exitosamente</p>
+            <p class="text-xs text-emerald-700 mt-0.5">
+            {{ mensaje }} — N° Solicitud:
+            <span class="font-mono font-bold">{{ idSolicitud }}</span>
+            </p>
+        </div>
+        </div>
+    </div>
 
-            <div class="mb-4">
-                <app-section-header 
-                    title="Otras opciones de pago" 
-                    badge="">
-                </app-section-header>
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm mb-4">
+        <div class="border-l-4 border-[#1A6DB5] px-5 py-5">
+        <div class="flex items-center justify-between">
+            <div>
+            <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1">
+                Total a pagar
+            </p>
+            <p class="text-3xl font-extrabold text-[#0F2D5C]">
+                S/. {{ monto }}
+            </p>
+            <p class="text-xs text-gray-400 mt-1">Tasa de licencia de funcionamiento</p>
             </div>
-
-            <div class="space-y-3">
-                <div
-                    class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                    <div class="flex items-center gap-3">
-                        <button
-                            class="inline-flex items-center gap-1.5 bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-4 py-2 rounded-lg transition">
-                            Pago online
-                        </button>
-                        <span class="text-sm text-gray-500">PROFORMA: <span
-                                class="font-mono font-semibold text-gray-700">{{nroProforma}}</span></span>
-                    </div>
-                </div>                
-                <div
-                    class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3 bg-gray-50 rounded-lg border border-gray-200">
-                    <div class="flex items-center gap-3">
-                        <span class="text-sm text-gray-500">Tambien puede hacer el pago en Ventanilla en otro momento con el numero de proforma.</span>
-                    </div>
-                </div>
+            <div class="w-14 h-14 rounded-full bg-blue-50 flex items-center justify-center flex-shrink-0">
+            <span class="material-icons text-[#1A6DB5] text-[28px]">receipt_long</span>
             </div>
         </div>
-
-        <div class="bg-gray-50 px-6 py-5 flex justify-center border-b border-gray-200">
-            <button
-                class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-base font-semibold px-8 py-3 rounded-lg transition shadow-sm">
-                Procesar pago
-                <span class="text-lg leading-none">→</span>
-            </button>
         </div>
+    </div>
 
-        <div class="bg-white px-5 py-4 flex justify-end gap-3">
-            <!---->
-            <button [routerLink]="['../pantalla5']"
-                class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
-                ← Regresar
+    <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm mb-4">
+        <div class="px-5 py-4">
+        <h2 class="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-4">Opciones de pago</h2>
+
+        <div class="space-y-3">            <!-- Pago online -->
+            <div class="flex items-center justify-between p-3.5 rounded-lg border border-[#1A6DB5]/30 bg-blue-50">
+            <div class="flex items-center gap-3">
+                <div class="w-9 h-9 rounded-lg bg-[#1A6DB5] flex items-center justify-center flex-shrink-0">
+                <span class="material-icons text-white text-[18px]">credit_card</span>
+                </div>
+                <div>
+                <p class="text-sm font-semibold text-[#0F2D5C]">Pago en línea</p>
+                <p class="text-[11px] text-gray-500">
+                    Proforma: <span class="font-mono font-bold text-gray-700">{{ nroProforma }}</span>
+                </p>
+                </div>
+            </div>
+            <button class="text-xs font-semibold px-4 py-2 rounded-lg bg-[#1A6DB5] text-white hover:bg-[#0F2D5C] transition">
+                Pagar ahora
             </button>
-            
-            <button (click)="irAPantalla62()"
-                class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition">
-                Continuar
-                <span class="text-base leading-none">→</span>
-            </button>
+            </div>
+
+            <div class="flex items-start gap-3 p-3.5 rounded-lg border border-gray-200 bg-gray-50">
+            <div class="w-9 h-9 rounded-lg bg-gray-200 flex items-center justify-center flex-shrink-0">
+                <span class="material-icons text-gray-500 text-[18px]">store</span>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-gray-700">Pago en ventanilla</p>
+                <p class="text-[11px] text-gray-500 leading-relaxed">
+                También puedes pagar presencialmente en la Municipalidad presentando el número de proforma
+                <span class="font-mono font-bold text-gray-700">{{ nroProforma }}</span>.
+                </p>
+            </div>
+            </div>
         </div>
+        </div>
+    </div>
+
+    <div class="flex justify-between gap-3">
+        <button [routerLink]="['../pantalla5']"
+        class="inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
+        <span class="material-icons text-[16px]">arrow_back</span>
+        Regresar
+        </button>
+        <button (click)="irAPantalla62()"
+        class="inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition">
+        Continuar
+        <span class="material-icons text-[16px]">arrow_forward</span>
+        </button>
     </div>
 </div>

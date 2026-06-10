@@ -16,7 +16,6 @@ export class ModalDetalleSolicitudComponent implements OnInit {
 
   constructor(private solicitudService: SolicitudService) { }
 
-  busqueda = '';    
   cargando = true;
   data: any[] = [];
   leaving = false; 

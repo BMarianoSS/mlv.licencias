@@ -11,7 +11,7 @@ import {
     PredioResponse, RepresentanteLegalResponse, ZonificacionResponse, listarEstablecimientosResponse,
     IPreguntasXAnexoFuncionRequest, PreguntasXAnexoFuncionResponse,  CodLotePredioResponse, ICodLotePredioRequest,
     SolicitudFinalResponse, ISolicitudFinalRequest, AprobarSolicitudResponse, IAprobarSolicitudRequest,
-    IObtenerRutaSolicitudRequest, ObtenerRutaSolicitudResponse
+    IObtenerRutaSolicitudRequest
     } from "../interfaz/ISolicitudLicencia";
 import { ApiResponse, ApiResponseData } from "../interfaz/ApiResponse";
 

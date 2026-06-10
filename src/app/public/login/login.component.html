@@ -1,61 +1,108 @@
-<div class="min-h-screen flex items-center justify-center bg-gradient-to-b from-sky-400 to-blue-800 p-4">
-  <div class="bg-white rounded-2xl shadow-lg w-full max-w-md p-8 text-center">
-    <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png" alt="Logo" class="mx-auto mb-5 w-48 h-auto">
+<!-- Welcome screen (se muestra encima tras login exitoso) -->
+<app-welcome-screen
+  *ngIf="mostrarBienvenida"
+  [nombreUsuario]="nombreBienvenida"
+  (listo)="onBienvenidaLista()">
+</app-welcome-screen>
 
-    <h1 class="text-xl md:text-2xl font-bold text-blue-900 leading-tight">
-      BIENVENIDO A LA PLATAFORMA DE LICENCIAS EN LÍNEA
-    </h1>
-
-    <form class="space-y-4 py-4" [formGroup]="loginForm" (ngSubmit)="onLogin()">
-      <span style="display: block; text-align: left;" class="font-bold text-blue-500">Ingrese DNI, correo o código de contribuyente:</span>
-      <input type="text" placeholder="Usuario" formControlName="codigo"
-        class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
-
-      <span style="display: block; text-align: left;" class="font-bold text-blue-500">Ingrese Contraseña:</span>
-      <input type="password" formControlName="userpassword" placeholder="Contraseña"
-        class="w-full px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm" />
-
-      <button type="submit" [disabled]="loginForm.invalid"
-        class="w-full bg-blue-700 hover:bg-blue-800 text-white text-base font-bold py-2.5 rounded-full transition duration-300 cursor-pointer">
-        INICIAR SESIÓN
-      </button>
-
-      <div class="text-right mt-2">
-        <a [routerLink]="['/solicitar-cambio-contrasena']" class="text-blue-600 hover:underline text-xs font-medium">
-          ¿Olvidaste tu contraseña?
-        </a>
+<div class="min-h-screen flex" style="background: linear-gradient(160deg, #0a1f42 0%, #0F2D5C 40%, #1A6DB5 100%);">
+  <div class="hidden lg:flex flex-col justify-between w-2/5 p-12 relative overflow-hidden">
+    <div class="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-white/5 pointer-events-none"></div>
+    <div class="absolute bottom-20 -right-10 w-60 h-60 rounded-full bg-white/5 pointer-events-none"></div>
+    <div class="relative z-10">
+      <div class="bg-white rounded-xl px-5 py-3 inline-block shadow-lg mb-8">
+        <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png"
+          alt="Municipalidad de La Victoria"
+          class="h-12 w-auto" />
       </div>
-      
-      <p class="text-xs text-gray-500 mt-6 p-1">
-        Si aún no tienes cuenta puedes crearte una dándole
-        <a [routerLink]="['/registro/paso-1']" class="text-blue-600 hover:underline font-medium">click aquí</a>
+
+      <h2 class="text-white text-3xl font-bold leading-tight mb-4">
+        Licencias de<br />Funcionamiento
+      </h2>
+      <p class="text-blue-200 text-sm leading-relaxed max-w-xs">
+        Obtén tu licencia de forma digital. Rápido, transparente y sin filas.
       </p>
-    </form>
-    
-    <div *ngIf="loginErrorMessage" class="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
-      <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm p-6 text-center animate-fadeIn">
-        <div class="flex justify-center mb-4">
-          <div class="w-16 h-16 rounded-full bg-red-100 flex items-center justify-center">
-            <span class="text-red-600 text-3xl font-bold">!</span>
-          </div>
-        </div>
+    </div>
 
-        <h2 class="text-xl font-bold text-gray-800 mb-2">
-          Error
-        </h2>
-
-        <p class="text-gray-600 text-sm mb-6">
-          {{ loginErrorMessage }}
+    <div class="relative z-10">
+      <div class="flex items-center gap-3 bg-white/10 rounded-xl px-4 py-3">
+        <span class="material-icons text-blue-200 text-[18px]">verified_user</span>
+        <p class="text-blue-100 text-xs">
+          Plataforma oficial de la <strong class="text-white">Municipalidad de La Victoria</strong>
         </p>
-
-        <button
-          (click)="loginErrorMessage = null"
-          class="w-full bg-blue-700 hover:bg-blue-800 text-white font-semibold py-2 rounded-xl transition duration-300 cursor-pointer">
-          Aceptar
-        </button>
       </div>
     </div>
-    
-    <p class="text-xs text-gray-500 mt-6">© 2025 Municipalidad de La Victoria</p>
+  </div>
+
+  <div class="flex-1 flex items-center justify-center p-6">
+    <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
+      <div class="px-8 pt-8 pb-5 border-b border-gray-100">
+        <div class="flex justify-center mb-5">
+          <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png"
+            alt="Municipalidad de La Victoria"
+            class="h-10 w-auto" />
+        </div>
+        <h1 class="text-xl font-bold text-[#0F2D5C] mb-1">Iniciar sesión</h1>
+        <p class="text-xs text-gray-500">Ingresa con tu DNI, correo o código de contribuyente</p>
+      </div>
+
+      <form class="px-8 py-5 space-y-4" [formGroup]="loginForm" (ngSubmit)="onLogin()">
+        <div>
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">
+            Usuario
+          </label>
+          <input type="text" placeholder="DNI, correo o código" formControlName="codigo"
+            class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent transition" />
+        </div>
+
+        <div>
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">
+            Contraseña
+          </label>
+          <input type="password" formControlName="userpassword" placeholder="••••••••"
+            class="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent transition" />
+        </div>
+
+        <div class="text-right">
+          <a [routerLink]="['/solicitar-cambio-contrasena']"
+            class="text-xs text-[#1A6DB5] hover:text-[#0F2D5C] font-medium transition-colors">
+            ¿Olvidaste tu contraseña?
+          </a>
+        </div>
+
+        <button type="submit" [disabled]="loginForm.invalid"
+          class="w-full text-white text-sm font-bold py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed"
+          style="background: linear-gradient(135deg, #0F2D5C 0%, #1A6DB5 100%);">
+          Ingresar al sistema
+        </button>
+
+        <p class="text-xs text-center text-gray-500 pt-1">
+          ¿No tienes cuenta?
+          <a [routerLink]="['/registro/paso-1']" class="text-[#1A6DB5] hover:underline font-semibold">
+            Regístrate aquí
+          </a>
+        </p>
+      </form>
+
+      <div class="border-t border-gray-100 px-8 py-3 text-center">
+        <p class="text-[10px] text-gray-400">© 2026 Municipalidad de La Victoria</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="loginErrorMessage"
+    class="fixed inset-0 bg-black/50 backdrop-blur-sm flex items-center justify-center z-50">
+    <div class="bg-white rounded-xl shadow-2xl w-full max-w-sm p-6 text-center mx-4">
+      <div class="w-14 h-14 rounded-full bg-red-100 flex items-center justify-center mx-auto mb-4">
+        <span class="material-icons text-red-500 text-[28px]">error_outline</span>
+      </div>
+      <h2 class="text-base font-bold text-gray-900 mb-2">Error al iniciar sesión</h2>
+      <p class="text-sm text-gray-600 mb-5">{{ loginErrorMessage }}</p>
+      <button (click)="loginErrorMessage = null"
+        class="w-full text-white text-sm font-semibold py-2.5 rounded-lg transition"
+        style="background: linear-gradient(135deg, #0F2D5C 0%, #1A6DB5 100%);">
+        Entendido
+      </button>
+    </div>
   </div>
 </div>

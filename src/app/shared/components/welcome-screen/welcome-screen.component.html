@@ -1,0 +1,37 @@
+<div class="fixed inset-0 z-[100] flex items-center justify-center overflow-hidden"
+  style="background: linear-gradient(160deg, #0F2D5C 0%, #1A6DB5 60%, #2d8fd4 100%);">
+
+  <!-- Círculos decorativos de fondo -->
+  <div class="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-white/5 pointer-events-none"></div>
+  <div class="absolute -bottom-20 -right-20 w-80 h-80 rounded-full bg-white/5 pointer-events-none"></div>
+  <div class="absolute top-1/2 left-1/4 w-40 h-40 rounded-full bg-white/3 pointer-events-none"></div>
+  <div class="relative z-10 flex flex-col items-center text-center px-8">
+    <div class="bg-white rounded-2xl px-8 py-5 shadow-2xl mb-8"
+      style="animation: welcomeLogoIn 0.6s ease-out forwards;">
+      <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png"
+        alt="Municipalidad de La Victoria"
+        class="h-16 w-auto" />
+    </div>
+
+    <div style="animation: welcomeTextIn 0.7s 0.2s ease-out both;">
+      <p class="text-blue-200 text-xs uppercase tracking-[0.25em] font-semibold mb-2">
+        Plataforma digital
+      </p>
+      <h1 class="text-white text-3xl md:text-4xl font-extrabold leading-tight mb-3">
+        Licencias de<br />Funcionamiento
+      </h1>
+      <p class="text-blue-100/80 text-sm max-w-xs mx-auto leading-relaxed">
+        Bienvenido/a, <span class="text-white font-semibold">{{ nombreUsuario }}</span>
+      </p>
+    </div>
+    
+    <div class="mt-10 w-48" style="animation: welcomeTextIn 0.7s 0.4s ease-out both;">
+      <div class="h-1 bg-white/20 rounded-full overflow-hidden">
+        <div class="h-full bg-white rounded-full"
+          style="animation: progressBar 2s 0.5s ease-out forwards; width: 0%;">
+        </div>
+      </div>
+      <p class="text-blue-200/70 text-[11px] mt-2">Ingresando al sistema...</p>
+    </div>
+  </div>
+</div>
