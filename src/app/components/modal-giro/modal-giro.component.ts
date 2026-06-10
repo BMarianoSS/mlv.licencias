@@ -2,7 +2,7 @@ import { Component, EventEmitter, Output, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SolicitudService } from '../../core/services/solicitud.service'
-import { ModalWrapperComponent } from '../../shared'
+import { ModalWrapperComponent, DataTableComponent, TableColumn } from '../../shared'
 
 export interface Giro {
   codigo:       string;
@@ -14,7 +14,7 @@ export interface Giro {
 @Component({
   selector: 'app-modal-giro',
   standalone: true,
-  imports: [CommonModule, FormsModule, ModalWrapperComponent],
+  imports: [CommonModule, FormsModule, ModalWrapperComponent, DataTableComponent],
   templateUrl: './modal-giro.component.html',
 })
 export class ModalGiroComponent {
@@ -72,4 +72,10 @@ export class ModalGiroComponent {
         }
       });
   }
+
+  columnasGiros: TableColumn[] = [
+    { label: 'Código',      key: 'coduso',      mono: true },
+    { label: 'Descripción', key: 'descripcion' },
+    { label: 'Acción',      actions: true, align: 'center' },
+  ];
 }

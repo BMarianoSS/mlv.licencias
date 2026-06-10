@@ -1,13 +1,13 @@
-<app-modal-wrapper title="Seleccionar giro" width="560px" (cerrar)="cerrar.emit()" bodyClass="p-0" [loading]="cargando" loadingText="Cargando giros...">
+<app-modal-wrapper title="Seleccionar giro" width="560px" (cerrar)="cerrar.emit()" bodyClass="p-0" [loading]="cargando"
+  loadingText="Cargando giros...">
 
   <div class="p-4 border-b border-gray-200">
-    <input type="text" [(ngModel)]="busqueda"
-      placeholder="Buscar por código o descripción..."
-      class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition"/>
-      <span class="text-xs text-gray-500 py-1 block">
-        En caso de que su giro no aparezca en la lista por favor vaya a solicitar su licencia presencialmente.
-      </span>
-    </div>
+    <input type="text" [(ngModel)]="busqueda" placeholder="Buscar por código o descripción..."
+      class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition" />
+    <span class="text-xs text-gray-500 py-1 block">
+      En caso de que su giro no aparezca en la lista por favor vaya a solicitar su licencia presencialmente.
+    </span>
+  </div>
 
   <div class="p-4 overflow-y-auto flex-1">
     <div *ngIf="cargando" class="text-center py-8">
@@ -15,30 +15,15 @@
       <p class="mt-2 text-sm text-gray-500">Cargando giros...</p>
     </div>
     <div *ngIf="!cargando" class="border border-gray-200 rounded-lg overflow-hidden">
-      <table class="w-full text-sm">
-        <thead class="bg-gray-50">
-          <tr>
-            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Código</th>
-            <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Descripción</th>
-            <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase tracking-wider w-20">Acción</th>
-          </tr>
-        </thead>
-        <tbody class="divide-y divide-gray-100">
-          <tr *ngFor="let g of catalogoFiltrado" class="hover:bg-gray-50 transition">
-            <td class="px-3 py-2 text-gray-700 font-mono text-xs">{{ g.coduso }}</td>
-            <td class="px-3 py-2 text-gray-600">{{ g.descripcion }}</td>
-            <td class="px-3 py-2 text-center">
-              <button (click)="seleccionar(g)"
-                class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-md bg-blue-700 hover:bg-blue-800 text-blue-50 transition">
-                Elegir
-              </button>
-            </td>
-          </tr>
-          <tr *ngIf="catalogoFiltrado.length === 0">
-            <td colspan="3" class="text-center py-4 text-gray-400 text-sm">No se encontraron giros</td>
-          </tr>
-        </tbody>
-      </table>
+      <app-data-table [columns]="columnasGiros" [rows]="catalogoFiltrado" [loading]="cargando"
+        emptyText="No se encontraron giros" [actionsTpl]="accionesGiro">
+      </app-data-table>
+
+      <ng-template #accionesGiro let-giro>
+        <button (click)="seleccionar(giro)" class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-md bg-blue-700 hover:bg-blue-800 text-blue-50 transition">
+          Elegir
+        </button>
+      </ng-template>
     </div>
   </div>
 

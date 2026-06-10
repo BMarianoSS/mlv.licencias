@@ -1,7 +1,5 @@
 <div class="p-6">
-  <!-- Modal resultado -->
-  <div *ngIf="mostrarModal"
-    class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+  <div *ngIf="mostrarModal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
     <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm p-8 text-center">
       <div [ngClass]="modalExito ? 'text-green-500' : 'text-red-500'" class="text-5xl mb-4">
         {{ modalExito ? '✅' : '❌' }}
@@ -10,8 +8,7 @@
         {{ modalExito ? '¡Registro exitoso!' : 'Error en el registro' }}
       </h2>
       <p class="text-sm text-gray-600 mb-6">{{ modalMensaje }}</p>
-      <button (click)="cerrarModal()"
-        [ngClass]="modalExito ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'"
+      <button (click)="cerrarModal()" [ngClass]="modalExito ? 'bg-green-600 hover:bg-green-700' : 'bg-red-600 hover:bg-red-700'"
         class="w-full text-white text-sm font-medium py-2.5 rounded-lg transition">
         {{ modalExito ? 'Ir al inicio de sesión' : 'Cerrar' }}
       </button>
@@ -26,7 +23,6 @@
   </div>
 
   <div class="border border-gray-200 rounded-xl overflow-hidden">
-    <!-- Credenciales -->
     <div class="bg-white p-5 border-b border-gray-200">
       <div class="mb-4">
         <app-section-header 
@@ -38,8 +34,7 @@
         <div>
           <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Correo Electrónico <span class="text-red-500">*</span></label>
           <input type="email" [(ngModel)]="correo" placeholder="ejemplo@correo.com"
-            [ngClass]="{'border-red-400': correo && !correoValido}"
-            class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+            [ngClass]="{'border-red-400': correo && !correoValido}" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
           <p *ngIf="correo && !correoValido" class="text-xs text-red-500 mt-1">Correo inválido.</p>
         </div>
         <div>
@@ -72,8 +67,7 @@
         <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
           Denominación (Urb./Coop./AA.HH./Otros)<span class="text-red-500">*</span>
         </label>
-        <input type="text" [(ngModel)]="denominacion" 
-          class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+        <input type="text" [(ngModel)]="denominacion" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
@@ -98,29 +92,14 @@
           <input type="text" [(ngModel)]="lote" placeholder="Lt." class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
         </div>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Departamento <span class="text-red-500">*</span></label>
-          <select [(ngModel)]="departamentoSeleccionado" (ngModelChange)="onDepartamentoChange()" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
-            <option value="">Seleccione</option>
-            <option *ngFor="let d of departamentos" [value]="d.id">{{ d.nombre }}</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Provincia <span class="text-red-500">*</span></label>
-          <select [(ngModel)]="provinciaSeleccionada" (ngModelChange)="onProvinciaChange()" [disabled]="!departamentoSeleccionado" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
-            <option value="">Seleccione</option>
-            <option *ngFor="let p of provincias" [value]="p.id">{{ p.nombre }}</option>
-          </select>
-        </div>
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">Distrito <span class="text-red-500">*</span></label>
-          <select [(ngModel)]="distritoSeleccionado" [disabled]="!provinciaSeleccionada" class="w-full px-3 py-2 text-sm border border-gray-300 rounded-lg">
-            <option value="">Seleccione</option>
-            <option *ngFor="let d of distritos" [value]="d.id">{{ d.nombre }}</option>
-          </select>
-        </div>
-      </div>
+      <app-ubigeo-selector
+        [departamento]="departamentoSeleccionado"
+        [provincia]="provinciaSeleccionada"
+        [distrito]="distritoSeleccionado"
+        (departamentoChange)="departamentoSeleccionado = $event"
+        (provinciaChange)="provinciaSeleccionada = $event"
+        (distritoChange)="distritoSeleccionado = $event">
+      </app-ubigeo-selector>
     </div>
 
     <div class="bg-white p-5">

@@ -3,35 +3,25 @@
     (predioSeleccionado)="onPredioSeleccionado($event)">
   </app-modal-mapa>
 
-  <app-modal-giro 
-    *ngIf="mostrarModalGiro" 
-    (cerrar)="mostrarModalGiro = false; id_zonificacion_actual = ''" 
-    [girosSeleccionados]="giros"
-    (giroSeleccionado)="onGiroSeleccionado($event)" 
-    [id_zonificacion]="id_zonificacion_actual"
-    [valores]="valores">>
+  <app-modal-giro *ngIf="mostrarModalGiro" (cerrar)="mostrarModalGiro = false; id_zonificacion_actual = ''"
+    [girosSeleccionados]="giros" (giroSeleccionado)="onGiroSeleccionado($event)"
+    [id_zonificacion]="id_zonificacion_actual" [valores]="valores">>
   </app-modal-giro>
 
-  <app-modal-lista-establecimientos
-    *ngIf="mostrarModalEstablecimientos"
-    (cerrar)="mostrarModalEstablecimientos = false"
+  <app-modal-lista-establecimientos *ngIf="mostrarModalEstablecimientos" (cerrar)="mostrarModalEstablecimientos = false"
     (establecimientoSeleccionado)="onEstablecimientoSeleccionado($event)">
   </app-modal-lista-establecimientos>
 
   <div class="flex items-center justify-between mb-6">
-    <app-section-header 
-        title="Datos del establecimiento" 
-        badge="">
+    <app-section-header title="Datos del establecimiento" badge="">
     </app-section-header>
   </div>
 
   <div class="border border-gray-200 rounded-xl overflow-hidden">
     <div class="bg-white p-5 border-b border-gray-200">
       <div class="mb-4">
-        <app-section-header 
-          title="Ubicación del establecimiento" 
-          badge="">
-      </app-section-header>
+        <app-section-header title="Ubicación del establecimiento" badge="">
+        </app-section-header>
       </div>
 
       <div class="flex flex-wrap items-end gap-4">
@@ -68,52 +58,35 @@
           </label>
           <div class="flex gap-2 items-center">
             <input type="text" [(ngModel)]="abrev_zonif"
-              class="w-32 px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-not-allowed" disabled>
+              class="w-32 px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-not-allowed"
+              disabled>
             <input type="text" [(ngModel)]="desc_zonif"
-              class="flex-1 px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-not-allowed" disabled>
+              class="flex-1 px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-not-allowed"
+              disabled>
           </div>
         </div>
 
         <div class="w-full md:w-1/2 lg:w-2/5">
           <div class="flex justify-between items-center mb-3">
-            <app-section-header 
-                title="Giros" 
-                badge="(?)"
-                [divider]=false>
+            <app-section-header title="Giros" badge="(?)" [divider]=false>
             </app-section-header>
-            <button (click)="abrirModalGiro()" 
+            <button (click)="abrirModalGiro()"
               class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-md border border-blue-200 text-blue-700 hover:bg-blue-50 transition disabled:opacity-50 disabled:cursor-not-allowed">
               {{ giros.length === 0 ? '+ Agregar giro principal' : '+ Agregar giro adicional' }}
             </button>
           </div>
 
           <div class="border border-gray-200 rounded-lg overflow-hidden max-h-30 overflow-y-auto">
-            <table class="w-full text-sm">
-              <thead class="bg-gray-50">
-                <tr>
-                  <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Código</th>
-                  <th class="px-3 py-2 text-left text-xs font-medium text-gray-500 uppercase">Descripción</th>
-                  <th class="px-3 py-2 text-center text-xs font-medium text-gray-500 uppercase w-16">Acción</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-100">
-                <tr *ngFor="let giro of giros; let i = index" class="hover:bg-gray-50">
-                  <td class="px-3 py-2 text-gray-700">{{ giro.coduso }}</td>
-                  <td class="px-3 py-2 text-gray-600">{{ giro.descripcion }}</td>
-                  <td class="px-3 py-2 text-center">
-                    <button (click)="eliminarGiro(i)"
-                      class="text-xs font-medium px-2 py-1 rounded text-red-600 hover:bg-red-50 transition">
-                      Quitar
-                    </button>
-                  </td>
-                </tr>
-                <tr *ngIf="giros.length === 0">
-                  <td colspan="3" class="text-center py-4 text-gray-400 text-sm">
-                    No hay giros registrados
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <app-data-table [columns]="columnasGirosSeleccionados" [rows]="giros" emptyText="No hay giros registrados"
+              [actionsTpl]="accionesGiro2">
+            </app-data-table>
+
+            <ng-template #accionesGiro2 let-giro let-i="index">
+              <button (click)="eliminarGiro(i)"
+                class="text-xs font-medium px-2 py-1 rounded text-red-600 hover:bg-red-50 transition">
+                Quitar
+              </button>
+            </ng-template>
           </div>
         </div>
       </div>
@@ -122,10 +95,7 @@
     <div class="bg-white p-5 border-b border-gray-200">
       <div class="mb-4">
         <div class="flex justify-between items-center">
-          <app-section-header 
-            title="Información comercial" 
-            badge=""
-            [divider]=false>
+          <app-section-header title="Información comercial" badge="" [divider]=false>
           </app-section-header>
           <button (click)="mostrarModalEstablecimientos = true"
             class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
@@ -210,10 +180,11 @@
       <div *ngIf="establecimientoAutorellenado"
         class="mb-4 flex items-start gap-2 bg-amber-50 border border-amber-200 text-amber-800 text-sm rounded-lg px-4 py-3">
         <span class="mt-0.5">⚠️</span>
-        <span>Se autorellenaron los datos del establecimiento seleccionado. Verifica el horario de atención antes de continuar.</span>
+        <span>Se autorellenaron los datos del establecimiento seleccionado. Verifica el horario de atención antes de
+          continuar.</span>
       </div>
 
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 items-end">        
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 items-end">
         <div>
           <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
             Desde
@@ -243,10 +214,7 @@
       </div>
     </div>
 
-    <app-nav-buttons
-      backRoute="../pantalla1"
-      [nextDisabled]="!formularioValido"
-      (next)="guardarState()"
+    <app-nav-buttons backRoute="../pantalla1" [nextDisabled]="!formularioValido" (next)="guardarState()"
       nextRoute="../pantalla3">
     </app-nav-buttons>
   </div>

@@ -98,7 +98,6 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   private onMapClick(lat: number, lng: number): void {
-    // Limpiar polígono anterior
     this.limpiarPoligono();
 
     if (this.clickMarker) {
@@ -112,7 +111,7 @@ export class ModalMapaComponent implements OnInit, AfterViewInit, OnDestroy {
     this.predios = [];
     this.predioActivo = null;
     this.cargando = true;
-    this.listaPanelVisible = true; // ← mostrar panel al hacer clic
+    this.listaPanelVisible = true;
     this.mensajeEstado = 'Buscando predios...';
 
     this.solicitudService.listarCodLotePredios({

@@ -5,12 +5,13 @@ import { CommonModule } from '@angular/common';
 import { SolicitudService } from '../../core/services/solicitud.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ModalDetalleSolicitudComponent } from '../../components/modal-detalle-solicitud/modal-detalle-solicitud.component';
-import { SectionHeaderComponent } from '../../shared';
+import { ModalDocumentoComponent } from '../../components/modal-documento/modal-documento.component';
+import { SectionHeaderComponent, DataTableComponent, TableColumn } from '../../shared';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, ModalDetalleSolicitudComponent, SectionHeaderComponent],
+  imports: [RouterModule, FormsModule, CommonModule, ModalDetalleSolicitudComponent, ModalDocumentoComponent, SectionHeaderComponent, DataTableComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
@@ -23,9 +24,10 @@ export class HomeComponent{
   modalConfirmarLeaving = false;
   modalRespuestaVisible = false;
   modalRespuestaLeaving = false;
+  modalDocumentoVisible = false;
+  modalDetalleVisible = false;
   idSolicitudPendiente: string = '';
   mensajeRespuesta: string = '';
-  modalDetalleVisible = false;
   idSolicitudDetalle: string = '';
   id_solicitante: any = '';
 
@@ -39,8 +41,17 @@ export class HomeComponent{
     this.modalDetalleVisible = true;
   }
 
+  abrirDocumento(id_solicitud: string) {
+    this.idSolicitudDetalle = id_solicitud;
+    this.modalDocumentoVisible = true;
+  }
+
   cerrarDetalle() {
     this.modalDetalleVisible = false;
+  }
+
+  cerrarDocumento() {
+    this.modalDocumentoVisible = false;
   }
 
   listarSolicitudes() {
@@ -82,4 +93,13 @@ export class HomeComponent{
       this.modalRespuestaLeaving = false;
     }, 100);
   }
+
+  columnasSolicitudes: TableColumn[] = [
+    { label: 'N° Solicitud',         key: 'nroSolicitud',      mono: true },
+    { label: 'Ubicación del predio', key: 'direccionLocal' },
+    { label: 'Fecha registro',       key: 'fechaRegistro' },
+    { label: 'Estado',               key: 'descripcionEstado' },
+    { label: 'Tipo de trámite',      key: 'tipoTramite' },
+    { label: 'Acciones',             actions: true, align: 'center' },
+  ];
 }

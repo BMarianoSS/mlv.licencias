@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { SolicitudService } from '../../core/services/solicitud.service';
 import { ComboService } from '../../core/services/combo.service';
 import { AnexosStateService } from '../../core/services/anexos-state.service';
-import { ModalWrapperComponent } from '../../shared';
+import { ModalWrapperComponent, UbigeoSelectorComponent } from '../../shared';
 
 @Component({
   selector: 'app-modal-preguntas',
   standalone: true,
-  imports: [CommonModule, FormsModule, ModalWrapperComponent],
+  imports: [CommonModule, FormsModule, ModalWrapperComponent, UbigeoSelectorComponent],
   templateUrl: './modal-preguntas.component.html',
 })
 export class ModalPreguntasComponent implements OnInit {

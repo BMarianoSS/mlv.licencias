@@ -385,3 +385,14 @@ export interface IAprobarSolicitudRequest {
     operador:       string;
     estacion:       string;
 }
+
+
+
+export interface ObtenerRutaSolicitudResponse {
+    idSolicitud:    string;
+    rutaArchivo:    string;
+}
+
+export interface IObtenerRutaSolicitudRequest {
+    id_solicitud:   string;
+}

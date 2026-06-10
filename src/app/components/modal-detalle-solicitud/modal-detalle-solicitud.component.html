@@ -1,958 +1,236 @@
-<app-modal-wrapper
-  title="Detalle de Solicitud"
-  width="800px"
-  maxHeight="92vh"
-  [leaving]="leaving"
-  (cerrar)="cerrarConAnimacion()"
-  bodyClass="p-0">
+<app-modal-wrapper title="Detalle de Solicitud" width="700px" maxHeight="90vh" [leaving]="leaving"
+  (cerrar)="cerrarConAnimacion()" [bodyClass]="'p-0'">
 
-  <!-- Estado de carga -->
-  <div *ngIf="cargando" class="ds-loading">
-    <div class="ds-spinner"></div>
-    <p class="ds-loading-text">Cargando solicitud...</p>
+  <div *ngIf="cargando" class="flex items-center justify-center py-16">
+    <div class="text-center">
+      <div class="inline-block animate-spin rounded-full h-9 w-9 border-b-2 border-blue-600"></div>
+      <p class="mt-3 text-sm text-blue-600 font-medium">Cargando solicitud...</p>
+    </div>
   </div>
 
-  <!-- Sin datos -->
-  <div *ngIf="!cargando && data.length === 0" class="ds-empty">
-    <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-    <p>No se encontró información para esta solicitud</p>
+  <div *ngIf="!cargando && data.length === 0" class="flex items-center justify-center py-16">
+    <div class="text-center">
+      <svg class="mx-auto mb-3 h-10 w-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <p class="text-sm text-gray-400">No se encontró información para esta solicitud.</p>
+    </div>
   </div>
 
-  <!-- Contenido principal -->
-  <div *ngIf="!cargando && data.length > 0" class="ds-container">
-
-    <!-- Hero Header -->
-    <div class="ds-hero">
-      <div class="ds-hero-bg"></div>
-      <div class="ds-hero-content">
-        <div class="ds-hero-left">
-          <div class="ds-badge" [class.ds-badge--active]="data[0]?.estado === 'ACTIVO'" [class.ds-badge--inactive]="data[0]?.estado === 'INACTIVO'">
-            <span class="ds-badge-dot"></span>
-            {{ data[0]?.estado || 'SIN ESTADO' }}
-          </div>
-          <h2 class="ds-hero-title">{{ data[0]?.razonSocial || data[0]?.nombre || 'Sin razón social' }}</h2>
-          <p class="ds-hero-subtitle">{{ data[0]?.descEstablecimiento || 'Sin descripción de establecimiento' }}</p>
-          <div class="ds-hero-meta">
-            <span class="ds-meta-chip">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
-              {{ data[0]?.direccionLocal || 'Sin dirección' }}
-            </span>
-            <span class="ds-meta-chip" *ngIf="data[0]?.TitularLicencia">
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-              {{ data[0]?.TitularLicencia }}
-            </span>
-          </div>
+  <ng-container *ngIf="!cargando && data.length > 0">
+    <div class="flex items-center justify-between px-6 pt-5 pb-4 border-b border-gray-100">
+      <div class="flex items-center gap-3">
+        <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center">
+          <svg class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
         </div>
-        <div class="ds-hero-right">
-          <div class="ds-license-card">
-            <span class="ds-license-label">N° Licencia</span>
-            <span class="ds-license-number">{{ data[0]?.nroLicencia || '—' }}</span>
-            <span class="ds-license-type">{{ data[0]?.descTipoLicencia || 'Sin tipo' }}</span>
-          </div>
+        <div>
+          <p class="text-[15px] font-medium text-gray-900 leading-tight">Detalle de solicitud</p>
+          <p class="text-xs text-gray-400 leading-tight mt-0.5">
+            <ng-container *ngIf="data[0]?.nroExpediente">Exp. N° {{ data[0].nroExpediente }} · </ng-container>
+            ID {{ data[0]?.idSolicitud || '—' }}
+          </p>
         </div>
       </div>
-
-      <!-- Pills de estados rápidos -->
-      <div class="ds-status-bar">
-        <div class="ds-status-item">
-          <span class="ds-status-label">Solicitud</span>
-          <span class="ds-status-value">{{ data[0]?.nroSolicitud || '—' }}</span>
-        </div>
-        <div class="ds-status-divider"></div>
-        <div class="ds-status-item">
-          <span class="ds-status-label">Estado Trámite</span>
-          <span class="ds-status-value ds-status-tramite">{{ data[0]?.estadoTramite || '—' }}</span>
-        </div>
-        <div class="ds-status-divider"></div>
-        <div class="ds-status-item">
-          <span class="ds-status-label">Tipo de Ingreso</span>
-          <span class="ds-status-value">{{ data[0]?.tipoIngreso || '—' }}</span>
-        </div>
-        <div class="ds-status-divider"></div>
-        <div class="ds-status-item">
-          <span class="ds-status-label">Fecha Solicitud</span>
-          <span class="ds-status-value">{{ data[0]?.fechaSolicitud || '—' }}</span>
-        </div>
+      <div class="flex items-center gap-2">
+        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium" [ngClass]="{
+            'bg-green-50 text-green-700': data[0]?.estado === '1' || data[0]?.estado === 'ACTIVO',
+            'bg-red-50 text-red-600':    data[0]?.estado === '0' || data[0]?.estado === 'INACTIVO',
+            'bg-gray-100 text-gray-500': data[0]?.estado !== '1' && data[0]?.estado !== 'ACTIVO'
+                                      && data[0]?.estado !== '0' && data[0]?.estado !== 'INACTIVO'
+          }">
+          {{ (data[0]?.estado === '1' || data[0]?.estado === 'ACTIVO') ? 'Activo' :
+          (data[0]?.estado === '0' || data[0]?.estado === 'INACTIVO') ? 'Inactivo' :
+          (data[0]?.estado || '—') }}
+        </span>
       </div>
     </div>
 
-    <!-- Cuerpo con secciones colapsables -->
-    <div class="ds-body">
-
-      <!-- Vigencia destacada -->
-      <div class="ds-vigencia-banner" *ngIf="data[0]?.vigenciaDesde || data[0]?.vigenciaHasta">
-        <div class="ds-vigencia-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    <div class="px-6 py-5 space-y-4">
+      <div class="grid grid-cols-3 gap-3 rounded-xl bg-gray-50 px-4 py-3">
+        <div>
+          <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-0.5">Tipo de licencia</p>
+          <p class="text-[13px] font-medium text-gray-800 leading-snug">
+            {{ data[0]?.descTipoLicencia || '—' }}
+          </p>
         </div>
-        <div class="ds-vigencia-content">
-          <span class="ds-vigencia-title">Período de Vigencia</span>
-          <div class="ds-vigencia-dates">
-            <span class="ds-vigencia-date">
-              <em>Desde</em>
-              <strong>{{ data[0]?.vigenciaDesde || '—' }}</strong>
-            </span>
-            <div class="ds-vigencia-arrow">→</div>
-            <span class="ds-vigencia-date">
-              <em>Hasta</em>
-              <strong>{{ data[0]?.vigenciaHasta || '—' }}</strong>
-            </span>
-          </div>
+        <div>
+          <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-0.5">Estado trámite</p>
+          <p class="text-[13px] font-medium text-gray-800">{{ data[0]?.estadoTramite || '—' }}</p>
         </div>
-        <div class="ds-vigencia-plazo" *ngIf="data[0]?.plazoMes">
-          <span class="ds-plazo-num">{{ data[0]?.plazoMes }}</span>
-          <span class="ds-plazo-label">meses</span>
+        <div>
+          <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-0.5">Fecha solicitud</p>
+          <p class="text-[13px] font-medium text-gray-800">{{ data[0]?.fechaSolicitud || '—' }}</p>
         </div>
       </div>
 
-      <!-- Grid de secciones -->
-      <div class="ds-sections">
-
-        <!-- Expediente y Resolución -->
-        <div class="ds-section">
-          <div class="ds-section-header">
-            <div class="ds-section-icon ds-icon--blue">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
-            </div>
-            <h3 class="ds-section-title">Expediente y Resolución</h3>
-          </div>
-          <div class="ds-fields-grid">
-            <div class="ds-field">
-              <span class="ds-field-label">N° Expediente</span>
-              <span class="ds-field-value ds-value--mono">{{ data[0]?.nroExpediente || '—' }}</span>
-            </div>
-            <div class="ds-field">
-              <span class="ds-field-label">Fecha Expediente</span>
-              <span class="ds-field-value">{{ data[0]?.fechaExpediente || '—' }}</span>
-            </div>
-            <div class="ds-field">
-              <span class="ds-field-label">N° Resolución</span>
-              <span class="ds-field-value ds-value--mono">{{ data[0]?.nroResolucion || '—' }}</span>
-            </div>
-            <div class="ds-field">
-              <span class="ds-field-label">Fecha Resolución</span>
-              <span class="ds-field-value">{{ data[0]?.fechaResolucion || '—' }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.siglasResolucion">
-              <span class="ds-field-label">Siglas Resolución</span>
-              <span class="ds-field-value">{{ data[0]?.siglasResolucion }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.nroOrdenanza">
-              <span class="ds-field-label">N° Ordenanza</span>
-              <span class="ds-field-value ds-value--mono">{{ data[0]?.nroOrdenanza }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Datos de la Licencia -->
-        <div class="ds-section">
-          <div class="ds-section-header">
-            <div class="ds-section-icon ds-icon--green">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-            </div>
-            <h3 class="ds-section-title">Datos de la Licencia</h3>
-          </div>
-          <div class="ds-fields-grid">
-            <div class="ds-field">
-              <span class="ds-field-label">Fecha Licencia</span>
-              <span class="ds-field-value">{{ data[0]?.fechaLicencia || '—' }}</span>
-            </div>
-            <div class="ds-field">
-              <span class="ds-field-label">Concepto</span>
-              <span class="ds-field-value">{{ data[0]?.descConcepto || '—' }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.descSolicitud">
-              <span class="ds-field-label">Descripción Solicitud</span>
-              <span class="ds-field-value">{{ data[0]?.descSolicitud }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.nroSerie">
-              <span class="ds-field-label">N° Serie</span>
-              <span class="ds-field-value ds-value--mono">{{ data[0]?.nroSerie }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.nroLicenciaAnt">
-              <span class="ds-field-label">Licencia Anterior</span>
-              <span class="ds-field-value ds-value--mono">{{ data[0]?.nroLicenciaAnt }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.giros">
-              <span class="ds-field-label">Giros</span>
-              <span class="ds-field-value">{{ data[0]?.giros }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Información de Pago -->
-        <div class="ds-section" *ngIf="data[0]?.nroRecibo || data[0]?.fechaPago || data[0]?.idRecibo">
-          <div class="ds-section-header">
-            <div class="ds-section-icon ds-icon--amber">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
-            </div>
-            <h3 class="ds-section-title">Información de Pago</h3>
-          </div>
-          <div class="ds-fields-grid">
-            <div class="ds-field">
-              <span class="ds-field-label">N° Recibo</span>
-              <span class="ds-field-value ds-value--mono">{{ data[0]?.nroRecibo || '—' }}</span>
-            </div>
-            <div class="ds-field">
-              <span class="ds-field-label">Fecha Pago</span>
-              <span class="ds-field-value">{{ data[0]?.fechaPago || '—' }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Responsables -->
-        <div class="ds-section" *ngIf="data[0]?.encargado || data[0]?.responsable || data[0]?.operadorRegistro">
-          <div class="ds-section-header">
-            <div class="ds-section-icon ds-icon--purple">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-            </div>
-            <h3 class="ds-section-title">Responsables y Registro</h3>
-          </div>
-          <div class="ds-fields-grid">
-            <div class="ds-field" *ngIf="data[0]?.encargado">
-              <span class="ds-field-label">Encargado</span>
-              <span class="ds-field-value">{{ data[0]?.encargado }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.responsable">
-              <span class="ds-field-label">Responsable</span>
-              <span class="ds-field-value">{{ data[0]?.responsable }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.operadorRegistro">
-              <span class="ds-field-label">Operador Registro</span>
-              <span class="ds-field-value">{{ data[0]?.operadorRegistro }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.fechaRegistro">
-              <span class="ds-field-label">Fecha Registro</span>
-              <span class="ds-field-value">{{ data[0]?.fechaRegistro }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.operadorActualiza">
-              <span class="ds-field-label">Operador Actualiza</span>
-              <span class="ds-field-value">{{ data[0]?.operadorActualiza }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.fechaActualiza">
-              <span class="ds-field-label">Fecha Actualiza</span>
-              <span class="ds-field-value">{{ data[0]?.fechaActualiza }}</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Flags y Estados Adicionales -->
-        <div class="ds-section ds-section--flags">
-          <div class="ds-section-header">
-            <div class="ds-section-icon ds-icon--slate">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><line x1="4" y1="22" x2="4" y2="15"/></svg>
-            </div>
-            <h3 class="ds-section-title">Indicadores</h3>
-          </div>
-          <div class="ds-flags-grid">
-            <div class="ds-flag" [class.ds-flag--on]="data[0]?.generaLicencia === 'S'">
-              <span class="ds-flag-icon">{{ data[0]?.generaLicencia === 'S' ? '✓' : '✗' }}</span>
-              <span class="ds-flag-label">Genera Licencia</span>
-            </div>
-            <div class="ds-flag" [class.ds-flag--on]="data[0]?.duplicaLicencia === 'S'">
-              <span class="ds-flag-icon">{{ data[0]?.duplicaLicencia === 'S' ? '✓' : '✗' }}</span>
-              <span class="ds-flag-label">Duplica Licencia</span>
-            </div>
-            <div class="ds-flag" [class.ds-flag--on]="data[0]?.reimprimeLicencia === 'S'">
-              <span class="ds-flag-icon">{{ data[0]?.reimprimeLicencia === 'S' ? '✓' : '✗' }}</span>
-              <span class="ds-flag-label">Reimprimir</span>
-            </div>
-            <div class="ds-flag" [class.ds-flag--on]="data[0]?.itse === 'S'">
-              <span class="ds-flag-icon">{{ data[0]?.itse === 'S' ? '✓' : '✗' }}</span>
-              <span class="ds-flag-label">ITSE</span>
-            </div>
-            <div class="ds-flag" [class.ds-flag--on]="data[0]?.ordenanzaFlag === 'S'">
-              <span class="ds-flag-icon">{{ data[0]?.ordenanzaFlag === 'S' ? '✓' : '✗' }}</span>
-              <span class="ds-flag-label">Ordenanza</span>
-            </div>
-            <div class="ds-flag" [class.ds-flag--on]="data[0]?.dJurada === 'S'">
-              <span class="ds-flag-icon">{{ data[0]?.dJurada === 'S' ? '✓' : '✗' }}</span>
-              <span class="ds-flag-label">D. Jurada</span>
-            </div>
-            <div class="ds-flag" [class.ds-flag--on]="data[0]?.reconsideracion === 'S'">
-              <span class="ds-flag-icon">{{ data[0]?.reconsideracion === 'S' ? '✓' : '✗' }}</span>
-              <span class="ds-flag-label">Reconsideración</span>
-            </div>
-            <div class="ds-flag" [class.ds-flag--on]="data[0]?.rectificacion === 'S'">
-              <span class="ds-flag-icon">{{ data[0]?.rectificacion === 'S' ? '✓' : '✗' }}</span>
-              <span class="ds-flag-label">Rectificación</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- Firma Digital -->
-        <div class="ds-section" *ngIf="data[0]?.licenciaIdFirmado || data[0]?.licenciaFechaFirmado">
-          <div class="ds-section-header">
-            <div class="ds-section-icon ds-icon--teal">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <h3 class="ds-section-title">Firma Digital</h3>
-          </div>
-          <div class="ds-fields-grid">
-            <div class="ds-field" *ngIf="data[0]?.licenciaFechaFirmado">
-              <span class="ds-field-label">Fecha Firmado</span>
-              <span class="ds-field-value">{{ data[0]?.licenciaFechaFirmado }}</span>
-            </div>
-            <div class="ds-field" *ngIf="data[0]?.licenciaUsuarioFirmado">
-              <span class="ds-field-label">Usuario Firmado</span>
-              <span class="ds-field-value">{{ data[0]?.licenciaUsuarioFirmado }}</span>
-            </div>
-          </div>
-        </div>
-
-      </div><!-- /ds-sections -->
-
-      <!-- Observaciones -->
-      <div class="ds-observaciones" *ngIf="data[0]?.observacion || data[0]?.observacion2 || data[0]?.leyenda || data[0]?.descAnuncio">
-        <div class="ds-obs-item" *ngIf="data[0]?.observacion">
-          <span class="ds-obs-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            Observaciones
+      <div class="rounded-xl border border-gray-100 overflow-hidden">
+        <div class="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-100">
+          <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          <span class="text-[10px] uppercase tracking-widest font-medium text-gray-400">
+            Titular y establecimiento
           </span>
-          <p class="ds-obs-text">{{ data[0]?.observacion }}</p>
         </div>
-        <div class="ds-obs-item" *ngIf="data[0]?.observacion2">
-          <span class="ds-obs-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            Observaciones 2
-          </span>
-          <p class="ds-obs-text">{{ data[0]?.observacion2 }}</p>
-        </div>
-        <div class="ds-obs-item" *ngIf="data[0]?.leyenda">
-          <span class="ds-obs-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-            Leyenda
-          </span>
-          <p class="ds-obs-text">{{ data[0]?.leyenda }}</p>
-        </div>
-        <div class="ds-obs-item" *ngIf="data[0]?.descAnuncio">
-          <span class="ds-obs-label">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 17H2a3 3 0 000 6h20a3 3 0 000-6zm-11-4H6a3 3 0 000 6h5zm-1-1h1a3 3 0 000-6h-1zm9-7h-6a3 3 0 000 6h6a3 3 0 000-6z"/></svg>
-            Descripción Anuncio
-          </span>
-          <p class="ds-obs-text">{{ data[0]?.descAnuncio }}</p>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-3 px-4 py-3.5 text-[13px]">
+          <div>
+            <p class="text-[11px] text-gray-400 mb-0.5">Razón social</p>
+            <p class="text-gray-800">{{ data[0]?.razonSocial || data[0]?.nombre || '—' }}</p>
+          </div>
+          <div>
+            <p class="text-[11px] text-gray-400 mb-0.5">Establecimiento</p>
+            <p class="text-gray-800">{{ data[0]?.descEstablecimiento || '—' }}</p>
+          </div>
+          <div>
+            <p class="text-[11px] text-gray-400 mb-0.5">Dirección local</p>
+            <p class="text-gray-800">{{ data[0]?.direccionLocal?.trim() || '—' }}</p>
+          </div>
+          <div>
+            <p class="text-[11px] text-gray-400 mb-0.5">Titular licencia</p>
+            <p class="text-gray-800">{{ data[0]?.TitularLicencia || '—' }}</p>
+          </div>
         </div>
       </div>
 
-    </div><!-- /ds-body -->
-  </div><!-- /ds-container -->
+      <div class="grid grid-cols-2 gap-4">
+        <div class="rounded-xl border border-gray-100 overflow-hidden">
+          <div class="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-100">
+            <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+            <span class="text-[10px] uppercase tracking-widest font-medium text-gray-400">
+              Expediente y resolución
+            </span>
+          </div>
+          <div class="px-4 py-3.5 space-y-2.5 text-[13px]">
+            <div class="flex justify-between">
+              <span class="text-gray-400">N° expediente</span>
+              <span class="text-gray-800">{{ data[0]?.nroExpediente || '—' }}</span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Fecha expediente</span>
+              <span class="text-gray-800">{{ data[0]?.fechaExpediente || '—' }}</span>
+            </div>
+            <div class="border-t border-gray-100 my-1"></div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">N° resolución</span>
+              <span class="text-gray-800">
+                {{ data[0]?.nroResolucion || '—' }}
+                <span *ngIf="data[0]?.siglasResolucion" class="text-gray-400 text-[11px]">
+                  · {{ data[0].siglasResolucion }}
+                </span>
+              </span>
+            </div>
+            <div class="flex justify-between">
+              <span class="text-gray-400">Fecha resolución</span>
+              <span class="text-gray-800">{{ data[0]?.fechaResolucion || '—' }}</span>
+            </div>
+          </div>
+        </div>
 
+        <div class="flex flex-col gap-4">
+          <div class="rounded-xl border border-gray-100 overflow-hidden">
+            <div class="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-100">
+              <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+              </svg>
+              <span class="text-[10px] uppercase tracking-widest font-medium text-gray-400">Vigencia</span>
+            </div>
+            <div class="px-4 py-3.5 space-y-2.5 text-[13px]">
+              <div class="flex justify-between">
+                <span class="text-gray-400">Desde</span>
+                <span class="text-gray-800">{{ data[0]?.vigenciaDesde || '—' }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Hasta</span>
+                <span class="text-gray-800">{{ data[0]?.vigenciaHasta || '—' }}</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="rounded-xl border border-gray-100 overflow-hidden"
+            *ngIf="data[0]?.nroRecibo || data[0]?.fechaPago">
+            <div class="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-100">
+              <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+              <span class="text-[10px] uppercase tracking-widest font-medium text-gray-400">Pago</span>
+            </div>
+            <div class="px-4 py-3.5 space-y-2.5 text-[13px]">
+              <div class="flex justify-between">
+                <span class="text-gray-400">N° recibo</span>
+                <span class="text-gray-800">{{ data[0]?.nroRecibo || '—' }}</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Fecha pago</span>
+                <span class="text-gray-800">{{ data[0]?.fechaPago || '—' }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="rounded-xl border border-gray-100 overflow-hidden">
+        <div class="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-100">
+          <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span class="text-[10px] uppercase tracking-widest font-medium text-gray-400">
+            Información adicional
+          </span>
+        </div>
+        <div class="grid grid-cols-3 gap-x-6 gap-y-3 px-4 py-3.5 text-[13px]">
+          <div>
+            <p class="text-[11px] text-gray-400 mb-0.5">Concepto</p>
+            <p class="text-gray-800">{{ data[0]?.descConcepto || '—' }}</p>
+          </div>
+          <div>
+            <p class="text-[11px] text-gray-400 mb-0.5">N° ordenanza</p>
+            <p class="text-gray-800">{{ data[0]?.nroOrdenanza || '—' }}</p>
+          </div>
+          <div>
+            <p class="text-[11px] text-gray-400 mb-0.5">Tipo ingreso</p>
+            <p class="text-gray-800">{{ data[0]?.tipoIngreso || '—' }}</p>
+          </div>
+          <div>
+            <p class="text-[11px] text-gray-400 mb-0.5">Operador registro</p>
+            <p class="text-gray-800">{{ data[0]?.operadorRegistro || '—' }}</p>
+          </div>
+          <div>
+            <p class="text-[11px] text-gray-400 mb-0.5">Anexos DJ</p>
+            <p class="text-gray-800">{{ data[0]?.anexosDJ || '—' }}</p>
+          </div>
+          <div>
+            <p class="text-[11px] text-gray-400 mb-0.5">Fecha registro</p>
+            <p class="text-gray-800">{{ data[0]?.fechaRegistro || '—' }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="data[0]?.giros" class="rounded-xl border border-gray-100 px-4 py-3.5">
+        <p class="text-[10px] uppercase tracking-widest font-medium text-gray-400 mb-1.5">Giros</p>
+        <p class="text-[13px] text-gray-800 leading-relaxed">{{ data[0].giros }}</p>
+      </div>
+
+      <div *ngIf="data[0]?.observacion || data[0]?.observacion2"
+        class="rounded-xl border border-amber-100 bg-amber-50 px-4 py-3.5">
+        <p class="text-[10px] uppercase tracking-widest font-medium text-amber-500 mb-1.5">Observaciones</p>
+        <p *ngIf="data[0]?.observacion" class="text-[13px] text-amber-900 leading-relaxed">
+          {{ data[0].observacion }}
+        </p>
+        <p *ngIf="data[0]?.observacion2" class="text-[13px] text-amber-900 leading-relaxed mt-1">
+          {{ data[0].observacion2 }}
+        </p>
+      </div>
+    </div>
+  </ng-container>
 </app-modal-wrapper>
-<style>
-  
-:host {
-    font-family: 'DM Sans', 'Segoe UI', sans-serif;
-}
-
-.ds-loading {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 2rem;
-    gap: 1rem;
-}
-
-.ds-spinner {
-    width: 40px;
-    height: 40px;
-    border: 3px solid #e2e8f0;
-    border-top-color: #2563eb;
-    border-radius: 50%;
-    animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-    to {
-        transform: rotate(360deg);
-    }
-}
-
-.ds-loading-text {
-    font-size: 0.875rem;
-    color: #2563eb;
-    font-weight: 500;
-    letter-spacing: 0.01em;
-}
-
-.ds-empty {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 4rem 2rem;
-    gap: 1rem;
-    color: #94a3b8;
-
-    p {
-        font-size: 0.875rem;
-    }
-}
-
-.ds-container {
-    display: flex;
-    flex-direction: column;
-    animation: fadeUp 0.3s ease;
-}
-
-@keyframes fadeUp {
-    from {
-        opacity: 0;
-        transform: translateY(8px);
-    }
-
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
-}
-
-.ds-hero {
-    position: relative;
-    background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 60%, #2563eb 100%);
-    padding: 1.75rem 1.75rem 0;
-    overflow: hidden;
-}
-
-.ds-hero-bg {
-    position: absolute;
-    inset: 0;
-    background-image:
-        radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 10% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 40%);
-    pointer-events: none;
-}
-
-.ds-hero-content {
-    position: relative;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    gap: 1.5rem;
-    margin-bottom: 1.25rem;
-}
-
-.ds-hero-left {
-    flex: 1;
-    min-width: 0;
-}
-
-.ds-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.7rem;
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 4px 10px;
-    border-radius: 20px;
-    margin-bottom: 0.75rem;
-    background: rgba(255, 255, 255, 0.15);
-    color: rgba(255, 255, 255, 0.9);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-
-    &--active {
-        background: rgba(16, 185, 129, 0.25);
-        border-color: rgba(16, 185, 129, 0.5);
-        color: #a7f3d0;
-    }
-
-    &--inactive {
-        background: rgba(239, 68, 68, 0.2);
-        border-color: rgba(239, 68, 68, 0.4);
-        color: #fca5a5;
-    }
-}
-
-.ds-badge-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: currentColor;
-    animation: pulse 2s ease infinite;
-}
-
-@keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.4;
-    }
-}
-
-.ds-hero-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    color: #fff;
-    margin: 0 0 0.35rem;
-    line-height: 1.3;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.ds-hero-subtitle {
-    font-size: 0.825rem;
-    color: rgba(255, 255, 255, 0.7);
-    margin: 0 0 0.75rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.ds-hero-meta {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-}
-
-.ds-meta-chip {
-    display: inline-flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.75);
-    background: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    padding: 3px 9px;
-    border-radius: 12px;
-    white-space: nowrap;
-    max-width: 200px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.ds-hero-right {
-    flex-shrink: 0;
-}
-
-.ds-license-card {
-    background: rgba(255, 255, 255, 0.12);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(4px);
-    border-radius: 12px;
-    padding: 0.875rem 1.25rem;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    min-width: 130px;
-}
-
-.ds-license-label {
-    font-size: 0.65rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: rgba(255, 255, 255, 0.6);
-    font-weight: 600;
-}
-
-.ds-license-number {
-    font-size: 1.35rem;
-    font-weight: 800;
-    color: #fff;
-    letter-spacing: -0.02em;
-    font-variant-numeric: tabular-nums;
-}
-
-.ds-license-type {
-    font-size: 0.7rem;
-    color: rgba(255, 255, 255, 0.65);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.ds-status-bar {
-    position: relative;
-    display: flex;
-    align-items: center;
-    background: rgba(0, 0, 0, 0.2);
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
-    margin: 0 -1.75rem;
-    padding: 0 1.75rem;
-}
-
-.ds-status-item {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    padding: 0.75rem 0;
-    min-width: 0;
-}
-
-.ds-status-divider {
-    width: 1px;
-    height: 30px;
-    background: rgba(255, 255, 255, 0.15);
-    margin: 0 0.5rem;
-    flex-shrink: 0;
-}
-
-.ds-status-label {
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: rgba(255, 255, 255, 0.5);
-    font-weight: 600;
-    white-space: nowrap;
-}
-
-.ds-status-value {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 600;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 1px;
-}
-
-.ds-status-tramite {
-    color: #fcd34d;
-}
-
-.ds-body {
-    padding: 1.5rem 1.75rem;
-    background: #f8fafc;
-    display: flex;
-    flex-direction: column;
-    gap: 1.25rem;
-}
-
-.ds-vigencia-banner {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    background: linear-gradient(135deg, #eff6ff, #dbeafe);
-    border: 1px solid #bfdbfe;
-    border-radius: 12px;
-    padding: 1rem 1.25rem;
-}
-
-.ds-vigencia-icon {
-    width: 42px;
-    height: 42px;
-    background: #2563eb;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: white;
-    flex-shrink: 0;
-}
-
-.ds-vigencia-content {
-    flex: 1;
-}
-
-.ds-vigencia-title {
-    font-size: 0.7rem;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    color: #2563eb;
-    font-weight: 700;
-    display: block;
-    margin-bottom: 0.4rem;
-}
-
-.ds-vigencia-dates {
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-}
-
-.ds-vigencia-date {
-    display: flex;
-    flex-direction: column;
-
-    em {
-        font-style: normal;
-        font-size: 0.65rem;
-        color: #64748b;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-    }
-
-    strong {
-        font-size: 0.9rem;
-        font-weight: 700;
-        color: #1e3a8a;
-        font-variant-numeric: tabular-nums;
-    }
-}
-
-.ds-vigencia-arrow {
-    color: #93c5fd;
-    font-size: 1.1rem;
-    font-weight: 300;
-}
-
-.ds-vigencia-plazo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background: #2563eb;
-    color: white;
-    padding: 0.5rem 0.875rem;
-    border-radius: 10px;
-    flex-shrink: 0;
-}
-
-.ds-plazo-num {
-    font-size: 1.4rem;
-    font-weight: 800;
-    line-height: 1;
-    font-variant-numeric: tabular-nums;
-}
-
-.ds-plazo-label {
-    font-size: 0.62rem;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    opacity: 0.8;
-    margin-top: 1px;
-}
-
-.ds-sections {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1rem;
-}
-
-.ds-section {
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    overflow: hidden;
-    transition: box-shadow 0.2s ease;
-
-    &:hover {
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.07);
-    }
-
-    &--flags {
-        grid-column: 1 / -1;
-    }
-}
-
-.ds-section-header {
-    display: flex;
-    align-items: center;
-    gap: 0.625rem;
-    padding: 0.875rem 1rem;
-    border-bottom: 1px solid #f1f5f9;
-    background: #fafbfc;
-}
-
-.ds-section-icon {
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-
-    &.ds-icon--blue {
-        background: #eff6ff;
-        color: #2563eb;
-    }
-
-    &.ds-icon--green {
-        background: #f0fdf4;
-        color: #16a34a;
-    }
-
-    &.ds-icon--amber {
-        background: #fffbeb;
-        color: #d97706;
-    }
-
-    &.ds-icon--purple {
-        background: #faf5ff;
-        color: #7c3aed;
-    }
-
-    &.ds-icon--slate {
-        background: #f8fafc;
-        color: #475569;
-    }
-
-    &.ds-icon--teal {
-        background: #f0fdfa;
-        color: #0d9488;
-    }
-}
-
-.ds-section-title {
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #334155;
-    letter-spacing: 0.01em;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin: 0;
-}
-
-.ds-fields-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 0;
-}
-
-.ds-field {
-    padding: 0.75rem 1rem;
-    border-bottom: 1px solid #f8fafc;
-    border-right: 1px solid #f8fafc;
-
-    &:nth-child(even) {
-        border-right: none;
-    }
-
-    &:last-child,
-    &:nth-last-child(2):nth-child(odd) {
-        border-bottom: none;
-    }
-}
-
-.ds-field-label {
-    display: block;
-    font-size: 0.67rem;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #94a3b8;
-    font-weight: 600;
-    margin-bottom: 3px;
-}
-
-.ds-field-value {
-    display: block;
-    font-size: 0.825rem;
-    color: #1e293b;
-    font-weight: 500;
-    line-height: 1.4;
-
-    &.ds-value--mono {
-        font-family: 'DM Mono', 'Consolas', monospace;
-        font-size: 0.8rem;
-        color: #2563eb;
-        font-weight: 600;
-    }
-}
-
-.ds-flags-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
-    padding: 1rem;
-}
-
-.ds-flag {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 5px 12px 5px 8px;
-    border-radius: 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    border: 1px solid #e2e8f0;
-    background: #f8fafc;
-    color: #94a3b8;
-    transition: all 0.15s ease;
-
-    &--on {
-        background: #f0fdf4;
-        border-color: #bbf7d0;
-        color: #15803d;
-    }
-}
-
-.ds-flag-icon {
-    font-size: 0.7rem;
-    font-weight: 800;
-}
-
-.ds-flag-label {
-    white-space: nowrap;
-}
-
-.ds-observaciones {
-    background: #fff;
-    border: 1px solid #e2e8f0;
-    border-radius: 12px;
-    overflow: hidden;
-}
-
-.ds-obs-item {
-    padding: 1rem 1.25rem;
-    border-bottom: 1px solid #f1f5f9;
-
-    &:last-child {
-        border-bottom: none;
-    }
-}
-
-.ds-obs-label {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 0.67rem;
-    text-transform: uppercase;
-    letter-spacing: 0.07em;
-    font-weight: 700;
-    color: #64748b;
-    margin-bottom: 0.4rem;
-}
-
-.ds-obs-text {
-    font-size: 0.825rem;
-    color: #475569;
-    line-height: 1.6;
-    margin: 0;
-}
-
-@media (max-width: 600px) {
-    .ds-sections {
-        grid-template-columns: 1fr;
-    }
-
-    .ds-section--flags {
-        grid-column: 1;
-    }
-
-    .ds-hero-content {
-        flex-direction: column;
-    }
-
-    .ds-hero-right {
-        align-self: stretch;
-    }
-
-    .ds-license-card {
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-
-    .ds-status-bar {
-        flex-wrap: wrap;
-    }
-
-    .ds-status-divider {
-        display: none;
-    }
-
-    .ds-fields-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .ds-field {
-        border-right: none;
-    }
-}
-</style>

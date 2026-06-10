@@ -2,12 +2,12 @@ import { Component, EventEmitter, Output, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { SolicitudService } from '../../core/services/solicitud.service';
-import { ModalWrapperComponent, SectionHeaderComponent } from '../../shared';
+import { ModalWrapperComponent } from '../../shared';
 
 @Component({
   selector: 'app-modal-detalle-solicitud',
   standalone: true,
-  imports: [CommonModule, FormsModule, ModalWrapperComponent, SectionHeaderComponent],
+  imports: [CommonModule, FormsModule, ModalWrapperComponent],
   templateUrl: './modal-detalle-solicitud.component.html',
 })
 export class ModalDetalleSolicitudComponent implements OnInit {

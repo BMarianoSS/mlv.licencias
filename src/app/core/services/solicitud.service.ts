@@ -10,7 +10,8 @@ import {
     IPredioRequest, IRepresentanteLegalRequest, IZonificacionRequest, IlistarEstablecimientosRequest,
     PredioResponse, RepresentanteLegalResponse, ZonificacionResponse, listarEstablecimientosResponse,
     IPreguntasXAnexoFuncionRequest, PreguntasXAnexoFuncionResponse,  CodLotePredioResponse, ICodLotePredioRequest,
-    SolicitudFinalResponse, ISolicitudFinalRequest, AprobarSolicitudResponse, IAprobarSolicitudRequest
+    SolicitudFinalResponse, ISolicitudFinalRequest, AprobarSolicitudResponse, IAprobarSolicitudRequest,
+    IObtenerRutaSolicitudRequest, ObtenerRutaSolicitudResponse
     } from "../interfaz/ISolicitudLicencia";
 import { ApiResponse, ApiResponseData } from "../interfaz/ApiResponse";
 
@@ -69,6 +70,12 @@ export class SolicitudService {
 
     public solicitudFinal(payload: ISolicitudFinalRequest): Observable<ApiResponse<SolicitudFinalResponse>> {
         return this.http.post<ApiResponse<SolicitudFinalResponse>>(`${this.apiUrl}/solicitud-final`, payload);
+    }
+
+    public obtenerRutaArchivo(payload: IObtenerRutaSolicitudRequest): Observable<Blob> {
+        return this.http.post(`${this.apiUrl}/obtener-ruta-archivo`, payload, {
+            responseType: 'blob'
+        });
     }
 
     public aprobarSolicitud(payload: IAprobarSolicitudRequest): Observable<ApiResponse<AprobarSolicitudResponse>> {

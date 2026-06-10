@@ -6,12 +6,12 @@ import { AuthService } from '../../core/services/auth.service';
 import { RegistroStateService } from '../../core/services/registro-state.service';
 import { ComboService } from '../../core/services/combo.service';
 import { filtrarSoloNumeros } from '../../core/utils/form.utils';
-import { SectionHeaderComponent, NavButtonsComponent } from '../../shared';
+import { SectionHeaderComponent, NavButtonsComponent,UbigeoSelectorComponent } from '../../shared';
 
 @Component({
   selector: 'app-registro-paso-2',
   standalone: true,
-  imports: [RouterModule, CommonModule, FormsModule, SectionHeaderComponent, NavButtonsComponent],
+  imports: [RouterModule, CommonModule, FormsModule, SectionHeaderComponent, NavButtonsComponent, UbigeoSelectorComponent],
   templateUrl: './registro-paso-2.component.html',
 })
 export class RegistroPaso2Component {
@@ -26,9 +26,6 @@ export class RegistroPaso2Component {
   manzana              = '';
   lote                 = '';
   denominacion         = '';  
-  departamentos: any[] = [];
-  provincias: any[]    = [];
-  distritos: any[]     = [];
   departamentoSeleccionado = '';
   provinciaSeleccionada    = '';
   distritoSeleccionado     = '';
@@ -49,39 +46,6 @@ export class RegistroPaso2Component {
     private comboService: ComboService,
     private router: Router
   ) {}
-
-  ngOnInit() {
-    this.listarDepartamentos();
-  }
-
-  listarDepartamentos() {
-    this.comboService.listarUbigeo({ accion: '8', id_departamento: '', id_provincia: '' })
-      .subscribe(resp => this.departamentos = resp.data);
-  }
-
-  listarProvincias() {
-    this.comboService.listarUbigeo({ accion: '9', id_departamento: this.departamentoSeleccionado, id_provincia: '' })
-      .subscribe(resp => this.provincias = resp.data);
-  }
-
-  listarDistritos() {
-    this.comboService.listarUbigeo({ accion: '10', id_departamento: this.departamentoSeleccionado, id_provincia: this.provinciaSeleccionada })
-      .subscribe(resp => this.distritos = resp.data);
-  }
-
-  onDepartamentoChange() {
-    this.provinciaSeleccionada = '';
-    this.distritoSeleccionado  = '';
-    this.provincias = [];
-    this.distritos  = [];
-    if (this.departamentoSeleccionado) this.listarProvincias();
-  }
-
-  onProvinciaChange() {
-    this.distritoSeleccionado = '';
-    this.distritos = [];
-    if (this.provinciaSeleccionada) this.listarDistritos();
-  }
 
   get passwordsCoinciden(): boolean {
     return this.password === this.rePassword;

@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 
 @Injectable({ providedIn: 'root' })
 export class SolicitudStateService {
-    // Pantalla 1
     idTipoLicencia      = '';
     descSolicitud       = '';
     aceptaTerminos      = false;
 
-    // Pantalla 2    
     direccionEstablecimientoCombinada = '';
     codPredio               = '';
     tipo_via                = '';
@@ -43,14 +41,12 @@ export class SolicitudStateService {
     latitud                 = '';
     longitud                = '';
 
-    // Pantalla 3 (autorización sectorial)
     ASentidadautoriza       = '';
     ASdenominacion          = '';
     ASfecha                 = '';
     ASnumero                = '';
     autorizacion_sectorial_path: File | null = null;
 
-    // Pantalla 4
     d_jurada                = '';
     anexos_dj               = '';
     anexo1_path: File | null = null;
@@ -65,7 +61,6 @@ export class SolicitudStateService {
     check2                  = false;
     check3                  = false;
 
-    // Pantalla "Otros" (tab imagen 3)
     nroLicencia             = '';
     titularLicencia         = '';
     nroResolucion           = '';
@@ -84,13 +79,11 @@ export class SolicitudStateService {
     constructor() { this.flujoActivo = sessionStorage.getItem('flujoActivo') === 'true'; }
 
     limpiarState(){
-        // Pantalla 1
         this.idTipoLicencia      = '';
         this.descSolicitud       = '';
         this.aceptaTerminos      = false;
 
-        // Pantalla 2    
-        this.direccionEstablecimientoCombinada           = '';
+        this.direccionEstablecimientoCombinada= '';
         this.codPredio               = '';
         this.tipo_via                = '';
         this.direcPred               = '';
@@ -125,14 +118,12 @@ export class SolicitudStateService {
         this.latitud                 = '';
         this.longitud                = '';
 
-        // Pantalla 3 (autorización sectorial)
         this.ASentidadautoriza       = '';
         this.ASdenominacion          = '';
         this.ASfecha                 = '';
         this.ASnumero                = '';
         this.autorizacion_sectorial_path = null;
 
-        // Pantalla 4
         this.d_jurada                = '';
         this.anexos_dj               = '';
         this.anexo1_path             = null;
@@ -147,7 +138,6 @@ export class SolicitudStateService {
         this.check2                  = false;
         this.check3                  = false;
 
-        // Pantalla "Otros" (tab imagen 3)
         this.nroLicencia             = '';
         this.titularLicencia         = '';
         this.nroResolucion           = '';
