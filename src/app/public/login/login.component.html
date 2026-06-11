@@ -1,17 +1,17 @@
-<app-welcome-screen *ngIf="mostrarBienvenida" [nombreUsuario]="nombreBienvenida" (listo)="onBienvenidaLista()"></app-welcome-screen>
+<app-welcome-screen *ngIf="mostrarBienvenida" [nombreUsuario]="nombreBienvenida"
+  (listo)="onBienvenidaLista()"></app-welcome-screen>
 <div class="min-h-screen flex" style="background: linear-gradient(160deg, #0a1f42 0%, #0F2D5C 40%, #1A6DB5 100%);">
-  <div class="hidden lg:flex flex-col justify-between w-2/5 p-12 relative overflow-hidden">
+  <div class="hidden lg:flex flex-col justify-between w-2/5 p-12 relative">
     <div class="absolute -top-20 -left-20 w-80 h-80 rounded-full bg-white/5 pointer-events-none"></div>
-    <div class="absolute bottom-20 -right-10 w-60 h-60 rounded-full bg-white/5 pointer-events-none"></div>
+    <div class="absolute bottom-30 -right-10 w-60 h-60 rounded-full bg-white/5 pointer-events-none"></div>
     <div class="relative z-10">
       <div class="bg-white rounded-xl px-5 py-3 inline-block shadow-lg mb-8">
-        <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png"
-          alt="Municipalidad de La Victoria"
+        <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png" alt="Municipalidad de La Victoria"
           class="h-12 w-auto" />
       </div>
 
       <h2 class="text-white text-3xl font-bold leading-tight mb-4">
-        Licencias de<br/>Funcionamiento
+        Licencias de<br />Funcionamiento
       </h2>
       <p class="text-blue-200 text-sm leading-relaxed max-w-xs">
         Obtén tu licencia de forma digital. Rápido, transparente y sin filas.
@@ -30,11 +30,10 @@
 
   <div class="flex-1 flex items-center justify-center p-6">
     <div class="bg-white rounded-2xl shadow-2xl w-full max-w-sm overflow-hidden">
+      <div class="absolute bottom-120 -right-0 w-85 h-85 rounded-full bg-white/5 pointer-events-none"></div>
       <div class="px-8 pt-8 pb-5 border-b border-gray-100">
         <div class="flex justify-center mb-5">
-          <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png"
-            alt="Municipalidad de La Victoria"
-            class="h-10 w-auto" />
+          <img src="https://web.munilavictoria.gob.pe/mlv/assets/imgs/logo.png" alt="Municipalidad de La Victoria" class="h-10 w-auto" />
         </div>
         <h1 class="text-xl font-bold text-[#0F2D5C] mb-1">Iniciar sesión</h1>
         <p class="text-xs text-gray-500">Ingresa con tu DNI o correo electónico</p>

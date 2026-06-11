@@ -1,58 +1,50 @@
-<div class="p-6">
-  <div class="flex items-center justify-between mb-6">
-    <app-section-header 
-        title="Resultado de la solicitud" 
-        badge="">
-    </app-section-header>
+﻿<div class="p-6 md:p-8 max-w-3xl mx-auto">
+  <div class="flex items-center gap-2 mb-6">
+    <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#2ECC71] text-white text-xs flex-shrink-0">
+      <span class="material-icons text-[13px]">check</span>
+    </div>
+    <div class="h-px flex-1 bg-[#2ECC71]"></div>
+    <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#2ECC71] text-white text-xs flex-shrink-0">
+      <span class="material-icons text-[13px]">check</span>
+    </div>
+    <div class="h-px flex-1 bg-[#2ECC71]"></div>
+    <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#2ECC71] text-white text-xs flex-shrink-0">
+      <span class="material-icons text-[13px]">check</span>
+    </div>
+    <div class="h-px flex-1 bg-[#2ECC71]"></div>
+    <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#2ECC71] text-white text-xs flex-shrink-0">
+      <span class="material-icons text-[13px]">check</span>
+    </div>
+    <div class="h-px flex-1 bg-[#2ECC71]"></div>
+    <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#1A6DB5] text-white text-xs font-bold flex-shrink-0">5</div>
   </div>
 
-  <div class="border border-gray-200 rounded-xl overflow-hidden">
-    <div class="bg-white p-8 border-b border-gray-200 text-center">
-      <div class="mb-5">
-        <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-green-100 mb-4">
-          <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-          </svg>
-        </div>
-        <div class="h-px bg-gray-200 my-4"></div>
-      </div>
+  <div class="mb-5">
+    <h1 class="text-lg font-bold text-gray-900">Resultado de la solicitud</h1>
+    <p class="text-xs text-gray-500 mt-0.5">Tu trámite fue aprobado y ya puedes descargar los documentos finales.</p>
+  </div>
 
-      <div class="mb-8">
-        <span class="text-2xl font-bold text-green-600 uppercase tracking-wider">
-          RESULTADO PROCEDENTE
-        </span>
-        <div class="h-px bg-gray-200 mt-4"></div>
+  <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm mb-4">
+    <div class="px-5 py-8 text-center">
+      <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-emerald-100 mx-auto mb-5">
+        <span class="material-icons text-emerald-600 text-[28px]">check_circle</span>
       </div>
+      <span class="text-2xl font-bold text-emerald-600 uppercase tracking-wider">Resultado procedente</span>
+      <p class="text-sm text-gray-600 mt-4 max-w-xl mx-auto leading-relaxed">
+        Su solicitud ha sido <span class="font-semibold text-emerald-600">APROBADA</span> exitosamente. A continuación, puede descargar los documentos generados.
+      </p>
 
-      <div class="mb-8">
-        <p class="text-gray-600 text-sm">
-          Su solicitud ha sido <span class="font-semibold text-green-600">APROBADA</span> exitosamente.
-          A continuación, puede descargar los documentos generados.
-        </p>
-      </div>
-
-      <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+      <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
         <button
-          class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-          </svg>
+          class="inline-flex items-center gap-2 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition">
+          <span class="material-icons text-[16px]">download</span>
           Descargar licencia
         </button>
-        <!--
-        <button
-          class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
-          </svg>
-          Descargar ITSE
-        </button>
-        -->
       </div>
     </div>
 
     <div class="bg-gray-50 px-5 py-4 flex justify-end gap-3">
-      <button 
+      <button
         [routerLink]="['../home']"
         class="inline-flex items-center gap-2 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-6 py-2.5 rounded-lg transition">
         Continuar

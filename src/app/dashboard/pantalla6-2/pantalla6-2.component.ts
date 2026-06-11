@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SectionHeaderComponent } from '../../shared';
 import { RouterModule } from '@angular/router';
 import { SolicitudService } from '../../core/services/solicitud.service';
 import { SolicitudStateService } from '../../core/services/solicitud-state.service';
@@ -8,7 +7,7 @@ import { AuthService } from '../../core/services/auth.service';
 @Component({
   selector: 'app-pantalla6-2',
   standalone: true,
-  imports: [RouterModule, SectionHeaderComponent],
+  imports: [RouterModule],
   templateUrl: './pantalla6-2.component.html',
   styleUrl: './pantalla6-2.component.css'
 })

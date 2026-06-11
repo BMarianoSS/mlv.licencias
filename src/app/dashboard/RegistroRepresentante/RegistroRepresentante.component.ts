@@ -7,12 +7,11 @@ import { SolicitudService } from '../../core/services/solicitud.service';
 import { ComboService } from '../../core/services/combo.service';
 import { IRepresentanteLegalRequest, IEditarRepresentanteLegalRequest } from '../../core/interfaz/ISolicitudLicencia';
 import { ModalRepresentanteComponent, Representante } from '../../components/modal-representante/modal-representante.component';
-import { SectionHeaderComponent } from '../../shared';
 
 @Component({
   selector: 'app-RegistroRepresentante',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, ModalRepresentanteComponent, SectionHeaderComponent],
+  imports: [RouterModule, FormsModule, CommonModule, ModalRepresentanteComponent],
   templateUrl: './RegistroRepresentante.component.html',
   styleUrl: './RegistroRepresentante.component.css'
 })
