@@ -1,59 +1,51 @@
-<app-modal-wrapper 
-  title="Seleccionar establecimiento" 
-  width="820px" 
-  maxHeight="75vh"
-  (cerrar)="cerrar.emit()"
-  bodyClass="p-0"
-  [loading]="cargando" loadingText="Cargando establecimientos...">
+<app-modal-wrapper title="Seleccionar establecimiento anterior" width="860px" maxHeight="75vh" (cerrar)="cerrar.emit()"
+  bodyClass="p-0" [loading]="cargando" loadingText="Cargando establecimientos...">
 
-  <div *ngIf="cargando" class="flex items-center justify-center py-12">
-    <div class="text-center">
-      <div class="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-700"></div>
-      <p class="mt-3 text-sm font-medium text-blue-700">Cargando establecimientos...</p>
-    </div>
-  </div>
-
-  <div *ngIf="!cargando" class="overflow-y-auto">
+  <div *ngIf="!cargando" class="overflow-y-auto" style="max-height: calc(75vh - 110px);">
     <table class="w-full text-sm text-left">
-      <thead class="bg-gray-50 sticky top-0 z-10">
-        <tr>
-          <th class="px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-200">Nombre Comercial</th>
-          <th class="px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-200">Tipo Actividad</th>
-          <th class="px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-right">Área (m²)</th>
-          <th class="px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-center">Int.</th>
-          <th class="px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-center">Stand</th>
-          <th class="px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-center">Estac.</th>
-          <th class="px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-center">Aforo</th>
-          <th class="px-4 py-2.5 text-xs font-semibold text-gray-500 uppercase tracking-wider border-b border-gray-200 text-center">Condición</th>
-          <th class="px-4 py-2.5 border-b border-gray-200"></th>
+      <thead class="sticky top-0 z-10">
+        <tr style="background:#F7F9FC;">
+          <th class="px-4 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200">Nombre comercial</th>
+          <th class="px-4 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200">Tipo actividad</th>
+          <th class="px-4 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 text-right">Área m²</th>
+          <th class="px-4 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 text-center">Int.</th>
+          <th class="px-4 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 text-center">Stand</th>
+          <th class="px-4 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 text-center">Estac.</th>
+          <th class="px-4 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 text-center">Aforo</th>
+          <th class="px-4 py-3 text-[10px] font-bold text-gray-500 uppercase tracking-widest border-b border-gray-200 text-center">Condición</th>
+          <th class="px-4 py-3 border-b border-gray-200"></th>
         </tr>
       </thead>
-      <tbody>
-        <tr *ngFor="let e of establecimientos" class="border-b border-gray-100 hover:bg-blue-50 transition">
+      <tbody class="divide-y divide-gray-100 bg-white">
+        <tr *ngFor="let e of establecimientos"
+          class="hover:bg-[#E8F0FE]/30 transition-colors">
           <td class="px-4 py-3 font-medium text-gray-800">{{ e.nombreComercial || '—' }}</td>
-          <td class="px-4 py-3 text-gray-600">{{ getDescActividad(e.tipoActividad) }}</td>
-          <td class="px-4 py-3 text-gray-600 text-right">{{ e.areaLocal || '—' }}</td>
-          <td class="px-4 py-3 text-gray-600 text-center">{{ e.nroInterior || '—' }}</td>
-          <td class="px-4 py-3 text-gray-600 text-center">{{ e.nroStand || '—' }}</td>
-          <td class="px-4 py-3 text-gray-600 text-center">{{ e.nroEstacionamiento || '—' }}</td>
-          <td class="px-4 py-3 text-gray-600 text-center">{{ e.aforo || '—' }}</td>
+          <td class="px-4 py-3 text-gray-600 text-xs">{{ getDescActividad(e.tipoActividad) }}</td>
+          <td class="px-4 py-3 text-gray-600 text-right font-mono text-xs">{{ e.areaLocal || '—' }}</td>
+          <td class="px-4 py-3 text-gray-600 text-center text-xs">{{ e.nroInterior || '—' }}</td>
+          <td class="px-4 py-3 text-gray-600 text-center text-xs">{{ e.nroStand || '—' }}</td>
+          <td class="px-4 py-3 text-gray-600 text-center text-xs">{{ e.nroEstacionamiento || '—' }}</td>
+          <td class="px-4 py-3 text-gray-600 text-center text-xs">{{ e.aforo || '—' }}</td>
           <td class="px-4 py-3 text-center">
-            <span class="inline-block px-2 py-0.5 rounded-full text-xs font-medium bg-gray-100 text-gray-600">
+            <span class="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-gray-100 text-gray-600">
               {{ getDescCondicion(e.condicion) }}
             </span>
           </td>
           <td class="px-4 py-3 text-center">
             <button (click)="establecimientoSeleccionado.emit(e); cerrar.emit()"
-              class="bg-blue-700 hover:bg-blue-800 text-white text-xs font-medium px-3 py-1.5 rounded-lg transition">
-              Seleccionar
+              class="inline-flex items-center gap-1 text-[11px] font-semibold px-3 py-1.5 rounded-lg bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white transition">
+              <span class="material-icons text-[13px]">check</span>
+              Usar
             </button>
           </td>
         </tr>
         <tr *ngIf="establecimientos.length === 0">
-          <td colspan="9" class="text-center py-10 text-gray-400 text-sm">No se encontraron establecimientos</td>
+          <td colspan="9" class="py-12 text-center">
+            <span class="material-icons text-gray-300 text-4xl block mb-2">store_mall_directory</span>
+            <p class="text-sm text-gray-400">No se encontraron establecimientos registrados.</p>
+          </td>
         </tr>
       </tbody>
     </table>
   </div>
-
 </app-modal-wrapper>

@@ -1,104 +1,82 @@
-<app-modal-wrapper
-  title="Buscar predio"
-  width="900px"
-  maxHeight="65vh"
-  bodyClass="p-0"
-  (cerrar)="cerrar.emit()">
-
-  <!-- Barra de estado -->
-  <div class="px-4 py-2 bg-blue-50 border-b border-blue-100 flex items-center gap-2">
-    <svg *ngIf="!cargando" xmlns="http://www.w3.org/2000/svg"
-         class="h-4 w-4 text-blue-500 flex-shrink-0" fill="none"
-         viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M13 16h-1v-4h-1m1-4h.01M12 2a10 10 0 100 20A10 10 0 0012 2z"/>
-    </svg>
+<app-modal-wrapper  title="Buscar predio en el mapa"  width="960px"  maxHeight="80vh"  bodyClass="p-0"  (cerrar)="cerrar.emit()">
+  <div class="flex items-center gap-2.5 px-5 py-2.5 border-b border-gray-100"
+    [ngClass]="cargando ? 'bg-blue-50' : 'bg-[#F7F9FC]'">
     <div *ngIf="cargando"
-         class="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 flex-shrink-0"></div>
-    <span class="text-xs text-blue-700">{{ mensajeEstado }}</span>
+      class="animate-spin rounded-full h-3.5 w-3.5 border-b-2 border-[#1A6DB5] flex-shrink-0"></div>
+    <span *ngIf="!cargando" class="material-icons text-[#1A6DB5] text-[16px] flex-shrink-0">
+      {{ predios.length > 0 ? 'location_on' : 'touch_app' }}
+    </span>
+    <span class="text-xs text-gray-600 font-medium">{{ mensajeEstado }}</span>
   </div>
 
-  <!-- Cuerpo: mapa + panel lateral -->
-  <div class="flex overflow-hidden" style="height: calc(65vh - 110px);">
-
-    <!-- Mapa -->
-    <div class="flex-1 relative bg-gray-100">
-      <div #mapaContainer
-           class="w-full h-full min-h-[400px]"
-           style="z-index: 0; cursor: crosshair;"></div>
+  <div class="flex overflow-hidden" style="height: calc(80vh - 110px);">
+    <div class="flex-1 relative">
+      <div #mapaContainer class="w-full h-full" style="z-index:0; cursor:crosshair;"></div>
+      <div *ngIf="!listaPanelVisible"
+        class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 backdrop-blur-sm rounded-xl px-4 py-2.5 shadow-lg flex items-center gap-2 pointer-events-none">
+        <span class="material-icons text-[#1A6DB5] text-[18px]">touch_app</span>
+        <span class="text-xs font-medium text-gray-700">Haz clic en el mapa para buscar predios</span>
+      </div>
     </div>
 
-    <!-- Panel lateral: solo visible tras el primer clic -->
     <div *ngIf="listaPanelVisible"
-         class="w-[280px] flex flex-col border-l border-gray-200 bg-white overflow-hidden">
-
-      <!-- Cabecera del panel con botón cerrar -->
-      <div class="bg-gray-50 px-4 py-2 flex items-center justify-between border-b border-gray-200 flex-shrink-0">
-        <span class="text-xs font-medium text-gray-500 uppercase tracking-wider">
-          Predios encontrados ({{ predios.length }})
-        </span>
-        <button
-          (click)="cerrarListaPanel()"
-          title="Cerrar lista"
-          class="ml-2 p-1 rounded hover:bg-gray-200 text-gray-400 hover:text-gray-600 transition">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none"
-               viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"/>
-          </svg>
+      class="w-[300px] flex flex-col border-l border-gray-200 bg-white overflow-hidden flex-shrink-0">
+      <div class="flex items-center justify-between px-4 py-3 bg-[#F7F9FC] border-b border-gray-200 flex-shrink-0">
+        <div class="flex items-center gap-2">
+          <span class="material-icons text-[#1A6DB5] text-[16px]">domain</span>
+          <span class="text-xs font-bold text-gray-700 uppercase tracking-widest">
+            Predios ({{ predios.length }})
+          </span>
+        </div>
+        <button (click)="cerrarListaPanel()"
+          class="w-6 h-6 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-200 hover:text-gray-600 transition">
+          <span class="material-icons text-[14px]">close</span>
         </button>
       </div>
 
-      <!-- Skeletons de carga -->
       <div *ngIf="cargando" class="flex-1 overflow-y-auto p-3 space-y-2">
         <div *ngFor="let i of [1,2,3]"
-             class="animate-pulse rounded-lg bg-gray-100 h-14"></div>
+          class="animate-pulse rounded-xl bg-gray-100 h-16"></div>
       </div>
 
-      <!-- Lista de predios -->
       <ng-container *ngIf="!cargando">
         <div class="flex-1 overflow-y-auto">
-
-          <!-- Sin resultados -->
           <div *ngIf="predios.length === 0"
-               class="flex flex-col items-center justify-center h-full text-center px-4 py-8 text-gray-400">
-            <svg xmlns="http://www.w3.org/2000/svg"
-                 class="h-10 w-10 mb-2 text-gray-300" fill="none"
-                 viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                    d="M9 20l-5.447-2.724A2 2 0 013 15.382V5a2 2 0 012-2h14a2 2 0 012 2v10.382a2 2 0 01-1.553 1.894L14 20M9 20v-6m5 6v-6"/>
-            </svg>
-            <p class="text-sm">No se encontraron predios en esta zona.</p>
+            class="flex flex-col items-center justify-center h-full text-center px-4 py-10">
+            <span class="material-icons text-gray-300 text-4xl mb-2">location_off</span>
+            <p class="text-sm text-gray-400">No se encontraron predios en esta zona.</p>
+            <p class="text-xs text-gray-400 mt-1">Intenta hacer clic en otro punto del mapa.</p>
           </div>
 
-          <!-- Ítem de predio -->
-          <div
-            *ngFor="let p of predios"
+          <div *ngFor="let p of predios"
             (click)="dibujarPoligono(p)"
-            [class.bg-blue-50]="predioActivo?.codPredio === p.codPredio"
-            [class.border-l-4]="predioActivo?.codPredio === p.codPredio"
-            [class.border-l-blue-700]="predioActivo?.codPredio === p.codPredio"
-            class="px-4 py-3 border-b border-gray-100 cursor-pointer hover:bg-gray-50 transition">
+            class="px-4 py-3.5 border-b border-gray-100 cursor-pointer transition-all"
+            [ngClass]="predioActivo?.codPredio === p.codPredio
+              ? 'bg-[#E8F0FE] border-l-4 border-l-[#1A6DB5]'
+              : 'hover:bg-gray-50'">
 
-            <div class="font-semibold text-blue-700 text-sm">{{ p.codPredio }}</div>
-            <div class="text-gray-500 text-xs mt-0.5 leading-snug">
-              {{ p.tipo_via }} {{ p.direccion }} {{ p.nroPredio }}
+            <div class="flex items-start gap-2">
+              <span class="material-icons text-[#1A6DB5] text-[16px] mt-0.5 flex-shrink-0">
+                {{ predioActivo?.codPredio === p.codPredio ? 'location_on' : 'location_city' }}
+              </span>
+              <div class="flex-1 min-w-0">
+                <p class="font-bold text-[#0F2D5C] text-sm font-mono">{{ p.codPredio }}</p>
+                <p class="text-gray-500 text-xs mt-0.5 leading-snug truncate">
+                  {{ p.tipo_via }} {{ p.direccion }} {{ p.nroPredio }}
+                </p>
+              </div>
             </div>
 
-            <!-- Botón seleccionar: solo en el predio activo -->
-            <button
-              *ngIf="predioActivo?.codPredio === p.codPredio"
+            <button *ngIf="predioActivo?.codPredio === p.codPredio"
               (click)="$event.stopPropagation(); seleccionar(p)"
-              class="mt-2 w-full bg-blue-700 hover:bg-blue-800 text-white text-xs font-medium py-1.5 rounded-lg transition">
+              class="mt-2.5 w-full flex items-center justify-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-xs font-semibold py-2 rounded-lg transition">
+              <span class="material-icons text-[14px]">check_circle</span>
               Seleccionar este predio
             </button>
           </div>
-
         </div>
       </ng-container>
     </div>
-
   </div>
-
   <div slot="footer"></div>
 </app-modal-wrapper>

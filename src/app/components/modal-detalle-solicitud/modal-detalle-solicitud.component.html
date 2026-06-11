@@ -1,235 +1,217 @@
-<app-modal-wrapper title="Detalle de Solicitud" width="700px" maxHeight="90vh" [leaving]="leaving"
-  (cerrar)="cerrarConAnimacion()" [bodyClass]="'p-0'">
-
+<app-modal-wrapper title="Detalle de Solicitud" width="720px" maxHeight="90vh" [leaving]="leaving" (cerrar)="cerrarConAnimacion()" [bodyClass]="'p-0'">
   <div *ngIf="cargando" class="flex items-center justify-center py-16">
     <div class="text-center">
-      <div class="inline-block animate-spin rounded-full h-9 w-9 border-b-2 border-blue-600"></div>
-      <p class="mt-3 text-sm text-blue-600 font-medium">Cargando solicitud...</p>
+      <div class="inline-block animate-spin rounded-full h-9 w-9 border-b-2 border-[#1A6DB5]"></div>
+      <p class="mt-3 text-sm text-[#1A6DB5] font-medium">Cargando solicitud...</p>
     </div>
   </div>
 
   <div *ngIf="!cargando && data.length === 0" class="flex items-center justify-center py-16">
     <div class="text-center">
-      <svg class="mx-auto mb-3 h-10 w-10 text-gray-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
+      <span class="material-icons text-gray-300 text-5xl block mb-3">description</span>
       <p class="text-sm text-gray-400">No se encontró información para esta solicitud.</p>
     </div>
   </div>
 
   <ng-container *ngIf="!cargando && data.length > 0">
-    <div class="flex items-center justify-between px-6 pt-5 pb-4 border-b border-gray-100">
+    <div class="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-[#F7F9FC]">
       <div class="flex items-center gap-3">
-        <div class="flex-shrink-0 w-9 h-9 rounded-lg bg-blue-50 flex items-center justify-center">
-          <svg class="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-              d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-          </svg>
+        <div class="w-9 h-9 rounded-lg flex items-center justify-center flex-shrink-0"
+          style="background: linear-gradient(135deg, #0F2D5C, #1A6DB5);">
+          <span class="material-icons text-white text-[18px]">description</span>
         </div>
         <div>
-          <p class="text-[15px] font-medium text-gray-900 leading-tight">Detalle de solicitud</p>
-          <p class="text-xs text-gray-400 leading-tight mt-0.5">
-            <ng-container *ngIf="data[0]?.nroExpediente">Exp. N° {{ data[0].nroExpediente }} · </ng-container>
-            ID {{ data[0]?.idSolicitud || '—' }}
+          <p class="text-[14px] font-bold text-gray-900 leading-tight">
+            Solicitud N° {{ data[0]?.idSolicitud || '—' }}
           </p>
-        </div>
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-[11px] font-medium" [ngClass]="{
-            'bg-green-50 text-green-700': data[0]?.estado === '1' || data[0]?.estado === 'ACTIVO',
-            'bg-red-50 text-red-600':    data[0]?.estado === '0' || data[0]?.estado === 'INACTIVO',
-            'bg-gray-100 text-gray-500': data[0]?.estado !== '1' && data[0]?.estado !== 'ACTIVO'
-                                      && data[0]?.estado !== '0' && data[0]?.estado !== 'INACTIVO'
-          }">
-          {{ (data[0]?.estado === '1' || data[0]?.estado === 'ACTIVO') ? 'Activo' :
-          (data[0]?.estado === '0' || data[0]?.estado === 'INACTIVO') ? 'Inactivo' :
-          (data[0]?.estado || '—') }}
-        </span>
-      </div>
-    </div>
-
-    <div class="px-6 py-5 space-y-4">
-      <div class="grid grid-cols-3 gap-3 rounded-xl bg-gray-50 px-4 py-3">
-        <div>
-          <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-0.5">Tipo de licencia</p>
-          <p class="text-[13px] font-medium text-gray-800 leading-snug">
+          <p class="text-[11px] text-gray-400 mt-0.5">
+            <ng-container *ngIf="data[0]?.nroExpediente">
+              Exp. {{ data[0].nroExpediente }} ·
+            </ng-container>
             {{ data[0]?.descTipoLicencia || '—' }}
           </p>
         </div>
-        <div>
-          <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-0.5">Estado trámite</p>
-          <p class="text-[13px] font-medium text-gray-800">{{ data[0]?.estadoTramite || '—' }}</p>
+      </div>
+      <span class="inline-flex items-center gap-1 rounded-full px-3 py-1 text-[11px] font-bold" [ngClass]="{
+          'bg-emerald-100 text-emerald-700': data[0]?.estado === '1' || data[0]?.estado === 'ACTIVO',
+          'bg-red-100 text-red-600':         data[0]?.estado === '0' || data[0]?.estado === 'INACTIVO',
+          'bg-gray-100 text-gray-500':       data[0]?.estado !== '1' && data[0]?.estado !== 'ACTIVO'
+                                          && data[0]?.estado !== '0' && data[0]?.estado !== 'INACTIVO'
+        }">
+        <span class="w-1.5 h-1.5 rounded-full inline-block" [ngClass]="{
+            'bg-emerald-500': data[0]?.estado === '1' || data[0]?.estado === 'ACTIVO',
+            'bg-red-500':     data[0]?.estado === '0' || data[0]?.estado === 'INACTIVO',
+            'bg-gray-400':    data[0]?.estado !== '1' && data[0]?.estado !== 'ACTIVO'
+                            && data[0]?.estado !== '0' && data[0]?.estado !== 'INACTIVO'
+          }"></span>
+        {{ (data[0]?.estado === '1' || data[0]?.estado === 'ACTIVO') ? 'Activo' :
+        (data[0]?.estado === '0' || data[0]?.estado === 'INACTIVO') ? 'Inactivo' :
+        (data[0]?.estado || '—') }}
+      </span>
+    </div>
+
+    <div class="px-6 py-5 space-y-4 overflow-y-auto">
+      <div class="grid grid-cols-3 gap-3">
+        <div class="bg-[#F7F9FC] border border-gray-200 rounded-xl px-4 py-3">
+          <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold mb-1">Tipo de licencia</p>
+          <p class="text-[13px] font-semibold text-gray-800 leading-snug">{{ data[0]?.descTipoLicencia || '—' }}</p>
         </div>
-        <div>
-          <p class="text-[10px] uppercase tracking-widest text-gray-400 mb-0.5">Fecha solicitud</p>
-          <p class="text-[13px] font-medium text-gray-800">{{ data[0]?.fechaSolicitud || '—' }}</p>
+        <div class="bg-[#F7F9FC] border border-gray-200 rounded-xl px-4 py-3">
+          <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold mb-1">Estado trámite</p>
+          <p class="text-[13px] font-semibold text-gray-800">{{ data[0]?.estadoTramite || '—' }}</p>
+        </div>
+        <div class="bg-[#F7F9FC] border border-gray-200 rounded-xl px-4 py-3">
+          <p class="text-[9px] uppercase tracking-widest text-gray-400 font-bold mb-1">Fecha solicitud</p>
+          <p class="text-[13px] font-semibold text-gray-800">{{ data[0]?.fechaSolicitud || '—' }}</p>
         </div>
       </div>
 
-      <div class="rounded-xl border border-gray-100 overflow-hidden">
-        <div class="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-100">
-          <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-          </svg>
-          <span class="text-[10px] uppercase tracking-widest font-medium text-gray-400">
-            Titular y establecimiento
-          </span>
+      <div class="rounded-xl border border-gray-200 overflow-hidden">
+        <div class="flex items-center gap-2 px-4 py-2.5 bg-[#F7F9FC] border-b border-gray-200">
+          <span class="material-icons text-[#1A6DB5] text-[15px]">store</span>
+          <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Titular y establecimiento</span>
         </div>
-        <div class="grid grid-cols-2 gap-x-6 gap-y-3 px-4 py-3.5 text-[13px]">
+        <div class="grid grid-cols-2 gap-x-6 gap-y-3 px-4 py-4 text-[13px]">
           <div>
-            <p class="text-[11px] text-gray-400 mb-0.5">Razón social</p>
+            <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-0.5">Razón social</p>
             <p class="text-gray-800">{{ data[0]?.razonSocial || data[0]?.nombre || '—' }}</p>
           </div>
           <div>
-            <p class="text-[11px] text-gray-400 mb-0.5">Establecimiento</p>
+            <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-0.5">Establecimiento</p>
             <p class="text-gray-800">{{ data[0]?.descEstablecimiento || '—' }}</p>
           </div>
           <div>
-            <p class="text-[11px] text-gray-400 mb-0.5">Dirección local</p>
+            <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-0.5">Dirección local</p>
             <p class="text-gray-800">{{ data[0]?.direccionLocal?.trim() || '—' }}</p>
           </div>
           <div>
-            <p class="text-[11px] text-gray-400 mb-0.5">Titular licencia</p>
+            <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-0.5">Titular licencia</p>
             <p class="text-gray-800">{{ data[0]?.TitularLicencia || '—' }}</p>
           </div>
         </div>
       </div>
 
       <div class="grid grid-cols-2 gap-4">
-        <div class="rounded-xl border border-gray-100 overflow-hidden">
-          <div class="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-100">
-            <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-            <span class="text-[10px] uppercase tracking-widest font-medium text-gray-400">
-              Expediente y resolución
-            </span>
+        <div class="rounded-xl border border-gray-200 overflow-hidden">
+          <div class="flex items-center gap-2 px-4 py-2.5 bg-[#F7F9FC] border-b border-gray-200">
+            <span class="material-icons text-[#1A6DB5] text-[15px]">article</span>
+            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Expediente y resolución</span>
           </div>
           <div class="px-4 py-3.5 space-y-2.5 text-[13px]">
             <div class="flex justify-between">
-              <span class="text-gray-400">N° expediente</span>
-              <span class="text-gray-800">{{ data[0]?.nroExpediente || '—' }}</span>
+              <span class="text-gray-400 text-xs">N° expediente</span>
+              <span class="text-gray-800 font-mono text-xs">{{ data[0]?.nroExpediente || '—' }}</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-gray-400">Fecha expediente</span>
-              <span class="text-gray-800">{{ data[0]?.fechaExpediente || '—' }}</span>
+              <span class="text-gray-400 text-xs">Fecha expediente</span>
+              <span class="text-gray-800 text-xs">{{ data[0]?.fechaExpediente || '—' }}</span>
             </div>
-            <div class="border-t border-gray-100 my-1"></div>
+            <div class="border-t border-gray-100"></div>
             <div class="flex justify-between">
-              <span class="text-gray-400">N° resolución</span>
-              <span class="text-gray-800">
+              <span class="text-gray-400 text-xs">N° resolución</span>
+              <span class="text-gray-800 font-mono text-xs">
                 {{ data[0]?.nroResolucion || '—' }}
-                <span *ngIf="data[0]?.siglasResolucion" class="text-gray-400 text-[11px]">
-                  · {{ data[0].siglasResolucion }}
-                </span>
+                <span *ngIf="data[0]?.siglasResolucion" class="text-gray-400"> · {{ data[0].siglasResolucion }}</span>
               </span>
             </div>
             <div class="flex justify-between">
-              <span class="text-gray-400">Fecha resolución</span>
-              <span class="text-gray-800">{{ data[0]?.fechaResolucion || '—' }}</span>
+              <span class="text-gray-400 text-xs">Fecha resolución</span>
+              <span class="text-gray-800 text-xs">{{ data[0]?.fechaResolucion || '—' }}</span>
             </div>
           </div>
         </div>
 
         <div class="flex flex-col gap-4">
-          <div class="rounded-xl border border-gray-100 overflow-hidden">
-            <div class="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-100">
-              <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
-              </svg>
-              <span class="text-[10px] uppercase tracking-widest font-medium text-gray-400">Vigencia</span>
+          <div class="rounded-xl border border-gray-200 overflow-hidden">
+            <div class="flex items-center gap-2 px-4 py-2.5 bg-[#F7F9FC] border-b border-gray-200">
+              <span class="material-icons text-[#1A6DB5] text-[15px]">event</span>
+              <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Vigencia</span>
             </div>
-            <div class="px-4 py-3.5 space-y-2.5 text-[13px]">
+            <div class="px-4 py-3.5 space-y-2.5">
               <div class="flex justify-between">
-                <span class="text-gray-400">Desde</span>
-                <span class="text-gray-800">{{ data[0]?.vigenciaDesde || '—' }}</span>
+                <span class="text-gray-400 text-xs">Desde</span>
+                <span class="text-gray-800 text-xs">{{ data[0]?.vigenciaDesde || '—' }}</span>
               </div>
               <div class="flex justify-between">
-                <span class="text-gray-400">Hasta</span>
-                <span class="text-gray-800">{{ data[0]?.vigenciaHasta || '—' }}</span>
+                <span class="text-gray-400 text-xs">Hasta</span>
+                <span class="text-gray-800 text-xs">{{ data[0]?.vigenciaHasta || '—' }}</span>
               </div>
             </div>
           </div>
 
-          <div class="rounded-xl border border-gray-100 overflow-hidden"
-            *ngIf="data[0]?.nroRecibo || data[0]?.fechaPago">
-            <div class="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-100">
-              <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                  d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
-              </svg>
-              <span class="text-[10px] uppercase tracking-widest font-medium text-gray-400">Pago</span>
+          <div *ngIf="data[0]?.nroRecibo || data[0]?.fechaPago"
+            class="rounded-xl border border-gray-200 overflow-hidden">
+            <div class="flex items-center gap-2 px-4 py-2.5 bg-[#F7F9FC] border-b border-gray-200">
+              <span class="material-icons text-[#1A6DB5] text-[15px]">receipt</span>
+              <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Pago</span>
             </div>
-            <div class="px-4 py-3.5 space-y-2.5 text-[13px]">
+            <div class="px-4 py-3.5 space-y-2.5">
               <div class="flex justify-between">
-                <span class="text-gray-400">N° recibo</span>
-                <span class="text-gray-800">{{ data[0]?.nroRecibo || '—' }}</span>
+                <span class="text-gray-400 text-xs">N° recibo</span>
+                <span class="text-gray-800 font-mono text-xs">{{ data[0]?.nroRecibo || '—' }}</span>
               </div>
               <div class="flex justify-between">
-                <span class="text-gray-400">Fecha pago</span>
-                <span class="text-gray-800">{{ data[0]?.fechaPago || '—' }}</span>
+                <span class="text-gray-400 text-xs">Fecha pago</span>
+                <span class="text-gray-800 text-xs">{{ data[0]?.fechaPago || '—' }}</span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div class="rounded-xl border border-gray-100 overflow-hidden">
-        <div class="flex items-center gap-2 px-4 py-2.5 bg-gray-50 border-b border-gray-100">
-          <svg class="h-3.5 w-3.5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-          </svg>
-          <span class="text-[10px] uppercase tracking-widest font-medium text-gray-400">
-            Información adicional
-          </span>
+      <div class="rounded-xl border border-gray-200 overflow-hidden">
+        <div class="flex items-center gap-2 px-4 py-2.5 bg-[#F7F9FC] border-b border-gray-200">
+          <span class="material-icons text-[#1A6DB5] text-[15px]">info</span>
+          <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Información adicional</span>
         </div>
-        <div class="grid grid-cols-3 gap-x-6 gap-y-3 px-4 py-3.5 text-[13px]">
+        <div class="grid grid-cols-3 gap-x-6 gap-y-3 px-4 py-4 text-[13px]">
           <div>
-            <p class="text-[11px] text-gray-400 mb-0.5">Concepto</p>
+            <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-0.5">Concepto</p>
             <p class="text-gray-800">{{ data[0]?.descConcepto || '—' }}</p>
           </div>
           <div>
-            <p class="text-[11px] text-gray-400 mb-0.5">N° ordenanza</p>
+            <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-0.5">N° ordenanza</p>
             <p class="text-gray-800">{{ data[0]?.nroOrdenanza || '—' }}</p>
           </div>
           <div>
-            <p class="text-[11px] text-gray-400 mb-0.5">Tipo ingreso</p>
+            <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-0.5">Tipo ingreso</p>
             <p class="text-gray-800">{{ data[0]?.tipoIngreso || '—' }}</p>
           </div>
           <div>
-            <p class="text-[11px] text-gray-400 mb-0.5">Operador registro</p>
+            <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-0.5">Operador</p>
             <p class="text-gray-800">{{ data[0]?.operadorRegistro || '—' }}</p>
           </div>
           <div>
-            <p class="text-[11px] text-gray-400 mb-0.5">Anexos DJ</p>
+            <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-0.5">Anexos DJ</p>
             <p class="text-gray-800">{{ data[0]?.anexosDJ || '—' }}</p>
           </div>
           <div>
-            <p class="text-[11px] text-gray-400 mb-0.5">Fecha registro</p>
+            <p class="text-[10px] text-gray-400 font-semibold uppercase tracking-widest mb-0.5">Fecha registro</p>
             <p class="text-gray-800">{{ data[0]?.fechaRegistro || '—' }}</p>
           </div>
         </div>
       </div>
 
-      <div *ngIf="data[0]?.giros" class="rounded-xl border border-gray-100 px-4 py-3.5">
-        <p class="text-[10px] uppercase tracking-widest font-medium text-gray-400 mb-1.5">Giros</p>
-        <p class="text-[13px] text-gray-800 leading-relaxed">{{ data[0].giros }}</p>
+      <div *ngIf="data[0]?.giros" class="rounded-xl border border-gray-200 overflow-hidden">
+        <div class="flex items-center gap-2 px-4 py-2.5 bg-[#F7F9FC] border-b border-gray-200">
+          <span class="material-icons text-[#1A6DB5] text-[15px]">category</span>
+          <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Giros</span>
+        </div>
+        <p class="px-4 py-3.5 text-[13px] text-gray-800 leading-relaxed">{{ data[0].giros }}</p>
       </div>
 
       <div *ngIf="data[0]?.observacion || data[0]?.observacion2"
-        class="rounded-xl border border-amber-100 bg-amber-50 px-4 py-3.5">
-        <p class="text-[10px] uppercase tracking-widest font-medium text-amber-500 mb-1.5">Observaciones</p>
-        <p *ngIf="data[0]?.observacion" class="text-[13px] text-amber-900 leading-relaxed">
-          {{ data[0].observacion }}
-        </p>
-        <p *ngIf="data[0]?.observacion2" class="text-[13px] text-amber-900 leading-relaxed mt-1">
-          {{ data[0].observacion2 }}
-        </p>
+        class="rounded-xl border border-amber-200 bg-amber-50 overflow-hidden">
+        <div class="flex items-center gap-2 px-4 py-2.5 border-b border-amber-200">
+          <span class="material-icons text-amber-500 text-[15px]">warning</span>
+          <span class="text-[10px] font-bold text-amber-600 uppercase tracking-widest">Observaciones</span>
+        </div>
+        <div class="px-4 py-3.5 space-y-1.5">
+          <p *ngIf="data[0]?.observacion" class="text-[13px] text-amber-900 leading-relaxed">{{ data[0].observacion }}
+          </p>
+          <p *ngIf="data[0]?.observacion2" class="text-[13px] text-amber-900 leading-relaxed">{{ data[0].observacion2 }}
+          </p>
+        </div>
       </div>
     </div>
   </ng-container>

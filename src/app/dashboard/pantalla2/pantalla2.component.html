@@ -1,221 +1,237 @@
-<div class="p-6">
+<div class="p-6 md:p-8 max-w-4xl mx-auto">
   <app-modal-mapa *ngIf="mostrarModalMapa" (cerrar)="mostrarModalMapa = false"
     (predioSeleccionado)="onPredioSeleccionado($event)">
   </app-modal-mapa>
 
   <app-modal-giro *ngIf="mostrarModalGiro" (cerrar)="mostrarModalGiro = false; id_zonificacion_actual = ''"
     [girosSeleccionados]="giros" (giroSeleccionado)="onGiroSeleccionado($event)"
-    [id_zonificacion]="id_zonificacion_actual" [valores]="valores">>
+    [id_zonificacion]="id_zonificacion_actual" [valores]="valores">
   </app-modal-giro>
 
-  <app-modal-lista-establecimientos *ngIf="mostrarModalEstablecimientos" (cerrar)="mostrarModalEstablecimientos = false"
+  <app-modal-lista-establecimientos *ngIf="mostrarModalEstablecimientos"
+    (cerrar)="mostrarModalEstablecimientos = false"
     (establecimientoSeleccionado)="onEstablecimientoSeleccionado($event)">
   </app-modal-lista-establecimientos>
 
-  <div class="flex items-center justify-between mb-6">
-    <app-section-header title="Datos del establecimiento" badge="">
-    </app-section-header>
+  <div class="flex items-center gap-2 mb-6">
+    <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#2ECC71] text-white text-xs flex-shrink-0">
+      <span class="material-icons text-[13px]">check</span>
+    </div>
+    <div class="h-px flex-1 bg-[#1A6DB5]"></div>
+    <div class="flex items-center justify-center w-7 h-7 rounded-full bg-[#1A6DB5] text-white text-xs font-bold flex-shrink-0">2</div>
+    <div class="h-px flex-1 bg-gray-200"></div>
+    <div class="flex items-center justify-center w-7 h-7 rounded-full bg-gray-200 text-gray-400 text-xs font-bold flex-shrink-0">3</div>
+    <div class="h-px flex-1 bg-gray-200"></div>
+    <div class="flex items-center justify-center w-7 h-7 rounded-full bg-gray-200 text-gray-400 text-xs font-bold flex-shrink-0">4</div>
+    <div class="h-px flex-1 bg-gray-200"></div>
+    <div class="flex items-center justify-center w-7 h-7 rounded-full bg-gray-200 text-gray-400 text-xs font-bold flex-shrink-0">5</div>
   </div>
 
-  <div class="border border-gray-200 rounded-xl overflow-hidden">
-    <div class="bg-white p-5 border-b border-gray-200">
-      <div class="mb-4">
-        <app-section-header title="Ubicación del establecimiento" badge="">
-        </app-section-header>
+  <div class="mb-5">
+    <h1 class="text-lg font-bold text-gray-900">Datos del establecimiento</h1>
+    <p class="text-xs text-gray-500 mt-0.5">Ubica tu predio en el mapa y completa la información comercial</p>
+  </div>
+
+  <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm mb-4">
+    <div class="border-l-4 border-[#1A6DB5] px-5 py-4">
+      <div class="flex items-center gap-2 mb-4">
+        <span class="material-icons text-[#1A6DB5] text-[18px]">location_on</span>
+        <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Ubicación del establecimiento</span>
       </div>
 
-      <div class="flex flex-wrap items-end gap-4">
-        <div class="flex-1 min-w-[180px]">
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            Código de predio <span class="text-red-500">*</span>
+      <div class="flex flex-wrap items-end gap-3">
+        <div class="w-40">
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">
+            Código predio <span class="text-red-500">*</span>
           </label>
-          <input type="text" [(ngModel)]="codPredio"
-            class="w-full px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg cursor-not-allowed"
-            disabled>
+          <input type="text" [(ngModel)]="codPredio" disabled
+            class="w-full px-3 py-2.5 text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded-lg cursor-not-allowed font-mono" />
         </div>
-        <div class="flex-[2] min-w-[260px]">
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+        <div class="flex-1 min-w-[220px]">
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">
             Dirección del establecimiento <span class="text-red-500">*</span>
           </label>
-          <input type="text" [(ngModel)]="direccionEstablecimientoCombinada"
-            class="w-full px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg cursor-not-allowed"
-            disabled>
+          <input type="text" [(ngModel)]="direccionEstablecimientoCombinada" disabled
+            class="w-full px-3 py-2.5 text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded-lg cursor-not-allowed" />
         </div>
-        <div>
-          <button (click)="abrirModalMapa()"
-            class="inline-flex items-center gap-1.5 bg-blue-700 hover:bg-blue-800 text-blue-50 text-sm font-medium px-4 py-2 rounded-lg transition">
-            Buscar predio
-          </button>
-        </div>
+        <button (click)="abrirModalMapa()"
+          class="inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-4 py-2.5 rounded-lg transition flex-shrink-0">
+          <span class="material-icons text-[16px]">map</span>
+          Buscar predio
+        </button>
       </div>
     </div>
+  </div>
 
-    <div class="bg-white p-5 border-b border-gray-200">
+  <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm mb-4">
+    <div class="border-l-4 border-purple-400 px-5 py-4">
       <div class="flex flex-wrap gap-6">
-        <div class="flex-1 min-w-[280px]">
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-3">
-            Zonificación
-          </label>
-          <div class="flex gap-2 items-center">
-            <input type="text" [(ngModel)]="abrev_zonif"
-              class="w-32 px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-not-allowed"
-              disabled>
-            <input type="text" [(ngModel)]="desc_zonif"
-              class="flex-1 px-3 py-2 text-sm text-gray-700 bg-gray-50 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition cursor-not-allowed"
-              disabled>
+        <div class="flex-1 min-w-[220px]">
+          <div class="flex items-center gap-2 mb-3">
+            <span class="material-icons text-purple-500 text-[16px]">map</span>
+            <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Zonificación</span>
+          </div>
+          <div class="flex gap-2">
+            <input type="text" [(ngModel)]="abrev_zonif" disabled placeholder="—"
+              class="w-24 px-3 py-2.5 text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded-lg cursor-not-allowed font-mono" />
+            <input type="text" [(ngModel)]="desc_zonif" disabled placeholder="—"
+              class="flex-1 px-3 py-2.5 text-sm text-gray-600 bg-gray-50 border border-gray-200 rounded-lg cursor-not-allowed" />
           </div>
         </div>
 
-        <div class="w-full md:w-1/2 lg:w-2/5">
-          <div class="flex justify-between items-center mb-3">
-            <app-section-header title="Giros" badge="(?)" [divider]=false>
-            </app-section-header>
+        <div class="flex-1 min-w-[260px]">
+          <div class="flex items-center justify-between mb-3">
+            <div class="flex items-center gap-2">
+              <span class="material-icons text-purple-500 text-[16px]">category</span>
+              <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Giros</span>
+              <span *ngIf="giros.length > 0"
+                class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-[#1A6DB5] text-white text-[10px] font-bold">
+                {{ giros.length }}
+              </span>
+            </div>
             <button (click)="abrirModalGiro()"
-              class="inline-flex items-center gap-1 text-xs font-medium px-3 py-1.5 rounded-md border border-blue-200 text-blue-700 hover:bg-blue-50 transition disabled:opacity-50 disabled:cursor-not-allowed">
-              {{ giros.length === 0 ? '+ Agregar giro principal' : '+ Agregar giro adicional' }}
+              class="inline-flex items-center gap-1 text-[11px] font-semibold px-3 py-1.5 rounded-lg border border-[#1A6DB5]/30 text-[#1A6DB5] hover:bg-[#E8F0FE] transition">
+              <span class="material-icons text-[13px]">add</span>
+              {{ giros.length === 0 ? 'Agregar giro' : 'Agregar otro' }}
             </button>
           </div>
 
-          <div class="border border-gray-200 rounded-lg overflow-hidden max-h-30 overflow-y-auto">
-            <app-data-table [columns]="columnasGirosSeleccionados" [rows]="giros" emptyText="No hay giros registrados"
-              [actionsTpl]="accionesGiro2">
+          <div class="border border-gray-200 rounded-lg overflow-hidden">
+            <app-data-table [columns]="columnasGirosSeleccionados" [rows]="giros"
+              emptyText="Sin giros agregados" [actionsTpl]="accionesGiro2">
             </app-data-table>
-
             <ng-template #accionesGiro2 let-giro let-i="index">
               <button (click)="eliminarGiro(i)"
-                class="text-xs font-medium px-2 py-1 rounded text-red-600 hover:bg-red-50 transition">
+                class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-red-50 text-red-600 hover:bg-red-100 transition border border-red-200">
+                <span class="material-icons text-[12px]">delete</span>
                 Quitar
               </button>
             </ng-template>
           </div>
         </div>
+
       </div>
     </div>
+  </div>
 
-    <div class="bg-white p-5 border-b border-gray-200">
-      <div class="mb-4">
-        <div class="flex justify-between items-center">
-          <app-section-header title="Información comercial" badge="" [divider]=false>
-          </app-section-header>
-          <button (click)="mostrarModalEstablecimientos = true"
-            class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
-            Obtener Establecimientos Anteriores
-          </button>
+  <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm mb-4">
+    <div class="border-l-4 border-emerald-400 px-5 py-4">
+      <div class="flex items-center justify-between mb-4">
+        <div class="flex items-center gap-2">
+          <span class="material-icons text-emerald-500 text-[18px]">store</span>
+          <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Información comercial</span>
         </div>
-        <div class="h-px bg-gray-200 mt-2 mb-4"></div>
+        <button (click)="mostrarModalEstablecimientos = true"
+          class="inline-flex items-center gap-1.5 bg-gray-100 hover:bg-gray-200 text-gray-600 text-xs font-semibold px-3 py-2 rounded-lg transition">
+          <span class="material-icons text-[14px]">history</span>
+          Usar establecimiento anterior
+        </button>
+      </div>
+
+      <div *ngIf="establecimientoAutorellenado"
+        class="flex items-start gap-2.5 bg-amber-50 border border-amber-200 rounded-lg px-4 py-3 mb-4">
+        <span class="material-icons text-amber-500 text-[16px] flex-shrink-0 mt-0.5">info</span>
+        <p class="text-xs text-amber-800">
+          Datos autocompletados desde el establecimiento seleccionado. Verifica el horario antes de continuar.
+        </p>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
         <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">
             Nombre comercial <span class="text-red-500">*</span>
           </label>
           <input type="text" [(ngModel)]="nombre"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent outline-none transition" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">
             Tipo de actividad <span class="text-red-500">*</span>
           </label>
           <select [(ngModel)]="actividadSeleccionado"
-            class="w-full max-w-md px-4 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-            <option value="">Seleccione</option>
-            <option *ngFor="let tipo of actividades" [value]="tipo.idTipoAct">
-              {{ tipo.descTipoAct }}
-            </option>
+            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent outline-none transition bg-white">
+            <option value="">— Seleccione —</option>
+            <option *ngFor="let tipo of actividades" [value]="tipo.idTipoAct">{{ tipo.descTipoAct }}</option>
           </select>
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            Area Local (m²)<span class="text-red-500">*</span>
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">
+            Área local (m²) <span class="text-red-500">*</span>
           </label>
           <input type="number" [(ngModel)]="areaLocal"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent outline-none transition" />
         </div>
       </div>
 
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-4">
         <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            N° Interior
-          </label>
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">N° Interior</label>
           <input (input)="filtrarNumeros($event)" [(ngModel)]="nroInterior"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent outline-none transition" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            N° Stand
-          </label>
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">N° Stand</label>
           <input (input)="filtrarNumeros($event)" [(ngModel)]="nroStand"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent outline-none transition" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            N° Estacionamiento
-          </label>
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">N° Estacionamiento</label>
           <input (input)="filtrarNumeros($event)" [(ngModel)]="nroEstacionamiento"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent outline-none transition" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">
             Aforo <span class="text-red-500">*</span>
           </label>
           <input type="number" [(ngModel)]="aforo"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent outline-none transition" />
         </div>
         <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
+          <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">
             Condición <span class="text-red-500">*</span>
           </label>
           <select [(ngModel)]="condicionSeleccionado"
-            class="w-full max-w-md px-4 py-2.5 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-            <option value="">Seleccione</option>
-            <option *ngFor="let tipo of condiciones" [value]="tipo.idCondLocal">
-              {{ tipo.descCondLocal }}
-            </option>
+            class="w-full px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent outline-none transition bg-white">
+            <option value="">— Seleccione —</option>
+            <option *ngFor="let tipo of condiciones" [value]="tipo.idCondLocal">{{ tipo.descCondLocal }}</option>
           </select>
         </div>
       </div>
 
-      <div *ngIf="establecimientoAutorellenado"
-        class="mb-4 flex items-start gap-2 bg-amber-50 border border-amber-200 text-amber-800 text-sm rounded-lg px-4 py-3">
-        <span class="mt-0.5">⚠️</span>
-        <span>Se autorellenaron los datos del establecimiento seleccionado. Verifica el horario de atención antes de
-          continuar.</span>
-      </div>
-
-      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 items-end">
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            Desde
-          </label>
-          <input type="time" [(ngModel)]="desde" [disabled]="check_horario_continuo"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
+      <div class="bg-[#F7F9FC] border border-gray-200 rounded-xl px-4 py-4">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="material-icons text-gray-400 text-[16px]">schedule</span>
+          <span class="text-[10px] font-bold text-gray-500 uppercase tracking-widest">Horario de atención</span>
         </div>
-        <div>
-          <label class="block text-xs font-medium text-gray-500 uppercase tracking-widest mb-1">
-            Hasta
-          </label>
-          <input type="time" [(ngModel)]="hasta" [disabled]="check_horario_continuo"
-            class="w-full px-3 py-2 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition">
-        </div>
-        <div class="col-span-3 space-y-1">
-          <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" [(ngModel)]="check_dia_siguiente"
-              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-            <span class="text-sm text-gray-700">Es hasta el día siguiente</span>
-          </label>
-          <label class="flex items-center gap-2 cursor-pointer">
-            <input type="checkbox" [(ngModel)]="check_horario_continuo"
-              class="w-4 h-4 text-blue-600 border-gray-300 rounded focus:ring-2 focus:ring-blue-500">
-            <span class="text-sm text-gray-700">Horario continuo 24 horas</span>
-          </label>
+        <div class="flex flex-wrap items-end gap-4">
+          <div>
+            <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">Desde</label>
+            <input type="time" [(ngModel)]="desde" [disabled]="check_horario_continuo"
+              class="px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent outline-none transition disabled:bg-gray-100 disabled:cursor-not-allowed" />
+          </div>
+          <div>
+            <label class="block text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1.5">Hasta</label>
+            <input type="time" [(ngModel)]="hasta" [disabled]="check_horario_continuo"
+              class="px-3 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent outline-none transition disabled:bg-gray-100 disabled:cursor-not-allowed" />
+          </div>
+          <div class="space-y-2 pb-0.5">
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" [(ngModel)]="check_dia_siguiente"
+                class="w-4 h-4 text-[#1A6DB5] border-gray-300 rounded focus:ring-2 focus:ring-[#1A6DB5]">
+              <span class="text-xs text-gray-700 font-medium">Hasta el día siguiente</span>
+            </label>
+            <label class="flex items-center gap-2 cursor-pointer">
+              <input type="checkbox" [(ngModel)]="check_horario_continuo"
+                class="w-4 h-4 text-[#1A6DB5] border-gray-300 rounded focus:ring-2 focus:ring-[#1A6DB5]">
+              <span class="text-xs text-gray-700 font-medium">Horario continuo 24 horas</span>
+            </label>
+          </div>
         </div>
       </div>
     </div>
-
-    <app-nav-buttons backRoute="../pantalla1" [nextDisabled]="!formularioValido" (next)="guardarState()"
-      nextRoute="../pantalla3">
-    </app-nav-buttons>
   </div>
+
+  <app-nav-buttons backRoute="../pantalla1" [nextDisabled]="!formularioValido"
+    (next)="guardarState()" nextRoute="../pantalla3">
+  </app-nav-buttons>
 </div>
