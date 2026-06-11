@@ -9,13 +9,13 @@ import { ICrearSolicitudRequest, IRepresentanteLegalRequest, IEditarRepresentant
 import { SolicitudStateService } from '../../core/services/solicitud-state.service';
 import { ModalRepresentanteComponent, Representante } from '../../components/modal-representante/modal-representante.component';
 import { forkJoin } from 'rxjs';
-import { SectionHeaderComponent, NavButtonsComponent } from '../../shared';
+import { NavButtonsComponent } from '../../shared';
 
 @Component({
   selector: 'app-pantalla5',
   standalone: true,
   imports: [RouterModule, FormsModule, CommonModule, 
-    ModalRepresentanteComponent, SectionHeaderComponent, NavButtonsComponent],
+    ModalRepresentanteComponent, NavButtonsComponent],
   templateUrl: './pantalla5.component.html',
   styleUrl: './pantalla5.component.css'
 })

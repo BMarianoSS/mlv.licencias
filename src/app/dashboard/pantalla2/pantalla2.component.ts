@@ -9,7 +9,7 @@ import { ModalMapaComponent } from '../../components/modal-mapa/modal-mapa.compo
 import { ModalGiroComponent, Giro } from '../../components/modal-giro/modal-giro.component';
 import { ModalListaEstablecimientoComponent } from '../../components/modal-lista-establecimientos/modal-lista-establecimientos.component';
 import { filtrarSoloNumeros } from '../../core/utils/form.utils';
-import { SectionHeaderComponent, NavButtonsComponent, DataTableComponent, TableColumn } from '../../shared';
+import { NavButtonsComponent, DataTableComponent, TableColumn } from '../../shared';
 
 @Component({
   selector: 'app-pantalla2',
@@ -17,7 +17,7 @@ import { SectionHeaderComponent, NavButtonsComponent, DataTableComponent, TableC
   imports: [
     RouterModule, FormsModule, CommonModule,
     ModalMapaComponent, ModalGiroComponent,
-    ModalListaEstablecimientoComponent,SectionHeaderComponent,
+    ModalListaEstablecimientoComponent,
     NavButtonsComponent, DataTableComponent
   ],
   templateUrl: './pantalla2.component.html',

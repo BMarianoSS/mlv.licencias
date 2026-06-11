@@ -2,12 +2,11 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { SolicitudStateService } from '../../core/services/solicitud-state.service';
-import { SectionHeaderComponent } from '../../shared';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, CommonModule, SectionHeaderComponent],
+  imports: [RouterModule, CommonModule],
   templateUrl: './pantalla6.component.html',
   styleUrl: './pantalla6.component.css'
 })

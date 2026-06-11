@@ -10,14 +10,14 @@ import { AuthService } from '../../core/services/auth.service';
 import { ModalPreguntasComponent } from '../../components/modal-preguntas/modal-preguntas.component';
 import { AnexosStateService } from '../../core/services/anexos-state.service';
 import { filtrarSoloNumeros } from '../../core/utils/form.utils';
-import { SectionHeaderComponent, NavButtonsComponent } from '../../shared';
+import { NavButtonsComponent } from '../../shared';
 
 Chart.register(...registerables);
 @Component({
   selector: 'app-pantalla4',
   standalone: true,
   imports: [RouterModule, FormsModule, CommonModule, 
-    ModalPreguntasComponent, SectionHeaderComponent, NavButtonsComponent],
+    ModalPreguntasComponent, NavButtonsComponent],
   templateUrl: './pantalla4.component.html',
   styleUrl: './pantalla4.component.css'
 })

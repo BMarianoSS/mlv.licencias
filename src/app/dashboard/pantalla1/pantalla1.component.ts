@@ -5,12 +5,11 @@ import { ActivatedRoute } from '@angular/router';
 import { Router, RouterModule } from '@angular/router';
 import { ComboService } from '../../core/services/combo.service'
 import { SolicitudStateService } from '../../core/services/solicitud-state.service'
-import { SectionHeaderComponent, NavButtonsComponent } from '../../shared';
 
 @Component({
   selector: 'app-pantalla1',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule,SectionHeaderComponent,NavButtonsComponent],
+  imports: [RouterModule, FormsModule, CommonModule],
   templateUrl: './pantalla1.component.html',
   styleUrl: './pantalla1.component.css'
 })

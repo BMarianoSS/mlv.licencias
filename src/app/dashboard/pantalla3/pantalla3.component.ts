@@ -3,12 +3,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { SolicitudStateService } from '../../core/services/solicitud-state.service';
 import { filtrarSoloNumeros } from '../../core/utils/form.utils';
-import { SectionHeaderComponent,NavButtonsComponent,FormFieldComponent } from '../../shared';
+import { NavButtonsComponent,FormFieldComponent } from '../../shared';
 
 @Component({
   selector: 'app-pantalla3',
   standalone: true,
-  imports: [RouterModule,FormsModule,SectionHeaderComponent, NavButtonsComponent, FormFieldComponent],
+  imports: [RouterModule,FormsModule,NavButtonsComponent, FormFieldComponent],
   templateUrl: './pantalla3.component.html',
   styleUrl: './pantalla3.component.css'
 })
