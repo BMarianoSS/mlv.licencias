@@ -1,0 +1,33 @@
+<div *ngIf="visible" class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
+    <div [class]="'bg-white rounded-xl shadow-xl p-6 w-80 ' + (isLeaving ? 'modal-leave' : 'modal-enter')">
+        <div *ngIf="type === 'confirm'" class="flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
+                <span class="material-icons text-red-500 text-[20px]">warning</span>
+            </div>
+            <div>
+                <p class="text-sm font-semibold text-gray-900">{{ title || '¿Confirmar?' }}</p>
+                <p class="text-xs text-gray-500 mt-0.5">{{ message }}</p>
+            </div>
+        </div>
+
+        <div *ngIf="type === 'info'" class="mb-4">
+            <p class="text-sm text-gray-700 mb-5">{{ message }}</p>
+        </div>
+
+        <div class="flex justify-end gap-2">
+            <button *ngIf="type === 'confirm'" (click)="onCancel()"
+                class="text-xs px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition font-medium">
+                {{ cancelText }}
+            </button>
+            <button (click)="onConfirm()"
+                class="text-xs px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition font-semibold"
+                *ngIf="type === 'confirm'">
+                {{ confirmText }}
+            </button>
+            <button (click)="onConfirm()" *ngIf="type === 'info'"
+                class="text-xs px-4 py-2 rounded-lg bg-[#1A6DB5] text-white hover:bg-[#0F2D5C] transition font-semibold">
+                {{ confirmText || 'Cerrar' }}
+            </button>
+        </div>
+    </div>
+</div>

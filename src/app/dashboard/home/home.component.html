@@ -43,47 +43,14 @@
         </ng-template>
     </div>
 
-    @if (modalConfirmarVisible) {
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-        <div
-            [class]="'bg-white rounded-xl shadow-xl p-6 w-80 ' + (modalConfirmarLeaving ? 'modal-leave' : 'modal-enter')">
-            <div class="flex items-center gap-3 mb-4">
-                <div class="w-10 h-10 rounded-full bg-red-100 flex items-center justify-center flex-shrink-0">
-                    <span class="material-icons text-red-500 text-[20px]">warning</span>
-                </div>
-                <div>
-                    <p class="text-sm font-semibold text-gray-900">¿Desistir de esta solicitud?</p>
-                    <p class="text-xs text-gray-500 mt-0.5">Esta acción no se puede deshacer.</p>
-                </div>
-            </div>
-            <div class="flex justify-end gap-2">
-                <button (click)="cerrarModalConfirmar()"
-                    class="text-xs px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition font-medium">
-                    Cancelar
-                </button>
-                <button (click)="confirmarDesistir()"
-                    class="text-xs px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition font-semibold">
-                    Sí, desistir
-                </button>
-            </div>
-        </div>
-    </div>
-    }
+    <app-generic-modal [visible]="modalConfirmarVisible" [type]="'confirm'" [title]="'¿Desistir de esta solicitud?'"
+        [message]="'Esta acción no se puede deshacer.'" [confirmText]="'Sí, desistir'" [cancelText]="'Cancelar'"
+        (confirm)="confirmarDesistir()" (close)="modalConfirmarVisible = false">
+    </app-generic-modal>
 
-    @if (modalRespuestaVisible) {
-    <div class="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm">
-        <div
-            [class]="'bg-white rounded-xl shadow-xl p-6 w-80 ' + (modalRespuestaLeaving ? 'modal-leave' : 'modal-enter')">
-            <p class="text-sm text-gray-700 mb-5">{{ mensajeRespuesta }}</p>
-            <div class="flex justify-end">
-                <button (click)="cerrarModalRespuesta()"
-                    class="text-xs px-4 py-2 rounded-lg bg-[#1A6DB5] text-white hover:bg-[#0F2D5C] transition font-semibold">
-                    Cerrar
-                </button>
-            </div>
-        </div>
-    </div>
-    }
+    <app-generic-modal [visible]="modalRespuestaVisible" [type]="'info'" [message]="mensajeRespuesta"
+        [confirmText]="'Cerrar'" (confirm)="cerrarModalRespuesta()" (close)="modalRespuestaVisible = false">
+    </app-generic-modal>
 
     @if (modalDetalleVisible) {
     <app-modal-detalle-solicitud [id_solicitud]="idSolicitudDetalle"

@@ -6,12 +6,13 @@ import { SolicitudService } from '../../core/services/solicitud.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ModalDetalleSolicitudComponent } from '../../components/modal-detalle-solicitud/modal-detalle-solicitud.component';
 import { ModalDocumentoComponent } from '../../components/modal-documento/modal-documento.component';
-import { DataTableComponent, TableColumn } from '../../shared';
+import { DataTableComponent, TableColumn, GenericModalComponent } from '../../shared';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, ModalDetalleSolicitudComponent, ModalDocumentoComponent, DataTableComponent],
+  imports: [RouterModule, FormsModule, CommonModule, ModalDetalleSolicitudComponent, 
+            ModalDocumentoComponent, DataTableComponent, GenericModalComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
