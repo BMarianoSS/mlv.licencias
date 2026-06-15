@@ -336,31 +336,31 @@ export interface ICodLotePredioRequest {
 export interface SolicitudFinalResponse {
     resultado:              string;
     nuExpediente:           string;
-    nuEmiEntrada:           string;
-    nuSecExp:               string;
-    nuCorrExp:              string;
-    nuCorDocEntrada:        string;
-    NuDesEntrada:           string;
-    NuCorDesEntrada:        string;
-    NuEmiResolucion:        string;
+    //nuEmiEntrada:           string;
+    //nuSecExp:               string;
+    //nuCorrExp:              string;
+    //nuCorDocEntrada:        string;
+    //NuDesEntrada:           string;
+    //NuCorDesEntrada:        string;
+    //NuEmiResolucion:        string;
     NumeroResolucion:       string;
-    NuDesResolucion:        string;
-    NuCorDesResolucion:     string;
-    CoRefResolucion:        string;
-    NuEmiCertificado:       string;
+    //NuDesResolucion:        string;
+    //NuCorDesResolucion:     string;
+    //CoRefResolucion:        string;
+    //NuEmiCertificado:       string;
     NumeroCertificado:      string;
-    NuDesCertificado:       string;
-    NuCorDesCertificado:    string;
-    CoRefCertificado:       string;
-    UsuarioCreador:         string;
-    EmpleadoEmisor:         string;
-    LocalEmisor:            string;
-    EmpleadoDestino:        string;
-    LocalDestino:           string;
-    TipoEmisor:             string;
-    Identificador:          string;
-    DepDestinoFijo:         string;
-    Procedente:             string;
+    //NuDesCertificado:       string;
+    //NuCorDesCertificado:    string;
+    //CoRefCertificado:       string;
+    //UsuarioCreador:         string;
+    //EmpleadoEmisor:         string;
+    //LocalEmisor:            string;
+    //EmpleadoDestino:        string;
+    //LocalDestino:           string;
+    //TipoEmisor:             string;
+    //Identificador:          string;
+    //DepDestinoFijo:         string;
+    //Procedente:             string;
 }
 
 export interface ISolicitudFinalRequest {
@@ -375,15 +375,21 @@ export interface ISolicitudFinalRequest {
 
 
 export interface AprobarSolicitudResponse {
-    codigo:     string;
-    mensaje:    string;
+    codigo:                 string;
+    mensaje:                string;
+    idSolicitudGenerada:    string;
+    numeroResolucion:       string;
+    numeroLicencia:         string;
 }
 
 export interface IAprobarSolicitudRequest {
-    nro_expediente: string;
-    id_solicitud:   string;
-    operador:       string;
-    estacion:       string;
+    nro_expediente:     string;
+    fecha_expediente:   string;
+    nro_resolucion:     string;
+    fecha_resolucion:   string;
+    nro_certificado:    string;
+    id_solicitud:       string;
+    operador:           string;
 }
 
 

@@ -1,4 +1,4 @@
-<div class="p-6 md:p-8 max-w-3xl mx-auto">
+<div class="p-6 md:p-8 mx-auto">
   <app-modal-representante *ngIf="mostrarModalRepresentante" [datosIniciales]="representanteParaEditar"
     [tipoDocumentos]="tipoDocumentos" (cerrar)="mostrarModalRepresentante = false"
     (representanteGuardado)="onRepresentanteGuardado($event)">
@@ -97,11 +97,11 @@
   </div>
 
   <app-generic-modal [visible]="modalConfirmarVisible" [type]="'confirm'" [title]="'¿Crear solicitud?'"
-      [message]="'Esta acción no se puede deshacer.'" [confirmText]="'Sí, crear'" [cancelText]="'Cancelar'"
-      (confirm)="procesarSolicitud()" (close)="modalConfirmarVisible = false">
+      [message]="'Si aceptas se registrará la solicitud con los datos brindados.'" [confirmText]="'Sí, crear'" 
+      [cancelText]="'Cancelar'" (confirm)="procesarSolicitud()" (close)="modalConfirmarVisible = false">
   </app-generic-modal>
 
-  <app-nav-buttons backRoute="../pantalla4" nextRoute="../pantalla6" nextLabel="Enviar solicitud"
+  <app-nav-buttons backRoute="../pantalla4" nextLabel="Enviar solicitud"
     [nextDisabled]="!formularioValido" (next)="abrirConfirmacion()">
   </app-nav-buttons>
 </div>

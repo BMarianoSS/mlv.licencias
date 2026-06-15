@@ -77,11 +77,11 @@ export class Pantalla5Component implements OnInit {
 
   iniciarAnimacionLoading() {
     let dots = 0;
-    this.loadingText = 'Descargando archivo';
+    this.loadingText = 'Creando Solicitud';
 
     this.loadingInterval = setInterval(() => {
       dots = (dots + 1) % 4;
-      this.loadingText = 'Descargando archivo' + '.'.repeat(dots);
+      this.loadingText = 'Creando Solicitud' + '.'.repeat(dots);
     }, 500);
   }
 
