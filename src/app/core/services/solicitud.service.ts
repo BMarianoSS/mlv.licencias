@@ -11,7 +11,7 @@ import {
     PredioResponse, RepresentanteLegalResponse, ZonificacionResponse, listarEstablecimientosResponse,
     IPreguntasXAnexoFuncionRequest, PreguntasXAnexoFuncionResponse,  CodLotePredioResponse, ICodLotePredioRequest,
     SolicitudFinalResponse, ISolicitudFinalRequest, AprobarSolicitudResponse, IAprobarSolicitudRequest,
-    IObtenerRutaSolicitudRequest
+    IObtenerRutaSolicitudRequest, IVerDocumentoRequest
     } from "../interfaz/ISolicitudLicencia";
 import { ApiResponse, ApiResponseData } from "../interfaz/ApiResponse";
 
@@ -80,6 +80,12 @@ export class SolicitudService {
 
     public aprobarSolicitud(payload: IAprobarSolicitudRequest): Observable<ApiResponse<AprobarSolicitudResponse>> {
         return this.http.post<ApiResponse<AprobarSolicitudResponse>>(`${this.apiUrl}/aprobar-solicitud`, payload);
+    }
+
+    public verDocumento(payload: IVerDocumentoRequest): Observable<Blob> {
+        return this.http.post(`${this.apiUrl}/ver-documento`, payload, {
+            responseType: 'blob'
+        });
     }
 
     generarPdfAnexo(data: any): Observable<Blob> {

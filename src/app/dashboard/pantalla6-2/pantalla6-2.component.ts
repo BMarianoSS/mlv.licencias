@@ -1,58 +1,34 @@
 import { Component, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { SolicitudService } from '../../core/services/solicitud.service';
 import { SolicitudStateService } from '../../core/services/solicitud-state.service';
-import { AuthService } from '../../core/services/auth.service';
+import { ModalDocumentoComponent } from '../../components/modal-documento/modal-documento.component'
 
 @Component({
   selector: 'app-pantalla6-2',
   standalone: true,
-  imports: [RouterModule],
+  imports: [RouterModule, ModalDocumentoComponent],
   templateUrl: './pantalla6-2.component.html',
   styleUrl: './pantalla6-2.component.css'
 })
 export class pantalla62Component implements OnInit{
   sidebarOpen = false;
-  solicitudFinalDatos: any[] = [];
+  modalDocumentoVisible = false;
+  id_solicitud: any = '';
+  tipo_documento: any = '';
 
-  constructor(private auth: AuthService, private solicitudService: SolicitudService, private state: SolicitudStateService) {}
+  constructor(private state: SolicitudStateService) {}
 
   ngOnInit() {
-    this.solicitudFinal();
+    this.state.limpiarState();
   }
 
-  solicitudFinal() {
-    const user = this.auth.getUser();
-    const payload = { 
-      nro_documento:  user.nroDocumento,
-      asunto:         this.state.descrip_nivelesRiesgo,
-      tipo_persona:   user.tipoPersona,
-      ip_pc:          '',
-      nombre_pc:      'Licencia-Publica',
-      usuario_pc:     'Licencia-Publica'
-    };
-    
+  abrirDocumento(id_solicitud: string, numero: number) {
+    this.id_solicitud = id_solicitud;
+    this.tipo_documento = numero;
+    this.modalDocumentoVisible = true;
+  }
 
-    this.solicitudService.solicitudFinal(payload).subscribe(
-      (response) => {
-        this.solicitudFinalDatos = response.data;
-        console.log('Respuesta de solicitudFinal:', response);
-      },
-      (error) => {
-        console.error('Error en solicitudFinal:', error);
-      }
-    );
-
-    this.solicitudService.aprobarSolicitud({ nro_expediente: user.nroDocumento, id_solicitud: this.state.idSolicitudCreada, operador: user.nroDocumento, estacion: 'Licencia-Publica' }).subscribe(
-      (response) => {
-        console.log('Respuesta de aprobarSolicitud:', response);
-      },
-      (error) => {
-        console.error('Error en aprobarSolicitud:', error);
-      }
-    );
-
-    
-    this.state.limpiarState();
+  cerrarDocumento() {
+    this.modalDocumentoVisible = false;
   }
 }

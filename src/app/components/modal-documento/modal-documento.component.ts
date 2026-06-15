@@ -1,9 +1,9 @@
-import { Component, EventEmitter, Output, Input, OnDestroy } from '@angular/core';
+import { Component, EventEmitter, Output, Input, OnDestroy, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
-import { SolicitudService } from '../../core/services/solicitud.service'
-import { ModalWrapperComponent } from '../../shared'
+import { SolicitudService } from '../../core/services/solicitud.service';
+import { ModalWrapperComponent } from '../../shared';
 
 @Component({
   selector: 'app-modal-documento',
@@ -14,20 +14,29 @@ import { ModalWrapperComponent } from '../../shared'
 export class ModalDocumentoComponent implements OnDestroy {
   @Output() cerrar = new EventEmitter<void>();
   @Input() id_solicitud:any = '';
+  @Input() tipo_documento:any = '';
 
   documentUrl: SafeResourceUrl | null = null;
   private blobUrl: string | null = null;
 
   constructor(private solicitudService: SolicitudService, private sanitizer: DomSanitizer) { }
 
-  cargando = true;
+  isLoading = true;
 
   ngOnInit() {
-    this.obtenerDocumentos();
+    this.mostrar();
+  }
+
+  mostrar(){
+    if(this.tipo_documento === 1 || this.tipo_documento === 2){
+      this.verDocumento(this.tipo_documento)
+    }else{
+      this.obtenerDocumentos()
+    }
   }
 
   obtenerDocumentos() {
-    this.cargando = true;
+    this.isLoading = true;
     const payload = { id_solicitud: this.id_solicitud};
 
     this.solicitudService.obtenerRutaArchivo(payload)
@@ -38,11 +47,35 @@ export class ModalDocumentoComponent implements OnDestroy {
           }
           this.blobUrl = URL.createObjectURL(blob);
           this.documentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.blobUrl);
-          this.cargando = false;
+          this.isLoading = false;
         },
         error: (err) => {
           console.error('Error al obtener documentos:', err);
-          this.cargando = false;
+          this.isLoading = false;
+        }
+      });
+  }
+
+  verDocumento(numero: number) {
+    this.isLoading = true;
+    const payload = { 
+      id_solicitud: this.id_solicitud,
+      tipo_documento: numero
+    };
+
+    this.solicitudService.verDocumento(payload)
+      .subscribe({
+        next: (blob) => {
+          if (this.blobUrl) {
+            URL.revokeObjectURL(this.blobUrl);
+          }
+          this.blobUrl = URL.createObjectURL(blob);
+          this.documentUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.blobUrl);
+          this.isLoading = false;
+        },
+        error: (err) => {
+          console.error('Error al obtener documentos:', err);
+          this.isLoading = false;
         }
       });
   }

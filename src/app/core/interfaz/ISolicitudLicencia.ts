@@ -390,6 +390,7 @@ export interface IAprobarSolicitudRequest {
     nro_certificado:    string;
     id_solicitud:       string;
     operador:           string;
+    estacion:           string;
 }
 
 
@@ -397,4 +398,11 @@ export interface IAprobarSolicitudRequest {
 
 export interface IObtenerRutaSolicitudRequest {
     id_solicitud:   string;
+}
+
+
+
+export interface IVerDocumentoRequest {
+    id_solicitud:   string;
+    tipo_documento: number;
 }

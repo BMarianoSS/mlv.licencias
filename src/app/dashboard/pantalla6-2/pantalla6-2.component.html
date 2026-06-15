@@ -21,7 +21,7 @@
 
   <div class="mb-5">
     <h1 class="text-lg font-bold text-gray-900">Resultado de la solicitud</h1>
-    <p class="text-xs text-gray-500 mt-0.5">Tu trámite fue aprobado y ya puedes descargar los documentos finales.</p>
+    <p class="text-xs text-gray-500 mt-0.5">Tu trámite fue aprobado y está a la espera de ser firmado por el gerente.</p>
   </div>
 
   <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm mb-4">
@@ -31,14 +31,19 @@
       </div>
       <span class="text-2xl font-bold text-emerald-600 uppercase tracking-wider">Resultado procedente</span>
       <p class="text-sm text-gray-600 mt-4 max-w-xl mx-auto leading-relaxed">
-        Su solicitud ha sido <span class="font-semibold text-emerald-600">APROBADA</span> exitosamente. A continuación, puede descargar los documentos generados.
+        Su solicitud ha sido <span class="font-semibold text-emerald-600">APROBADA</span> exitosamente. A continuación, puedes visualizar una vista previa de los documento los cuales no tienen validación.
       </p>
 
       <div class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
-        <button
-          class="inline-flex items-center gap-2 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition">
+        <button (click)="abrirDocumento('1',1)"
+          class="inline-flex items-center gap-2 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition cursor-pointer">
           <span class="material-icons text-[16px]">download</span>
-          Descargar licencia
+          Ver licencia
+        </button>
+        <button (click)="abrirDocumento('2',1)"
+          class="inline-flex items-center gap-2 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition cursor-pointer">
+          <span class="material-icons text-[16px]">download</span>
+          Ver resolución
         </button>
       </div>
     </div>
@@ -52,4 +57,8 @@
       </button>
     </div>
   </div>
+
+  @if (modalDocumentoVisible) {
+    <app-modal-documento [id_solicitud]="id_solicitud" [tipo_documento]="tipo_documento" (cerrar)="cerrarDocumento()"></app-modal-documento>
+    }
 </div>
