@@ -7,3 +7,4 @@ export * from './components/modal-wrapper/modal-wrapper.component';
 export * from './components/nav-buttons/nav-buttons.component';
 export * from './components/form-field/form-field.component';
 export * from './components/data-table/data-table.component';
+export * from './components/pagination/pagination.component';

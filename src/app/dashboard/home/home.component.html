@@ -15,6 +15,13 @@
         <app-data-table [columns]="columnasSolicitudes" [rows]="solicitudes"
             emptyText="No tienes solicitudes registradas aún." [actionsTpl]="accionesSolicitud">
         </app-data-table>
+        <app-pagination
+            [paginaActual]="paginaActual"
+            [totalRegistros]="totalRegistros"
+            [tamanioPagina]="tamanioPagina"
+            (paginaChange)="cambiarPagina($event)"
+            (tamanioPaginaChange)="cambiarTamanioPagina($event)">
+        </app-pagination>
 
         <ng-template #accionesSolicitud let-row>
             <div class="flex items-center justify-center gap-1.5 flex-wrap">

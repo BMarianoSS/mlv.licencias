@@ -6,21 +6,21 @@ import { SolicitudService } from '../../core/services/solicitud.service';
 import { AuthService } from '../../core/services/auth.service';
 import { ModalDetalleSolicitudComponent } from '../../components/modal-detalle-solicitud/modal-detalle-solicitud.component';
 import { ModalDocumentoComponent } from '../../components/modal-documento/modal-documento.component';
-import { DataTableComponent, TableColumn, GenericModalComponent } from '../../shared';
+import { DataTableComponent, TableColumn, GenericModalComponent, PaginationComponent } from '../../shared';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [RouterModule, FormsModule, CommonModule, ModalDetalleSolicitudComponent, 
-            ModalDocumentoComponent, DataTableComponent, GenericModalComponent],
+  imports: [RouterModule, FormsModule, CommonModule, ModalDetalleSolicitudComponent,
+    ModalDocumentoComponent, DataTableComponent, GenericModalComponent, PaginationComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent{
-  constructor(private solicitudService: SolicitudService, private authService:AuthService) {}
+export class HomeComponent {
+  constructor(private solicitudService: SolicitudService, private authService: AuthService) { }
 
   sidebarOpen = false;
-  solicitudes: any[] = [];  
+  solicitudes: any[] = [];
   modalConfirmarVisible = false;
   modalConfirmarLeaving = false;
   modalRespuestaVisible = false;
@@ -32,9 +32,13 @@ export class HomeComponent{
   idSolicitudDetalle: string = '';
   id_solicitante: any = '';
   tipo_documento: number | null = null;
+  paginaActual = 1;
+  tamanioPagina = 10;
+  totalRegistros = 0;
+  isLoading = false;
 
   ngOnInit() {
-    this.id_solicitante = this.authService.getUser()?.idSolicitante ?? '';    
+    this.id_solicitante = this.authService.getUser()?.idSolicitante ?? '';
     this.listarSolicitudes();
   }
 
@@ -60,10 +64,22 @@ export class HomeComponent{
     this.tipo_documento = null;
   }
 
-  listarSolicitudes() {
-    this.solicitudService.listarSolicitudes({id_solicitante: this.id_solicitante}).subscribe(resp => {
-      this.solicitudes = resp.data;
-    });
+  listarSolicitudes() {    
+    this.isLoading = true;
+    this.solicitudService.listarSolicitudes({
+      id_solicitante: this.id_solicitante,
+      pagina: String(this.paginaActual),
+      tamanio_pagina: String(this.tamanioPagina)
+    }).subscribe({
+          next: (resp) => {
+            this.solicitudes = resp.data; this.totalRegistros = resp.data.length ? Number(resp.data[0].totalRegistros) : 0;
+            this.isLoading = false;
+          },
+          error: (err) => {
+            this.isLoading = false;
+            console.error('Error en aprobarSolicitud:', err);
+          }
+        });
   }
 
   abrirConfirmacionDesistir(id_solicitud: string) {
@@ -100,13 +116,24 @@ export class HomeComponent{
     }, 100);
   }
 
+  cambiarPagina(pagina: number) {
+    this.paginaActual = pagina;
+    this.listarSolicitudes();
+  }
+
+  cambiarTamanioPagina(tamanio: number) {
+    this.tamanioPagina = tamanio;
+    this.paginaActual = 1;
+    this.listarSolicitudes();
+  }
+
   columnasSolicitudes: TableColumn[] = [
-    { label: 'N° Solicitud',         key: 'nroSolicitud',      mono: true },
+    { label: 'N° Solicitud', key: 'nroSolicitud', mono: true },
     { label: 'Ubicación del predio', key: 'direccionLocal' },
-    { label: 'Fecha registro',       key: 'fechaRegistro' },
-    { label: 'Estado',               key: 'descripcionEstado' },
-    { label: 'Firmado',              key: 'faltaFirmaTexto' },
-    { label: 'Tipo de trámite',      key: 'tipoTramite' },
-    { label: 'Acciones',             actions: true, align: 'center' },
+    { label: 'Fecha registro', key: 'fechaRegistro' },
+    { label: 'Estado', key: 'descripcionEstado' },
+    { label: 'Firmado', key: 'faltaFirmaTexto' },
+    { label: 'Tipo de trámite', key: 'tipoTramite' },
+    { label: 'Acciones', actions: true, align: 'center' },
   ];
 }

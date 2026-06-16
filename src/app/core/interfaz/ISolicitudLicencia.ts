@@ -74,10 +74,13 @@ export interface ListarSolicitudesResponse {
     tipoTramite:        string;
     faltaFirma:         string;
     faltaFirmaTexto:    string;
+    totalRegistros:     string;
 }
 
 export interface IListarSolicitudesRequest {
     id_solicitante: string;
+    pagina:         string;
+    tamanio_pagina: string;
 }
 
 
