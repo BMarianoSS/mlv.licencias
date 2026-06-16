@@ -12,7 +12,7 @@ import { FormsModule } from '@angular/forms';
         <div class="flex items-center gap-2 text-xs text-gray-500 order-2 sm:order-1">
             <span *ngIf="totalRegistros > 0">
             Mostrando <span class="font-semibold text-gray-700">{{ desde }}</span>
-            al <span class="font-semibold text-gray-700">{{ hasta }}</span>
+            - <span class="font-semibold text-gray-700">{{ hasta }}</span>
             de <span class="font-semibold text-gray-700">{{ totalRegistros }}</span>
             </span>
             <span *ngIf="totalRegistros === 0">Sin registros</span>
@@ -68,7 +68,7 @@ export class PaginationComponent {
     @Input() paginaActual = 1;
     @Input() totalRegistros = 0;
     @Input() tamanioPagina = 8;
-    @Input() opcionesTamanio: number[] = [5, 8, 10, 20, 50];
+    @Input() opcionesTamanio: number[] = [1, 5, 8, 10, 20, 50];
 
     @Output() paginaChange = new EventEmitter<number>();
     @Output() tamanioPaginaChange = new EventEmitter<number>();
