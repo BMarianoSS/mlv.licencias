@@ -1,4 +1,4 @@
-<app-modal-wrapper title="Licencia Emitida" width="800px" maxHeight="800px" (cerrar)="cerrar.emit()" bodyClass="p-0" [loading]="cargando"
+<app-modal-wrapper title="Licencia Emitida" width="800px" maxHeight="800px" (cerrar)="cerrar.emit()" bodyClass="p-0" [loading]="isLoading"
   loadingText="Cargando Licencia...">
   <div *ngIf="documentUrl" class="p-4">
     <iframe [src]="documentUrl" class="w-full h-auto border border-gray-200 rounded-lg" style="min-height: 600px;"></iframe>

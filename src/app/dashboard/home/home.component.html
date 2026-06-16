@@ -19,23 +19,38 @@
         <ng-template #accionesSolicitud let-row>
             <div class="flex items-center justify-center gap-1.5 flex-wrap">
                 <button *ngIf="row.descripcionEstado === 'TRAMITE EN PROCESO'"
-                    class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition">
+                    class="cursor-pointer inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 transition">
                     <span class="material-icons text-[12px]">payments</span>
                     Pagar
                 </button>
-                <button *ngIf="row.descripcionEstado === 'PROCEDENTE'" (click)="abrirDocumento(row.idSolicitud)"
-                    class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-blue-50 text-[#1A6DB5] border border-blue-200 hover:bg-blue-100 transition">
+                <button *ngIf="row.descripcionEstado === 'PROCEDENTE' && row.faltaFirma === '0'" (click)="abrirDocumento(row.idSolicitud, 3)"
+                    class="cursor-pointer inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-blue-50 text-[#1A6DB5] border border-blue-200 hover:bg-blue-100 transition">
                     <span class="material-icons text-[12px]">download</span>
                     Licencia
                 </button>
+                <button *ngIf="row.descripcionEstado === 'PROCEDENTE' && row.faltaFirma === '0'" (click)="abrirDocumento(row.idSolicitud, 4)"
+                    class="cursor-pointer inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-blue-50 text-[#1A6DB5] border border-blue-200 hover:bg-blue-100 transition">
+                    <span class="material-icons text-[12px]">download</span>
+                    Resolución
+                </button>
+                <button *ngIf="row.descripcionEstado === 'PROCEDENTE' && row.faltaFirma === '1'" (click)="abrirDocumento(row.idSolicitud, 1)"
+                    class="cursor-pointer inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-blue-50 text-[#1A6DB5] border border-blue-200 hover:bg-blue-100 transition">
+                    <span class="material-icons text-[12px]">download</span>
+                    Licencia (sin validez)
+                </button>
+                <button *ngIf="row.descripcionEstado === 'PROCEDENTE' && row.faltaFirma === '1'" (click)="abrirDocumento(row.idSolicitud, 2)"
+                    class="cursor-pointer inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-blue-50 text-[#1A6DB5] border border-blue-200 hover:bg-blue-100 transition">
+                    <span class="material-icons text-[12px]">download</span>
+                    Resolución (sin validez)
+                </button>
                 <button *ngIf="row.descripcionEstado === 'TRAMITE EN PROCESO'"
                     (click)="abrirConfirmacionDesistir(row.idSolicitud)"
-                    class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition">
+                    class="cursor-pointer inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-red-50 text-red-600 border border-red-200 hover:bg-red-100 transition">
                     <span class="material-icons text-[12px]">cancel</span>
                     Desistir
                 </button>
                 <button (click)="abrirDetalle(row.idSolicitud)"
-                    class="inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200 transition">
+                    class="cursor-pointer inline-flex items-center gap-1 text-[11px] font-semibold px-2.5 py-1 rounded-md bg-gray-100 text-gray-600 border border-gray-200 hover:bg-gray-200 transition">
                     <span class="material-icons text-[12px]">visibility</span>
                     Detalle
                 </button>
@@ -58,6 +73,6 @@
     }
     
     @if (modalDocumentoVisible) {
-    <app-modal-documento [id_solicitud]="idSolicitudDetalle" (cerrar)="cerrarDocumento()"></app-modal-documento>
+    <app-modal-documento [id_solicitud]="idSolicitudDetalle" [tipo_documento]="tipo_documento" (cerrar)="cerrarDocumento()"></app-modal-documento>
     }
 </div>

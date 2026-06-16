@@ -30,14 +30,19 @@ export class ModalDocumentoComponent implements OnDestroy {
   mostrar(){
     if(this.tipo_documento === 1 || this.tipo_documento === 2){
       this.verDocumento(this.tipo_documento)
-    }else{
+    }else if(this.tipo_documento === 3 || this.tipo_documento === 4){
       this.obtenerDocumentos()
+    }else{
+      console.log("Opciones no válidas")
     }
   }
 
   obtenerDocumentos() {
     this.isLoading = true;
-    const payload = { id_solicitud: this.id_solicitud};
+    const payload = { 
+      id_solicitud:   this.id_solicitud,
+      tipo_documento: this.tipo_documento
+    };
 
     this.solicitudService.obtenerRutaArchivo(payload)
       .subscribe({

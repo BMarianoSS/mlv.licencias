@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { SolicitudStateService } from '../../core/services/solicitud-state.service';
 import { ModalDocumentoComponent } from '../../components/modal-documento/modal-documento.component'
@@ -6,24 +7,20 @@ import { ModalDocumentoComponent } from '../../components/modal-documento/modal-
 @Component({
   selector: 'app-pantalla6-2',
   standalone: true,
-  imports: [RouterModule, ModalDocumentoComponent],
+  imports: [CommonModule, RouterModule, ModalDocumentoComponent],
   templateUrl: './pantalla6-2.component.html',
   styleUrl: './pantalla6-2.component.css'
 })
-export class pantalla62Component implements OnInit{
+export class pantalla62Component {
   sidebarOpen = false;
   modalDocumentoVisible = false;
-  id_solicitud: any = '';
-  tipo_documento: any = '';
+  id_solicitud: string = '';
+  tipo_documento: number | null = null;
 
   constructor(private state: SolicitudStateService) {}
 
-  ngOnInit() {
-    this.state.limpiarState();
-  }
-
-  abrirDocumento(id_solicitud: string, numero: number) {
-    this.id_solicitud = id_solicitud;
+  abrirDocumento(numero: number) {
+    this.id_solicitud = this.state.idSolicitudGenerada || this.state.idSolicitudCreada;
     this.tipo_documento = numero;
     this.modalDocumentoVisible = true;
   }

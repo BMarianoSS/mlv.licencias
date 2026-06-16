@@ -57,23 +57,25 @@ export class pantalla6Component{
         const data = Array.isArray(resp.data) ? resp.data[0] : resp.data;
 
         this.state.nuExpediente      = data?.nuExpediente      ?? '';
-        this.state.numeroResolucion  = data?.NumeroResolucion  ?? '';
-        this.state.numeroCertificado = data?.NumeroCertificado ?? '';
+        this.state.numeroResolucion  = data?.numeroResolucion  ?? '';
+        this.state.numeroCertificado = data?.numeroCertificado ?? '';
 
         const hoy = new Date();
         const fecha = `${hoy.getDate().toString().padStart(2,'0')}/${(hoy.getMonth()+1).toString().padStart(2,'0')}/${hoy.getFullYear()}`;
 
         this.solicitudService.aprobarSolicitud({
-          nro_expediente:   this.state.nuExpediente,
+          nro_expediente:   data?.nuExpediente      ?? '',
           fecha_expediente: fecha,
-          nro_resolucion:   this.state.numeroResolucion,
+          nro_resolucion:   data?.numeroResolucion  ?? '',
           fecha_resolucion: fecha,
-          nro_certificado:  this.state.numeroCertificado,
+          nro_certificado:  data?.numeroCertificado ?? '',
           id_solicitud:     this.state.idSolicitudCreada,
           operador:         user.dniruc ?? '',
           estacion:         ''
         }).subscribe({
-          next: () => {
+          next: (resp) => {
+            const data = Array.isArray(resp.data) ? resp.data[0] : resp.data;
+            this.state.idSolicitudGenerada = data?.idSolicitudGenerada ?? this.state.idSolicitudCreada;
             this.isLoading = false;
             this.irAPantalla62();
           },

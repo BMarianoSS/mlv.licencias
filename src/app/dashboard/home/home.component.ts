@@ -31,6 +31,7 @@ export class HomeComponent{
   mensajeRespuesta: string = '';
   idSolicitudDetalle: string = '';
   id_solicitante: any = '';
+  tipo_documento: number | null = null;
 
   ngOnInit() {
     this.id_solicitante = this.authService.getUser()?.idSolicitante ?? '';    
@@ -42,8 +43,11 @@ export class HomeComponent{
     this.modalDetalleVisible = true;
   }
 
-  abrirDocumento(id_solicitud: string) {
+  abrirDocumento(id_solicitud: string, tipo_documento?: number) {
     this.idSolicitudDetalle = id_solicitud;
+    if (tipo_documento) {
+      this.tipo_documento = tipo_documento;
+    }
     this.modalDocumentoVisible = true;
   }
 
@@ -53,6 +57,7 @@ export class HomeComponent{
 
   cerrarDocumento() {
     this.modalDocumentoVisible = false;
+    this.tipo_documento = null;
   }
 
   listarSolicitudes() {
@@ -100,6 +105,7 @@ export class HomeComponent{
     { label: 'Ubicación del predio', key: 'direccionLocal' },
     { label: 'Fecha registro',       key: 'fechaRegistro' },
     { label: 'Estado',               key: 'descripcionEstado' },
+    { label: 'Firmado',              key: 'faltaFirmaTexto' },
     { label: 'Tipo de trámite',      key: 'tipoTramite' },
     { label: 'Acciones',             actions: true, align: 'center' },
   ];

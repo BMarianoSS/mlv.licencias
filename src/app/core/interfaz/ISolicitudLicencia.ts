@@ -72,6 +72,8 @@ export interface ListarSolicitudesResponse {
     fechaRegistro:      string; 
     descripcionEstado:  string;
     tipoTramite:        string;
+    faltaFirma:         string;
+    faltaFirmaTexto:    string;
 }
 
 export interface IListarSolicitudesRequest {
@@ -166,6 +168,7 @@ export interface IDesistirSolicitudRequest {
 
 export interface CrearSolicitudResponse {
     idSolicitud:  string;
+    idSolicitud2:  string;
     estado:       string;
     mensaje:      string;
     nroProforma:  string;
@@ -343,12 +346,12 @@ export interface SolicitudFinalResponse {
     //NuDesEntrada:           string;
     //NuCorDesEntrada:        string;
     //NuEmiResolucion:        string;
-    NumeroResolucion:       string;
+    numeroResolucion:       string;
     //NuDesResolucion:        string;
     //NuCorDesResolucion:     string;
     //CoRefResolucion:        string;
     //NuEmiCertificado:       string;
-    NumeroCertificado:      string;
+    numeroCertificado:      string;
     //NuDesCertificado:       string;
     //NuCorDesCertificado:    string;
     //CoRefCertificado:       string;
@@ -398,6 +401,7 @@ export interface IAprobarSolicitudRequest {
 
 export interface IObtenerRutaSolicitudRequest {
     id_solicitud:   string;
+    tipo_documento: string;
 }
 
 

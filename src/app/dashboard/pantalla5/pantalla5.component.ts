@@ -286,7 +286,7 @@ export class Pantalla5Component implements OnInit {
     this.solicitudService.crearSolicitud(payload).subscribe({
       next: (resp) => {
         const data = Array.isArray(resp.data) ? resp.data[0] : resp.data;
-        const id_solicitud = data?.idSolicitud;
+        const id_solicitud = data?.idSolicitud2;
 
         const giros = s.giros;
         if (giros.length > 0 && id_solicitud) {
