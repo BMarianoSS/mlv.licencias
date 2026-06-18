@@ -74,6 +74,7 @@ export class SolicitudStateService {
     idSolicitudGenerada     = '';
     nroProforma             = '';
     monto                   = '';
+    idProforma              = '';
 
     nuExpediente            = '';
     numeroResolucion        = '';
@@ -156,6 +157,7 @@ export class SolicitudStateService {
         this.idSolicitudGenerada    = '';
         this.nroProforma            = '';
         this.monto                  = '';
+        this.idProforma             = '';
 
         this.nuExpediente           = '';
         this.numeroResolucion       = '';

@@ -10,8 +10,8 @@ import {
     IPredioRequest, IRepresentanteLegalRequest, IZonificacionRequest, IlistarEstablecimientosRequest,
     PredioResponse, RepresentanteLegalResponse, ZonificacionResponse, listarEstablecimientosResponse,
     IPreguntasXAnexoFuncionRequest, PreguntasXAnexoFuncionResponse,  CodLotePredioResponse, ICodLotePredioRequest,
-    SolicitudFinalResponse, ISolicitudFinalRequest, AprobarSolicitudResponse, IAprobarSolicitudRequest,
-    IObtenerRutaSolicitudRequest, IVerDocumentoRequest
+    CrearExpedienteResponse, ICrearExpedienteRequest, AprobarSolicitudResponse, IAprobarSolicitudRequest,
+    IObtenerRutaSolicitudRequest, IVerDocumentoRequest, IPagarSolicitudRequest, PagarSolicitudResponse
     } from "../interfaz/ISolicitudLicencia";
 import { ApiResponse, ApiResponseData } from "../interfaz/ApiResponse";
 
@@ -63,23 +63,26 @@ export class SolicitudService {
     public listarEstablecimientos(payload: IlistarEstablecimientosRequest): Observable<ApiResponse<listarEstablecimientosResponse>> {
         return this.http.post<ApiResponse<listarEstablecimientosResponse>>(`${this.apiUrl}/listar-establecimiento`, payload);
     }
-
     public preguntasXAnexoFuncion(payload: IPreguntasXAnexoFuncionRequest): Observable<ApiResponse<PreguntasXAnexoFuncionResponse>> {
         return this.http.post<ApiResponse<PreguntasXAnexoFuncionResponse>>(`${this.apiUrl}/listar-preguntas`, payload);
     }
-
-    public solicitudFinal(payload: ISolicitudFinalRequest): Observable<ApiResponse<SolicitudFinalResponse>> {
-        return this.http.post<ApiResponse<SolicitudFinalResponse>>(`${this.apiUrl}/solicitud-final`, payload);
-    }
-
-    public obtenerRutaArchivo(payload: IObtenerRutaSolicitudRequest): Observable<Blob> {
-        return this.http.post(`${this.apiUrl}/obtener-ruta-archivo`, payload, {
-            responseType: 'blob'
-        });
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public crearExpediente(payload: ICrearExpedienteRequest): Observable<ApiResponse<CrearExpedienteResponse>> {
+        return this.http.post<ApiResponse<CrearExpedienteResponse>>(`${this.apiUrl}/crear-expediente`, payload);
     }
 
     public aprobarSolicitud(payload: IAprobarSolicitudRequest): Observable<ApiResponse<AprobarSolicitudResponse>> {
         return this.http.post<ApiResponse<AprobarSolicitudResponse>>(`${this.apiUrl}/aprobar-solicitud`, payload);
+    }
+
+    public pagarSolicitud(payload: IPagarSolicitudRequest): Observable<ApiResponse<PagarSolicitudResponse>> {
+        return this.http.post<ApiResponse<PagarSolicitudResponse>>(`${this.apiUrl}/pagar-solicitud`, payload);
+    }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public obtenerRutaArchivo(payload: IObtenerRutaSolicitudRequest): Observable<Blob> {
+        return this.http.post(`${this.apiUrl}/obtener-ruta-archivo`, payload, {
+            responseType: 'blob'
+        });
     }
 
     public verDocumento(payload: IVerDocumentoRequest): Observable<Blob> {

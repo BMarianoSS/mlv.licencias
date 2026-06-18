@@ -133,8 +133,8 @@
 
     <app-nav-buttons
       backRoute="/registro/paso-1"
-      [nextLabel]="state.paso1.tipoPersona === '2' ? 'Continuar' : 'Finalizar registro'"
-      [nextDisabled]="!formularioValido"
+      [nextLabel]="cargando ? (state.paso1.tipoPersona === '2' ? 'Continuando...' : 'Finalizando...') : (state.paso1.tipoPersona === '2' ? 'Continuar' : 'Finalizar registro')"
+      [nextDisabled]="!formularioValido || cargando"
       (next)="siguiente()">
     </app-nav-buttons>
   </div>

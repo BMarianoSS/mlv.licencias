@@ -170,12 +170,13 @@ export interface IDesistirSolicitudRequest {
 
 
 export interface CrearSolicitudResponse {
-    idSolicitud:  string;
-    idSolicitud2:  string;
-    estado:       string;
-    mensaje:      string;
-    nroProforma:  string;
-    monto:  string;
+    idSolicitud:    string;
+    idSolicitud2:   string;
+    estado:         string;
+    mensaje:        string;
+    nroProforma:    string;
+    monto:          string;
+    idProforma:     string;
 }
 
 export interface ICrearSolicitudRequest {
@@ -339,69 +340,6 @@ export interface ICodLotePredioRequest {
 
 
 
-export interface SolicitudFinalResponse {
-    resultado:              string;
-    nuExpediente:           string;
-    //nuEmiEntrada:           string;
-    //nuSecExp:               string;
-    //nuCorrExp:              string;
-    //nuCorDocEntrada:        string;
-    //NuDesEntrada:           string;
-    //NuCorDesEntrada:        string;
-    //NuEmiResolucion:        string;
-    numeroResolucion:       string;
-    //NuDesResolucion:        string;
-    //NuCorDesResolucion:     string;
-    //CoRefResolucion:        string;
-    //NuEmiCertificado:       string;
-    numeroCertificado:      string;
-    //NuDesCertificado:       string;
-    //NuCorDesCertificado:    string;
-    //CoRefCertificado:       string;
-    //UsuarioCreador:         string;
-    //EmpleadoEmisor:         string;
-    //LocalEmisor:            string;
-    //EmpleadoDestino:        string;
-    //LocalDestino:           string;
-    //TipoEmisor:             string;
-    //Identificador:          string;
-    //DepDestinoFijo:         string;
-    //Procedente:             string;
-}
-
-export interface ISolicitudFinalRequest {
-    nro_documento:  string;
-    asunto:         string;
-    tipo_persona:   string;
-    ip_pc:          string;
-    nombre_pc:      string;
-    usuario_pc:     string;
-}
-
-
-
-export interface AprobarSolicitudResponse {
-    codigo:                 string;
-    mensaje:                string;
-    idSolicitudGenerada:    string;
-    numeroResolucion:       string;
-    numeroLicencia:         string;
-}
-
-export interface IAprobarSolicitudRequest {
-    nro_expediente:     string;
-    fecha_expediente:   string;
-    nro_resolucion:     string;
-    fecha_resolucion:   string;
-    nro_certificado:    string;
-    id_solicitud:       string;
-    operador:           string;
-    estacion:           string;
-}
-
-
-
-
 export interface IObtenerRutaSolicitudRequest {
     id_solicitud:   string;
     tipo_documento: string;
@@ -412,4 +350,51 @@ export interface IObtenerRutaSolicitudRequest {
 export interface IVerDocumentoRequest {
     id_solicitud:   string;
     tipo_documento: number;
+}
+
+
+
+export interface CrearExpedienteResponse {
+    Resultado:      string;
+    NuExpediente:   string;
+    AnExpediente:   string;
+    AnNuExpediente: string;
+}
+
+export interface ICrearExpedienteRequest {
+    pNuDni:     string;
+    pDeAsunto:  string;
+    pTiEmi:     string;
+    pDeIpPc:    string;
+    pDeNamePc:  string;
+    pDeUserPc:  string;
+}
+
+
+
+export interface AprobarSolicitudResponse {
+    código:                 string;
+    mensaje:                string;
+    idSolicitudGenerada:    string;
+    numeroResolucion:       string;
+    numeroLicencia:         string;
+}
+
+export interface IAprobarSolicitudRequest {
+    id_solicitud:   string;
+    operador:       string;
+    estacion:       string;
+}
+
+
+
+export interface PagarSolicitudResponse {
+    result:            string;
+    mensaje:          string;
+}
+
+export interface IPagarSolicitudRequest {
+    id_solicitud:   string;
+    nro_recibo:     string;
+    id_recibo:      string;
 }

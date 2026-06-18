@@ -58,8 +58,8 @@
 
     <app-nav-buttons
       backRoute="/registro/paso-2"
-      nextLabel="Finalizar registro"
-      [nextDisabled]="!formularioValido"
+      [nextLabel]="cargando ? 'Finalizando...' : 'Finalizar registro'"
+      [nextDisabled]="!formularioValido || cargando"
       (next)="registrar()">
     </app-nav-buttons>
   </div>

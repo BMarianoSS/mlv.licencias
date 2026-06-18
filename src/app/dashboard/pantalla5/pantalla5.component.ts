@@ -200,11 +200,12 @@ export class Pantalla5Component implements OnInit {
     });
   }
 
-  irAPantalla6(mensaje: string, idSolicitud: string, nroProforma: string, monto: string) {
+  irAPantalla6(mensaje: string, idSolicitud: string, nroProforma: string, monto: string, idProforma: string) {
     this.state.mensajeRespuesta = mensaje;
     this.state.idSolicitudCreada = idSolicitud;
     this.state.nroProforma = nroProforma;
     this.state.monto = monto;
+    this.state.idProforma = idProforma;
     this.state.descrip_nivelesRiesgo = this.determinarNiveldeRiesgoTexto();
     this.router.navigate(['../pantalla6'], { relativeTo: this.route });
   }
@@ -305,7 +306,7 @@ export class Pantalla5Component implements OnInit {
                   {
                     this.detenerAnimacionLoading();
                     this.isLoading = false                    
-                    this.irAPantalla6(data?.mensaje ?? '', id_solicitud, data?.nroProforma ?? '', data?.monto ?? '')
+                    this.irAPantalla6(data?.mensaje ?? '', id_solicitud, data?.nroProforma ?? '', data?.monto ?? '', data?.idProforma ?? '')
                   }
                 );
               }
@@ -316,7 +317,7 @@ export class Pantalla5Component implements OnInit {
             {
               this.detenerAnimacionLoading();
               this.isLoading = false
-              this.irAPantalla6(data?.mensaje ?? '', id_solicitud ?? '', data?.nroProforma ?? '', data?.monto ?? '')
+              this.irAPantalla6(data?.mensaje ?? '', id_solicitud ?? '', data?.nroProforma ?? '', data?.monto ?? '', data?.idProforma ?? '')
             }
           );
         }

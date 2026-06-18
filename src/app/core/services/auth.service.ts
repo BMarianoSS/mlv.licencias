@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, timeout } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { CrearUsuarioResponse, ICrearUsuarioRequest, 
   IObtenerUsuarioRequest, LoginResponse, SolicitarCodigoCambioContrasenaResponse, 
@@ -14,6 +14,7 @@ export class AuthService {
   private apiUrl = `${environment.apiUrl}/login-licencias`;
   private tokenKey = 'authToken';
   private userKey = 'userData';
+  private readonly HTTP_TIMEOUT = 30000; // 30 segundos de timeout
 
   constructor(private http: HttpClient) {}
 
@@ -32,7 +33,8 @@ export class AuthService {
   }
 
   public crearUsuario(payload: ICrearUsuarioRequest): Observable<ApiResponseData<CrearUsuarioResponse>> {
-      return this.http.post<ApiResponseData<CrearUsuarioResponse>>(`${this.apiUrl}/crear-usuario`, payload);
+      return this.http.post<ApiResponseData<CrearUsuarioResponse>>(`${this.apiUrl}/crear-usuario`, payload)
+        .pipe(timeout(this.HTTP_TIMEOUT));
   }
 
   public obtenerUsuario(payload: IObtenerUsuarioRequest): Observable<ApiResponse<ObtenerUsuarioResponse>> {
