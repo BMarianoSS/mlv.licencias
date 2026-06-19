@@ -32,12 +32,12 @@ import { FormsModule } from '@angular/forms';
 
             <div class="flex items-center gap-1">
             <button (click)="irA(1)" [disabled]="paginaActual === 1"
-                class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:bg-[#E8F0FE] hover:text-[#1A6DB5] transition disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent">
+                class="cursor-pointer w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:bg-[#E8F0FE] hover:text-[#1A6DB5] transition disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent">
                 <span class="material-icons text-[16px]">first_page</span>
             </button>
 
             <button (click)="irA(paginaActual - 1)" [disabled]="paginaActual === 1"
-                class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:bg-[#E8F0FE] hover:text-[#1A6DB5] transition disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent">
+                class="cursor-pointer w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:bg-[#E8F0FE] hover:text-[#1A6DB5] transition disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent">
                 <span class="material-icons text-[16px]">chevron_left</span>
             </button>
 
@@ -50,12 +50,12 @@ import { FormsModule } from '@angular/forms';
             </div>
 
             <button (click)="irA(paginaActual + 1)" [disabled]="paginaActual === totalPaginas"
-                class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:bg-[#E8F0FE] hover:text-[#1A6DB5] transition disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent">
+                class="cursor-pointer w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:bg-[#E8F0FE] hover:text-[#1A6DB5] transition disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent">
                 <span class="material-icons text-[16px]">chevron_right</span>
             </button>
 
             <button (click)="irA(totalPaginas)" [disabled]="paginaActual === totalPaginas"
-                class="w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:bg-[#E8F0FE] hover:text-[#1A6DB5] transition disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent">
+                class="cursor-pointer w-8 h-8 flex items-center justify-center rounded-lg text-gray-500 hover:bg-[#E8F0FE] hover:text-[#1A6DB5] transition disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:bg-transparent">
                 <span class="material-icons text-[16px]">last_page</span>
             </button>
             </div>

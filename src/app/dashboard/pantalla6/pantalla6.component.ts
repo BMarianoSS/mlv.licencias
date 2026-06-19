@@ -28,18 +28,19 @@ export class pantalla6Component{
     private router: Router
   ) {}
 
-  get mensaje()     { return this.state.mensajeRespuesta; }
-  get idSolicitud() { return this.state.idSolicitudCreada; }  
-  get nroProforma() { return this.state.nroProforma; }  
-  get monto()       { return this.state.monto; }  
+  get mensaje()       { return this.state.mensajeRespuesta; }
+  get idSolicitud()   { return this.state.idSolicitudCreada; }  
+  get idSolicitud2()  { return this.state.nroSolicitudCreada; }
+  get nroProforma()   { return this.state.nroProforma; }  
+  get monto()         { return this.state.monto; }  
 
   iniciarAnimacionLoading() {
     let dots = 0;
-    this.loadingText = 'Creando Solicitud';
+    this.loadingText = 'Validando Solicitud';
 
     this.loadingInterval = setInterval(() => {
       dots = (dots + 1) % 4;
-      this.loadingText = 'Creando Solicitud' + '.'.repeat(dots);
+      this.loadingText = 'Validando Solicitud' + '.'.repeat(dots);
     }, 500);
   }
 
@@ -105,7 +106,8 @@ export class pantalla6Component{
                 this.solicitudService.pagarSolicitud({
                   id_solicitud: idSolicitudAprobada,
                   nro_recibo:   pagoData?.emitido ?? '',
-                  id_recibo:    pagoData?.idrecibo ?? ''
+                  id_recibo:    pagoData?.idrecibo ?? '',
+                  nro_expediente: expData?.NuExpediente ?? '',
                 }).subscribe({
                   next: () => {
                     this.detenerAnimacionLoading();

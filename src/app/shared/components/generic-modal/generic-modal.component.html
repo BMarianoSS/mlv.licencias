@@ -16,16 +16,16 @@
 
         <div class="flex justify-end gap-2">
             <button *ngIf="type === 'confirm'" (click)="onCancel()"
-                class="text-xs px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition font-medium">
+                class="cursor-pointer text-xs px-4 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 transition font-medium">
                 {{ cancelText }}
             </button>
             <button (click)="onConfirm()"
-                class="text-xs px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition font-semibold"
+                class="cursor-pointer text-xs px-4 py-2 rounded-lg bg-red-600 text-white hover:bg-red-700 transition font-semibold"
                 *ngIf="type === 'confirm'">
                 {{ confirmText }}
             </button>
             <button (click)="onConfirm()" *ngIf="type === 'info'"
-                class="text-xs px-4 py-2 rounded-lg bg-[#1A6DB5] text-white hover:bg-[#0F2D5C] transition font-semibold">
+                class="cursor-pointer text-xs px-4 py-2 rounded-lg bg-[#1A6DB5] text-white hover:bg-[#0F2D5C] transition font-semibold">
                 {{ confirmText || 'Cerrar' }}
             </button>
         </div>

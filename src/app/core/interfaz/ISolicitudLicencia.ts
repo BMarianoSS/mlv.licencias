@@ -397,4 +397,5 @@ export interface IPagarSolicitudRequest {
     id_solicitud:   string;
     nro_recibo:     string;
     id_recibo:      string;
+    nro_expediente: string;
 }

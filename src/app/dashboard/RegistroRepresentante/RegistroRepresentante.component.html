@@ -19,7 +19,7 @@
     <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center text-2xl">👤</div>
     <p class="text-sm text-gray-500">No se encontraron representantes legales asociados</p>
     <button (click)="abrirModalNuevo()"
-      class="mt-1 text-xs font-medium px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition flex items-center gap-1.5">
+      class="cursor-pointer mt-1 text-xs font-medium px-4 py-2 rounded-md bg-blue-600 text-white hover:bg-blue-700 transition flex items-center gap-1.5">
       <span>+</span> Añadir representante
     </button>
   </div>
@@ -39,7 +39,7 @@
       </div>
 
       <button (click)="abrirModalEditar(i)"
-        class="inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50 transition">
+        class="cursor-pointer inline-flex items-center gap-2 text-xs font-semibold px-4 py-2 rounded-lg border border-blue-200 text-blue-600 hover:bg-blue-50 transition">
         <span class="material-icons text-[16px]">edit</span>
         Editar
       </button>

@@ -40,7 +40,7 @@
             <p class="text-sm font-semibold text-emerald-800">Solicitud registrada exitosamente</p>
             <p class="text-xs text-emerald-700 mt-0.5">
             {{ mensaje }} — N° Solicitud:
-            <span class="font-mono font-bold">{{ idSolicitud }}</span>
+            <span class="font-mono font-bold">{{ idSolicitud2 }}</span>
             </p>
         </div>
         </div>
@@ -82,7 +82,7 @@
                 </p>
                 </div>
             </div>
-            <button class="text-xs font-semibold px-4 py-2 rounded-lg bg-[#1A6DB5] text-white hover:bg-[#0F2D5C] transition">
+            <button class="cursor-pointer text-xs font-semibold px-4 py-2 rounded-lg bg-[#1A6DB5] text-white hover:bg-[#0F2D5C] transition">
                 Pagar ahora
             </button>
             </div>
@@ -105,12 +105,12 @@
 
     <div class="flex justify-between gap-3">
         <button [routerLink]="['../pantalla5']"
-        class="inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
+        class="cursor-pointer inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
         <span class="material-icons text-[16px]">arrow_back</span>
         Regresar
         </button>
         <button (click)="continuar()"
-        class="inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition">
+        class="cursor-pointer inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition">
         Continuar
         <span class="material-icons text-[16px]">arrow_forward</span>
         </button>

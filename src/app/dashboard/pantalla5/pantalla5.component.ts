@@ -200,9 +200,10 @@ export class Pantalla5Component implements OnInit {
     });
   }
 
-  irAPantalla6(mensaje: string, idSolicitud: string, nroProforma: string, monto: string, idProforma: string) {
+  irAPantalla6(mensaje: string, idSolicitud: string, nroProforma: string, monto: string, idProforma: string, idSolicitud2: string) {
     this.state.mensajeRespuesta = mensaje;
     this.state.idSolicitudCreada = idSolicitud;
+    this.state.nroSolicitudCreada = idSolicitud2;
     this.state.nroProforma = nroProforma;
     this.state.monto = monto;
     this.state.idProforma = idProforma;
@@ -288,6 +289,7 @@ export class Pantalla5Component implements OnInit {
       next: (resp) => {
         const data = Array.isArray(resp.data) ? resp.data[0] : resp.data;
         const id_solicitud = data?.idSolicitud2;
+        const id_solicitud2 = data?.idSolicitud;
 
         const giros = s.giros;
         if (giros.length > 0 && id_solicitud) {
@@ -306,7 +308,7 @@ export class Pantalla5Component implements OnInit {
                   {
                     this.detenerAnimacionLoading();
                     this.isLoading = false                    
-                    this.irAPantalla6(data?.mensaje ?? '', id_solicitud, data?.nroProforma ?? '', data?.monto ?? '', data?.idProforma ?? '')
+                    this.irAPantalla6(data?.mensaje ?? '', id_solicitud, data?.nroProforma ?? '', data?.monto ?? '', data?.idProforma ?? '', id_solicitud2)
                   }
                 );
               }
@@ -317,7 +319,7 @@ export class Pantalla5Component implements OnInit {
             {
               this.detenerAnimacionLoading();
               this.isLoading = false
-              this.irAPantalla6(data?.mensaje ?? '', id_solicitud ?? '', data?.nroProforma ?? '', data?.monto ?? '', data?.idProforma ?? '')
+              this.irAPantalla6(data?.mensaje ?? '', id_solicitud ?? '', data?.nroProforma ?? '', data?.monto ?? '', data?.idProforma ?? '', id_solicitud2)
             }
           );
         }

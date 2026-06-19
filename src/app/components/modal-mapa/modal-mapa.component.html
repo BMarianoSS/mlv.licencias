@@ -29,7 +29,7 @@
           </span>
         </div>
         <button (click)="cerrarListaPanel()"
-          class="w-6 h-6 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-200 hover:text-gray-600 transition">
+          class="w-6 h-6 rounded-lg flex items-center justify-center text-gray-400 hover:bg-gray-200 hover:text-gray-600 transition cursor-pointer">
           <span class="material-icons text-[14px]">close</span>
         </button>
       </div>
@@ -69,7 +69,7 @@
 
             <button *ngIf="predioActivo?.codPredio === p.codPredio"
               (click)="$event.stopPropagation(); seleccionar(p)"
-              class="mt-2.5 w-full flex items-center justify-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-xs font-semibold py-2 rounded-lg transition">
+              class="mt-2.5 w-full flex items-center justify-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-xs font-semibold py-2 rounded-lg transition cursor-pointer">
               <span class="material-icons text-[14px]">check_circle</span>
               Seleccionar este predio
             </button>

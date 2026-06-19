@@ -90,7 +90,7 @@
                 class="w-full px-4 py-2.5 pr-10 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent transition"
                 [class.border-red-400]="form.get('nuevaContrasena')?.invalid && form.get('nuevaContrasena')?.touched" />
               <button type="button" (click)="togglePasswordVisibility('password')"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition">
+                class="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition">
                 <span class="material-icons text-[18px]">{{ showPassword ? 'visibility' : 'visibility_off' }}</span>
               </button>
             </div>
@@ -111,7 +111,7 @@
                 class="w-full px-4 py-2.5 pr-10 text-sm border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#1A6DB5] focus:border-transparent transition"
                 [class.border-red-400]="form.get('confirmarContrasena')?.invalid && form.get('confirmarContrasena')?.touched" />
               <button type="button" (click)="togglePasswordVisibility('confirm')"
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition">
+                class="cursor-pointer absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition">
                 <span class="material-icons text-[18px]">{{ showConfirmPassword ? 'visibility' : 'visibility_off' }}</span>
               </button>
             </div>
@@ -120,7 +120,7 @@
           </div>
 
           <button type="submit" [disabled]="form.invalid || loading"
-            class="w-full text-white text-sm font-bold py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+            class="cursor-pointer w-full text-white text-sm font-bold py-2.5 rounded-lg transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
             style="background: linear-gradient(135deg, #0F2D5C 0%, #1A6DB5 100%);">
             <span *ngIf="!loading">Cambiar contraseña</span>
             <span *ngIf="loading" class="flex items-center gap-2">

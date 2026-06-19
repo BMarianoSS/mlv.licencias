@@ -153,20 +153,20 @@
                             <div class="flex items-center gap-1.5 flex-1">
                                 <button (click)="anexo1Step = 1"
                                     [ngClass]="anexo1Step === 1 ? 'bg-[#1A6DB5] text-white shadow-sm' : 'bg-blue-100 text-[#1A6DB5] hover:bg-blue-200'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">edit_note</span> Paso 1
                                 </button>
                                 <div class="h-px flex-1 bg-gray-200"></div>
                                 <button (click)="anexo1Step = 2"
                                     [ngClass]="anexo1Step === 2 ? 'bg-amber-500 text-white shadow-sm' : anexo1Descargado ? 'bg-amber-100 text-amber-600 hover:bg-amber-200' : 'bg-gray-100 text-gray-400 cursor-not-allowed'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">{{ anexo1Descargado ? 'check_circle' :
                                         'download' }}</span> Paso 2
                                 </button>
                                 <div class="h-px flex-1 bg-gray-200"></div>
                                 <button (click)="anexo1Step = 3"
                                     [ngClass]="anexo1Step === 3 ? 'bg-[#2ECC71] text-white shadow-sm' : anexo1 ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-200' : 'bg-gray-100 text-gray-400 cursor-not-allowed'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">{{ anexo1 ? 'check_circle' : 'attach_file'
                                         }}</span> Paso 3
                                 </button>
@@ -234,20 +234,20 @@
                             <div class="flex items-center gap-1.5 flex-1">
                                 <button (click)="anexo2Step = 1"
                                     [ngClass]="anexo2Step === 1 ? 'bg-[#1A6DB5] text-white shadow-sm' : 'bg-blue-100 text-[#1A6DB5] hover:bg-blue-200'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">edit_note</span> Paso 1
                                 </button>
                                 <div class="h-px flex-1 bg-gray-200"></div>
                                 <button (click)="anexo2Step = 2"
                                     [ngClass]="anexo2Step === 2 ? 'bg-amber-500 text-white shadow-sm' : anexo2Descargado ? 'bg-amber-100 text-amber-600 hover:bg-amber-200' : 'bg-gray-100 text-gray-400 cursor-not-allowed'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">{{ anexo2Descargado ? 'check_circle' :
                                         'download' }}</span> Paso 2
                                 </button>
                                 <div class="h-px flex-1 bg-gray-200"></div>
                                 <button (click)="anexo2Step = 3"
                                     [ngClass]="anexo2Step === 3 ? 'bg-[#2ECC71] text-white shadow-sm' : anexo2 ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-200' : 'bg-gray-100 text-gray-400 cursor-not-allowed'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">{{ anexo2 ? 'check_circle' : 'attach_file'
                                         }}</span> Paso 3
                                 </button>
@@ -315,20 +315,20 @@
                             <div class="flex items-center gap-1.5 flex-1">
                                 <button (click)="anexo3Step = 1"
                                     [ngClass]="anexo3Step === 1 ? 'bg-[#1A6DB5] text-white shadow-sm' : 'bg-blue-100 text-[#1A6DB5] hover:bg-blue-200'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">edit_note</span> Paso 1
                                 </button>
                                 <div class="h-px flex-1 bg-gray-200"></div>
                                 <button (click)="anexo3Step = 2"
                                     [ngClass]="anexo3Step === 2 ? 'bg-amber-500 text-white shadow-sm' : anexo3Descargado ? 'bg-amber-100 text-amber-600 hover:bg-amber-200' : 'bg-gray-100 text-gray-400 cursor-not-allowed'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">{{ anexo3Descargado ? 'check_circle' :
                                         'download' }}</span> Paso 2
                                 </button>
                                 <div class="h-px flex-1 bg-gray-200"></div>
                                 <button (click)="anexo3Step = 3"
                                     [ngClass]="anexo3Step === 3 ? 'bg-[#2ECC71] text-white shadow-sm' : anexo3 ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-200' : 'bg-gray-100 text-gray-400 cursor-not-allowed'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">{{ anexo3 ? 'check_circle' : 'attach_file'
                                         }}</span> Paso 3
                                 </button>
@@ -396,20 +396,20 @@
                             <div class="flex items-center gap-1.5 flex-1">
                                 <button (click)="anexo4Step = 1"
                                     [ngClass]="anexo4Step === 1 ? 'bg-[#1A6DB5] text-white shadow-sm' : 'bg-blue-100 text-[#1A6DB5] hover:bg-blue-200'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">edit_note</span> Paso 1
                                 </button>
                                 <div class="h-px flex-1 bg-gray-200"></div>
                                 <button (click)="anexo4Step = 2"
                                     [ngClass]="anexo4Step === 2 ? 'bg-amber-500 text-white shadow-sm' : anexo4Descargado ? 'bg-amber-100 text-amber-600 hover:bg-amber-200' : 'bg-gray-100 text-gray-400 cursor-not-allowed'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">{{ anexo4Descargado ? 'check_circle' :
                                         'download' }}</span> Paso 2
                                 </button>
                                 <div class="h-px flex-1 bg-gray-200"></div>
                                 <button (click)="anexo4Step = 3"
                                     [ngClass]="anexo4Step === 3 ? 'bg-[#2ECC71] text-white shadow-sm' : anexo4 ? 'bg-emerald-100 text-emerald-600 hover:bg-emerald-200' : 'bg-gray-100 text-gray-400 cursor-not-allowed'"
-                                    class="flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
+                                    class="cursor-pointer flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold transition-all">
                                     <span class="material-icons text-[12px]">{{ anexo4 ? 'check_circle' : 'attach_file'
                                         }}</span> Paso 3
                                 </button>

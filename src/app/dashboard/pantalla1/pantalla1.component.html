@@ -82,12 +82,12 @@
 
     <div class="flex justify-between gap-3">
         <button [routerLink]="'../home'" (click)="atras()"
-        class="inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
+        class="cursor-pointer inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
         <span class="material-icons text-[16px]">arrow_back</span>
         Regresar
         </button>
         <button [disabled]="!tipoLicenciaSeleccionado || !aceptaTerminos" (click)="continuar()"
-        class="inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed">
+        class="cursor-pointer inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed">
         Continuar
         <span class="material-icons text-[16px]">arrow_forward</span>
         </button>

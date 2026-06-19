@@ -20,7 +20,7 @@ import { CommonModule } from '@angular/common';
                     {{ title }}
                     </span>
                     <button *ngIf="showCerrarBtn" (click)="cerrar.emit()"
-                    class="text-white/70 hover:text-white w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/20 transition text-lg leading-none">
+                    class="cursor-pointer text-white/70 hover:text-white w-7 h-7 rounded-lg flex items-center justify-center hover:bg-white/20 transition text-lg leading-none">
                     &times;
                     </button>
                 </div>
@@ -44,7 +44,7 @@ import { CommonModule } from '@angular/common';
                     <ng-content select="[slot=footer]"></ng-content>
                     <button *ngIf="showCerrarBtn"
                     (click)="cerrar.emit()"
-                    class="inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
+                    class="cursor-pointer inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-4 py-2 rounded-lg transition">
                     Cerrar
                     </button>
                 </div>

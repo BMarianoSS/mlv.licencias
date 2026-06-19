@@ -72,6 +72,7 @@ export class SolicitudStateService {
     mensajeRespuesta        = '';
     idSolicitudCreada       = '';
     idSolicitudGenerada     = '';
+    nroSolicitudCreada      = '';
     nroProforma             = '';
     monto                   = '';
     idProforma              = '';
@@ -155,6 +156,7 @@ export class SolicitudStateService {
         this.mensajeRespuesta       = '';
         this.idSolicitudCreada      = '';
         this.idSolicitudGenerada    = '';
+        this.nroSolicitudCreada     = '';
         this.nroProforma            = '';
         this.monto                  = '';
         this.idProforma             = '';

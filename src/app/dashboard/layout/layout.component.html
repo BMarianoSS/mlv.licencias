@@ -42,7 +42,7 @@
 
     <div class="px-4 py-4 border-t border-white/10">
       <button (click)="logout()"
-        class="w-full flex items-center gap-2 text-blue-200/70 hover:text-red-300 text-xs font-medium transition-colors py-1.5 px-2 rounded-lg hover:bg-white/5">
+        class="cursor-pointer w-full flex items-center gap-2 text-blue-200/70 hover:text-red-300 text-xs font-medium transition-colors py-1.5 px-2 rounded-lg hover:bg-white/5">
         <span class="material-icons text-[16px]">logout</span>
         Cerrar sesión
       </button>
@@ -59,7 +59,7 @@
           alt="Municipalidad de La Victoria"
           class="h-8 w-auto" />
       </div>
-      <button (click)="toggleSidebar()" class="text-white/60 hover:text-white text-2xl leading-none flex-shrink-0">&times;</button>
+      <button (click)="toggleSidebar()" class="cursor-pointer text-white/60 hover:text-white text-2xl leading-none flex-shrink-0">&times;</button>
     </div>
     <div class="mx-4 border-t border-white/10 mb-3"></div>
     <nav class="flex-1 px-3 space-y-0.5">
@@ -79,7 +79,7 @@
     </nav>
     <div class="px-4 py-4 border-t border-white/10">
       <button (click)="logout()"
-        class="w-full flex items-center gap-2 text-blue-200/70 hover:text-red-300 text-xs font-medium transition-colors py-1.5 px-2 rounded-lg hover:bg-white/5">
+        class="cursor-pointer w-full flex items-center gap-2 text-blue-200/70 hover:text-red-300 text-xs font-medium transition-colors py-1.5 px-2 rounded-lg hover:bg-white/5">
         <span class="material-icons text-[16px]">logout</span>
         Cerrar sesión
       </button>
@@ -88,7 +88,7 @@
 
   <div class="flex flex-col flex-1 min-w-0 overflow-hidden">
     <header class="flex items-center gap-4 bg-white border-b border-gray-200 px-6 py-3 flex-shrink-0">
-      <button class="md:hidden text-[#0F2D5C] text-2xl leading-none" (click)="toggleSidebar()">☰</button>
+      <button class="cursor-pointer md:hidden text-[#0F2D5C] text-2xl leading-none" (click)="toggleSidebar()">☰</button>
       <div class="flex-1">
         <span class="text-[11px] uppercase tracking-widest text-gray-400 font-medium">
           Licencias de funcionamiento

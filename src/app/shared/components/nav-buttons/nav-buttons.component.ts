@@ -12,13 +12,13 @@ import { RouterModule } from '@angular/router';
                 *ngIf="backRoute; else backBtn"
                 [routerLink]="[backRoute]"
                 (click)="back.emit()"
-                class="inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
+                class="cursor-pointer inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
                 <span class="material-icons text-[15px]">arrow_back</span>
                 {{ backLabel }}
             </button>
             <ng-template #backBtn>
                 <button (click)="back.emit()"
-                    class="inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
+                    class="cursor-pointer inline-flex items-center gap-1.5 bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 text-sm font-medium px-5 py-2.5 rounded-lg transition">
                     <span class="material-icons text-[15px]">arrow_back</span>
                     {{ backLabel }}
                 </button>
@@ -29,7 +29,7 @@ import { RouterModule } from '@angular/router';
                 [routerLink]="[nextRoute]"
                 [disabled]="nextDisabled"
                 (click)="next.emit()"
-                class="inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed">
+                class="cursor-pointer inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed">
                 {{ nextLabel }}
                 <span class="material-icons text-[15px]">arrow_forward</span>
             </button>
@@ -37,7 +37,7 @@ import { RouterModule } from '@angular/router';
                 <button
                     [disabled]="nextDisabled"
                     (click)="next.emit()"
-                    class="inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed">
+                    class="cursor-pointer inline-flex items-center gap-1.5 bg-[#1A6DB5] hover:bg-[#0F2D5C] text-white text-sm font-semibold px-6 py-2.5 rounded-lg transition disabled:opacity-40 disabled:cursor-not-allowed">
                     {{ nextLabel }}
                     <span class="material-icons text-[15px]">arrow_forward</span>
                 </button>
