@@ -4,6 +4,7 @@ import { Router, RouterModule, ActivatedRoute } from '@angular/router';
 import { SolicitudStateService } from '../../core/services/solicitud-state.service';
 import { AuthService } from '../../core/services/auth.service';
 import { SolicitudService } from '../../core/services/solicitud.service';
+import { PagosService } from '../../core/services/pagos.service';
 
 @Component({
   selector: 'app-home',
@@ -16,12 +17,14 @@ export class pantalla6Component{
   sidebarOpen = false;
   isLoading   = false;
   loadingText = 'Procesando...';
+  private loadingInterval: any;
 
   constructor(
     private state: SolicitudStateService,
     private route: ActivatedRoute,
     private authService: AuthService,
     private solicitudService: SolicitudService,
+    private pagosService: PagosService,
     private router: Router
   ) {}
 
@@ -29,6 +32,20 @@ export class pantalla6Component{
   get idSolicitud() { return this.state.idSolicitudCreada; }  
   get nroProforma() { return this.state.nroProforma; }  
   get monto()       { return this.state.monto; }  
+
+  iniciarAnimacionLoading() {
+    let dots = 0;
+    this.loadingText = 'Creando Solicitud';
+
+    this.loadingInterval = setInterval(() => {
+      dots = (dots + 1) % 4;
+      this.loadingText = 'Creando Solicitud' + '.'.repeat(dots);
+    }, 500);
+  }
+
+  detenerAnimacionLoading() {
+    clearInterval(this.loadingInterval);
+  }
 
   irAPantallaHome() {
     this.router.navigate(['../principal'], { relativeTo: this.route });
@@ -41,53 +58,85 @@ export class pantalla6Component{
 
   continuar() {
     this.isLoading = true;
+    this.iniciarAnimacionLoading();
     const user = this.authService.getUser();
 
-    const payloadFinal = {
-      nro_documento: user.nroDocumento,
-      asunto:        this.state.descrip_nivelesRiesgo,
-      tipo_persona:  user.tipoPersona,
-      ip_pc:         '',
-      nombre_pc:     'Licencia-Publica',
-      usuario_pc:    'Licencia-Publica'
-    };
+    const hoy = new Date();
+    const fecha = `${hoy.getDate().toString().padStart(2,'0')}/${(hoy.getMonth()+1).toString().padStart(2,'0')}/${hoy.getFullYear()}`;
 
-    this.solicitudService.solicitudFinal(payloadFinal).subscribe({
-      next: (resp) => {
-        const data = Array.isArray(resp.data) ? resp.data[0] : resp.data;
+    // Paso 1: crear-expediente
+    this.solicitudService.crearExpediente({
+      pNuDni:     user.nroDocumento,
+      pDeAsunto:  this.state.descrip_nivelesRiesgo,
+      pTiEmi:     user.tipoPersona,
+      pDeIpPc:    '',
+      pDeNamePc:  'Licencia-Publica',
+      pDeUserPc:  'Licencia-Publica'
+    }).subscribe({
+      next: (respExp) => {
+        const expData = Array.isArray(respExp.data) ? respExp.data[0] : respExp.data;
+        this.state.nuExpediente = expData?.NuExpediente ?? '';
 
-        this.state.nuExpediente      = data?.nuExpediente      ?? '';
-        this.state.numeroResolucion  = data?.numeroResolucion  ?? '';
-        this.state.numeroCertificado = data?.numeroCertificado ?? '';
-
-        const hoy = new Date();
-        const fecha = `${hoy.getDate().toString().padStart(2,'0')}/${(hoy.getMonth()+1).toString().padStart(2,'0')}/${hoy.getFullYear()}`;
-
+        // Paso 2: aprobar-solicitud
         this.solicitudService.aprobarSolicitud({
-          nro_expediente:   data?.nuExpediente      ?? '',
-          fecha_expediente: fecha,
-          nro_resolucion:   data?.numeroResolucion  ?? '',
-          fecha_resolucion: fecha,
-          nro_certificado:  data?.numeroCertificado ?? '',
-          id_solicitud:     this.state.idSolicitudCreada,
-          operador:         user.dniruc ?? '',
-          estacion:         ''
+          id_solicitud: this.state.idSolicitudCreada,
+          operador:     user.nroDocumento,
+          estacion:     ''
         }).subscribe({
-          next: (resp) => {
-            const data = Array.isArray(resp.data) ? resp.data[0] : resp.data;
-            this.state.idSolicitudGenerada = data?.idSolicitudGenerada ?? this.state.idSolicitudCreada;
-            this.isLoading = false;
-            this.irAPantalla62();
+          next: (respApr) => {
+            const aprData = Array.isArray(respApr.data) ? respApr.data[0] : respApr.data;
+            const idSolicitudAprobada = aprData?.idSolicitudGenerada ?? this.state.idSolicitudCreada;
+            this.state.idSolicitudGenerada = idSolicitudAprobada;
+            this.state.numeroResolucion    = aprData?.numeroResolucion ?? '';
+
+            // Paso 3: pagar-proforma
+            this.pagosService.pagoProforma({
+              codigo:       user.codigo,
+              idproforma:   this.state.idProforma,
+              monto:        this.state.monto,
+              fec_cobro:    fecha,
+              observa:      `PROFORMA NRO ${this.state.nroProforma}`,
+              observacion2: 'Licencia system'
+            }).subscribe({
+              next: (respPago) => {
+                const pagoData = Array.isArray(respPago.data) ? respPago.data[0] : respPago.data;
+
+                // Paso 4: pagar-solicitud
+                this.solicitudService.pagarSolicitud({
+                  id_solicitud: idSolicitudAprobada,
+                  nro_recibo:   pagoData?.emitido ?? '',
+                  id_recibo:    pagoData?.idrecibo ?? ''
+                }).subscribe({
+                  next: () => {
+                    this.detenerAnimacionLoading();
+                    this.isLoading = false;
+                    this.irAPantalla62();
+                  },
+                  error: (err) => {
+                    this.detenerAnimacionLoading();
+                    this.isLoading = false;
+                    console.error('Error en pagar-solicitud:', err);
+                  }
+                });
+              },
+              error: (err) => {
+                this.detenerAnimacionLoading();
+                this.isLoading = false;
+                console.error('Error en pagar-proforma:', err);
+              }
+            });
           },
           error: (err) => {
+            this.detenerAnimacionLoading();
             this.isLoading = false;
-            console.error('Error en aprobarSolicitud:', err);
+            console.error('Error en aprobar-solicitud:', err);
           }
         });
       },
       error: (err) => {
+        this.detenerAnimacionLoading();
         this.isLoading = false;
-        console.error('Error en solicitudFinal:', err);
+        console.error('Error en crear-expediente:', err);
       }
     });
   }
