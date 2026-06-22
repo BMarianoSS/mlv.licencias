@@ -37,8 +37,17 @@
     </div>
 
     <div class="mb-5">
-        <h1 class="text-lg font-bold text-gray-900">Declaración jurada y anexos</h1>
-        <p class="text-xs text-gray-500 mt-0.5">Completa los datos, descarga los formularios, <strong>fírmados</strong> y adjúntalos</p>
+        <h1 class="text-lg font-bold text-gray-900">
+            {{ esTipoEspecial ? 'Licencia Padre' : 'Declaración jurada y anexos' }}
+        </h1>
+        <p class="text-xs text-gray-500 mt-0.5">
+            <ng-container *ngIf="esTipoEspecial; else tituloNormal">
+                Completa los datos de la licencia <strong>principal</strong> de la edificación
+            </ng-container>
+            <ng-template #tituloNormal>
+                Completa los datos, descarga los formularios, <strong>fírmados</strong> y adjúntalos
+            </ng-template>
+        </p>
     </div>
 
     <div *ngIf="esTipoEspecial">

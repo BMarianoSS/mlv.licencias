@@ -355,11 +355,11 @@ export interface IVerDocumentoRequest {
 
 
 export interface CrearExpedienteResponse {
-    Resultado:      string;
-    NuExpediente:   string;
-    AnExpediente:   string;
-    AnNuExpediente: string;
-    FeExpediente:   string;
+    resultado:      string;
+    nuExpediente:   string;
+    anExpediente:   string;
+    anNuExpediente: string;
+    feExpediente:   string;
 }
 
 export interface ICrearExpedienteRequest {

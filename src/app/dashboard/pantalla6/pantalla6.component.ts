@@ -49,8 +49,8 @@ export class pantalla6Component{
   }
 
   irAPantallaHome() {
-    this.router.navigate(['../principal'], { relativeTo: this.route });
     this.state.limpiarState();
+    this.router.navigate(['../principal'], { relativeTo: this.route });
   }
 
   irAPantalla62() {
@@ -76,8 +76,8 @@ export class pantalla6Component{
     }).subscribe({
       next: (respExp) => {
         const expData = Array.isArray(respExp.data) ? respExp.data[0] : respExp.data;
-        this.state.nuExpediente = expData?.NuExpediente ?? '';
-        this.state.feExpediente = expData?.FeExpediente ?? '';
+        this.state.nuExpediente = expData?.nuExpediente ?? '';
+        this.state.feExpediente = expData?.feExpediente ?? '';
 
         // Paso 2: aprobar-solicitud
         this.solicitudService.aprobarSolicitud({

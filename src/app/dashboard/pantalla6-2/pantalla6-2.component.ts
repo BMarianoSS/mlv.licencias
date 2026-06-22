@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterModule } from '@angular/router';
+import { Router, ActivatedRoute, RouterModule } from '@angular/router';
 import { SolicitudStateService } from '../../core/services/solicitud-state.service';
 import { ModalDocumentoComponent } from '../../components/modal-documento/modal-documento.component'
 
@@ -17,12 +17,17 @@ export class pantalla62Component {
   id_solicitud: string = '';
   tipo_documento: number | null = null;
 
-  constructor(private state: SolicitudStateService) {}
+  constructor(private state: SolicitudStateService, private router: Router, private route: ActivatedRoute) {}
 
   abrirDocumento(numero: number) {
     this.id_solicitud = this.state.idSolicitudGenerada || this.state.idSolicitudCreada;
     this.tipo_documento = numero;
     this.modalDocumentoVisible = true;
+  }
+
+  irAPantallaHome() {
+    this.state.limpiarState();
+    this.router.navigate(['../principal'], { relativeTo: this.route });
   }
 
   cerrarDocumento() {
