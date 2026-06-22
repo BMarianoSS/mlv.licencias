@@ -13,7 +13,10 @@
 
     <div class="bg-white rounded-xl border border-gray-200 overflow-hidden shadow-sm">
         <app-data-table [columns]="columnasSolicitudes" [rows]="solicitudes"
-            emptyText="No tienes solicitudes registradas aún." [actionsTpl]="accionesSolicitud">
+            emptyText="No tienes solicitudes registradas aún."
+            [loading]="isLoading"
+            loadingText="Cargando solicitudes..."
+            [actionsTpl]="accionesSolicitud">
         </app-data-table>
         <app-pagination
             [paginaActual]="paginaActual"

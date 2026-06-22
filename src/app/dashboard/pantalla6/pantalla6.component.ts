@@ -77,6 +77,7 @@ export class pantalla6Component{
       next: (respExp) => {
         const expData = Array.isArray(respExp.data) ? respExp.data[0] : respExp.data;
         this.state.nuExpediente = expData?.NuExpediente ?? '';
+        this.state.feExpediente = expData?.FeExpediente ?? '';
 
         // Paso 2: aprobar-solicitud
         this.solicitudService.aprobarSolicitud({
@@ -107,7 +108,8 @@ export class pantalla6Component{
                   id_solicitud: idSolicitudAprobada,
                   nro_recibo:   pagoData?.emitido ?? '',
                   id_recibo:    pagoData?.idrecibo ?? '',
-                  nro_expediente: expData?.NuExpediente ?? '',
+                  nro_expediente: this.state.nuExpediente ?? '',
+                  fecha_expediente: this.state.feExpediente ?? '',
                 }).subscribe({
                   next: () => {
                     this.detenerAnimacionLoading();

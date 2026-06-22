@@ -78,6 +78,7 @@ export class SolicitudStateService {
     idProforma              = '';
 
     nuExpediente            = '';
+    feExpediente            = '';
     numeroResolucion        = '';
     numeroCertificado       = '';
 
@@ -162,6 +163,7 @@ export class SolicitudStateService {
         this.idProforma             = '';
 
         this.nuExpediente           = '';
+        this.feExpediente            = '';
         this.numeroResolucion       = '';
         this.numeroCertificado      = '';
 

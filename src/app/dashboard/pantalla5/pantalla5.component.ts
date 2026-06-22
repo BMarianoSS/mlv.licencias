@@ -46,6 +46,7 @@ export class Pantalla5Component implements OnInit {
   nombreUsuario: string   = '';
   apellidoPaterno: string = '';
   apellidoMaterno: string = '';
+  cargandoRep = false;
 
   get formularioValido(): boolean {
     return this.representantes.length > 0;
@@ -116,6 +117,7 @@ export class Pantalla5Component implements OnInit {
   }
 
   obtenerRepresentanteLegal() {
+    this.cargandoRep = true;
     const payload: IRepresentanteLegalRequest = { id_solicitante: this.idSolicitante };
 
     this.solicitudService.obtenerRepresentanteLegal(payload).subscribe(resp => {
@@ -129,6 +131,7 @@ export class Pantalla5Component implements OnInit {
           telefono: r.nroTelfRL
         }));
       }
+      this.cargandoRep = false;
     });
   }
 

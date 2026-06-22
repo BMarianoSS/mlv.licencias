@@ -359,6 +359,7 @@ export interface CrearExpedienteResponse {
     NuExpediente:   string;
     AnExpediente:   string;
     AnNuExpediente: string;
+    FeExpediente:   string;
 }
 
 export interface ICrearExpedienteRequest {
@@ -398,4 +399,5 @@ export interface IPagarSolicitudRequest {
     nro_recibo:     string;
     id_recibo:      string;
     nro_expediente: string;
+    fecha_expediente: string;
 }

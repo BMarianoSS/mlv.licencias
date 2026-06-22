@@ -30,6 +30,7 @@ export class RegistroRepresentanteComponent {
   representanteParaEditar: Representante | null = null;
   tipoDocumentos: any[] = [];
   idSolicitante: string = '';
+  isLoading = false;
 
   ngOnInit() {
     const datos = this.authService.getUser()
@@ -77,6 +78,7 @@ export class RegistroRepresentanteComponent {
   }
 
   obtenerRepresentanteLegal() {
+    this.isLoading = true;   
     const payload: IRepresentanteLegalRequest = { id_solicitante: this.idSolicitante };
 
     this.solicitudService.obtenerRepresentanteLegal(payload).subscribe(resp => {
@@ -90,6 +92,7 @@ export class RegistroRepresentanteComponent {
           telefono:   r.nroTelfRL
         }));
       }
+      this.isLoading = false;
     });
   }
 }
